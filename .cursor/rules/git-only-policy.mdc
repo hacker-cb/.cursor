@@ -1,0 +1,40 @@
+---
+alwaysApply: true
+---
+
+# Git-Only Processing Policy
+
+## Core Principle: Git-Tracked Files Only
+
+You MUST only read, process, analyze, or suggest changes to files that are tracked by git version control. This is a strict security and privacy requirement.
+
+## Mandatory Rules
+
+### 1. File Access Restrictions
+
+- **ONLY** access files that are tracked by git (listed in `git ls-files`)
+- **NEVER** read, analyze, or process files that are:
+  - Not tracked by git
+  - Listed in `.gitignore`
+  - Untracked in the working directory
+  - Part of IDE state, extensions, or temporary data
+
+### 2. Git Operations Prohibition
+
+- **NEVER** use `git add` to stage files
+- **NEVER** add files to git version control
+- **NEVER** modify `.gitignore` without explicit user request
+- The user is solely responsible for deciding what gets tracked by git
+
+## Policy Summary
+
+✅ **DO**: Process git-tracked files only  
+✅ **DO**: Refuse non-tracked file access politely  
+✅ **DO**: Explain the policy when needed
+
+❌ **DON'T**: Access non-tracked files  
+❌ **DON'T**: Add files to git  
+❌ **DON'T**: Circumvent this policy
+
+**User controls version control. AI respects boundaries.**
+

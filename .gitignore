@@ -8,3 +8,9 @@
 !/commands/
 !/commands/**
 
+# Add root README.md
+!/README.md
+
+# Add cursor directory
+!/.cursor/
+!/.cursor/**
