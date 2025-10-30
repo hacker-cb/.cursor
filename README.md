@@ -23,16 +23,17 @@ The [`commands/`](commands/) directory contains workflow templates for common de
 
 | Command | Description |
 |---------|-------------|
-| [**init-cursor-rules**](commands/init-cursor-rules.md) | Analyze a new project from scratch and generate project-specific Cursor rules as `.mdc` files |
-| [**refactor-cursor-rules**](commands/refactor-cursor-rules.md) | Analyze the project's tech stack and refactor `.cursor/rules/*.mdc` files to match the real project |
-| [**github-workflow-autofix**](commands/github-workflow-autofix.md) | Analyze failed GitHub workflow runs and automatically fix the issues causing failures |
-| [**onboard-new-developer**](commands/onboard-new-developer.md) | Comprehensive onboarding process to get a new developer up and running quickly |
-| [**setup-new-feature**](commands/setup-new-feature.md) | Systematically set up a new feature from initial planning through to implementation structure |
-| [**run-tests-and-fix-failures**](commands/run-tests-and-fix-failures.md) | Execute the full test suite and systematically fix any failures |
-| [**create-pull-request**](commands/create-pull-request.md) | Create a well-structured pull request with proper description, labels, and reviewers |
-| [**security-audit**](commands/security-audit.md) | Comprehensive security review to identify and fix vulnerabilities in the codebase |
-| [**code-review**](commands/code-review.md) | Comprehensive checklist for conducting thorough code reviews |
 | [**add-test-coverage**](commands/add-test-coverage.md) | Analyze project components for test coverage gaps, suggest testing frameworks if missing, identify missing tests by priority level, and guide systematic test implementation |
+| [**analyze-project-structure**](commands/analyze-project-structure.md) | Deep analysis of project structure, framework conventions, dependencies, configuration, and best practices with interactive fix recommendations |
+| [**code-review**](commands/code-review.md) | Comprehensive checklist for conducting thorough code reviews |
+| [**create-pull-request**](commands/create-pull-request.md) | Create a well-structured pull request with proper description, labels, and reviewers |
+| [**github-workflow-autofix**](commands/github-workflow-autofix.md) | Analyze failed GitHub workflow runs and automatically fix the issues causing failures |
+| [**init-cursor-rules**](commands/init-cursor-rules.md) | Analyze a new project from scratch and generate project-specific Cursor rules as `.mdc` files |
+| [**onboard-new-developer**](commands/onboard-new-developer.md) | Comprehensive onboarding process to get a new developer up and running quickly |
+| [**refactor-cursor-rules**](commands/refactor-cursor-rules.md) | Analyze the project's tech stack and refactor `.cursor/rules/*.mdc` files to match the real project |
+| [**run-tests-and-fix-failures**](commands/run-tests-and-fix-failures.md) | Execute the full test suite and systematically fix any failures |
+| [**security-audit**](commands/security-audit.md) | Comprehensive security review to identify and fix vulnerabilities in the codebase |
+| [**setup-new-feature**](commands/setup-new-feature.md) | Systematically set up a new feature from initial planning through to implementation structure |
 
 ## Developer Rules
 
