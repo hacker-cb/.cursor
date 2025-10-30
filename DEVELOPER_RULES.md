@@ -58,3 +58,8 @@
 - **Write clear commit messages** - descriptive and following conventional commits
 - **Add CI/CD workflows** - GitHub Actions for GitHub projects, ask about workflow types for other platforms
 
+## Cursor IDE Rules
+
+- **Use `.cursor/rules/*.mdc` files** - when user asks to work with cursor rules, operate with `.cursor/rules/*.mdc` files in project root
+- **Never use deprecated `.cursorrules` file** - the single `.cursorrules` file format is deprecated and should not be used
+
