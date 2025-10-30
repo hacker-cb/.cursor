@@ -1,8 +1,6 @@
 ---
-tags: ["documentation", "commands", "readme", "sync"]
-globs: ["commands/*.md", "README.md"]
+alwaysApply: true
 ---
-
 # README.md Sync Rule
 
 ## Purpose

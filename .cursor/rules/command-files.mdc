@@ -1,8 +1,6 @@
 ---
-tags: ["commands", "documentation", "markdown"]
-globs: ["commands/*.md"]
+alwaysApply: true
 ---
-
 # Command File Guidelines
 
 Command files in `commands/` directory must be concise and actionable, following a consistent structure.
