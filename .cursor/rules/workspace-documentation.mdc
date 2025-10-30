@@ -1,0 +1,26 @@
+---
+alwaysApply: true
+---
+
+# Workspace Documentation Guidelines
+
+## README.md
+
+Keep README.md focused on:
+- Project structure overview
+- Links to important files and documentation
+- Brief, scannable format
+
+## DEVELOPER_RULES.md
+
+This file contains universal AI development best practices:
+- **Project-independent** - works for any tech stack
+- **Framework-agnostic** - not tied to specific tools
+- **General principles** - applicable across languages and platforms
+- **Consultative approach** - suggest options with benefits, let user decide
+
+When updating DEVELOPER_RULES.md:
+- Keep rules generic and widely applicable
+- Use examples from multiple ecosystems (Python, Node.js, Ruby, etc.)
+- Focus on principles over specific implementations
+- Maintain clear section organization
