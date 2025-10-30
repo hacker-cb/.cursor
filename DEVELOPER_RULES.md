@@ -58,6 +58,12 @@
 - **Write clear commit messages** - descriptive and following conventional commits
 - **Add CI/CD workflows** - GitHub Actions for GitHub projects, ask about workflow types for other platforms
 
+## Documentation
+
+- **Keep documentation compact** - be concise and avoid verbose explanations
+- **Avoid specific quantities** - don't mention exact numbers of commands, tests, files, or percentages that can change over time
+- **Write flexible documentation** - focus on principles and patterns rather than current implementation details
+
 ## Cursor IDE Rules
 
 - **Use `.cursor/rules/*.mdc` files** - when user asks to work with cursor rules, operate with `.cursor/rules/*.mdc` files in project root
