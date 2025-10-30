@@ -1,6 +1,8 @@
-# Cursor Workspace Configuration
+# Cursor Developer Configuration
 
-This repository contains Cursor workspace configuration with AI agent behavior policies and development workflow templates.
+This repository contains Cursor developer configuration with AI agent behavior policies and development workflow templates.
+
+**Note:** This project is located in the home directory at `~/.cursor`
 
 ## Project Structure
 
