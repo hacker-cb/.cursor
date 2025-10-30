@@ -32,6 +32,7 @@ The [`commands/`](commands/) directory contains workflow templates for common de
 | [**create-pull-request**](commands/create-pull-request.md) | Create a well-structured pull request with proper description, labels, and reviewers |
 | [**security-audit**](commands/security-audit.md) | Comprehensive security review to identify and fix vulnerabilities in the codebase |
 | [**code-review**](commands/code-review.md) | Comprehensive checklist for conducting thorough code reviews |
+| [**add-test-coverage**](commands/add-test-coverage.md) | Analyze project components for test coverage gaps, suggest testing frameworks if missing, identify missing tests by priority level, and guide systematic test implementation |
 
 ## Developer Rules
 
