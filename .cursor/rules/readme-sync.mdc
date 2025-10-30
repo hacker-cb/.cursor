@@ -1,0 +1,42 @@
+---
+tags: ["documentation", "commands", "readme", "sync"]
+globs: ["commands/*.md", "README.md"]
+---
+
+# README.md Sync Rule
+
+## Purpose
+
+Keep README.md in sync with command files in `commands/` directory. Automatically update the README table when command files are added, modified, renamed, or deleted.
+
+## How It Works
+
+**When command files change:**
+1. Extract description from the `## Overview` section
+2. Update the corresponding row in README.md table
+3. Maintain table format: `| [**command-name**](commands/filename.md) | Description |`
+
+**Operations:**
+- **New command** → Add new table row
+- **Modified command** → Update description in table
+- **Renamed command** → Update link and name in table
+- **Deleted command** → Remove table row
+
+## Example
+
+Command file `commands/new-command.md`:
+```markdown
+# New Command
+
+## Overview
+This command does something useful.
+```
+
+Becomes table row in README.md:
+```markdown
+| [**new-command**](commands/new-command.md) | This command does something useful. |
+```
+
+## Automation
+
+Update README.md automatically when command files change. No permission needed.
