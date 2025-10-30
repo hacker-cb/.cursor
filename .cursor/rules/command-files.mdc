@@ -29,13 +29,18 @@ Every command file must include:
 
 ### Be Specific
 - Include exact commands when helpful
-- Reference specific files or tools
+- Reference specific files or tools in a general way
 - Use concrete examples, not generic advice
 
 ### Be Actionable
 - Start bullets with verbs (Scan, Identify, Generate, Check)
 - Focus on outcomes, not process details
 - Make each step clear and executable
+
+### Be Generic
+- **Avoid referencing concrete languages and frameworks**
+- Use language-agnostic and framework-neutral wording
+- Do not include technology-specific details in the guideline steps or examples
 
 ## What to Avoid
 
@@ -44,6 +49,7 @@ Every command file must include:
 - ❌ Lengthy explanations of concepts
 - ❌ Repetitive information
 - ❌ Framework-specific deep dives
+- ❌ Technology- or language-specific instructions
 - ❌ Implementation tutorials
 
 ## Structure Template
@@ -72,17 +78,17 @@ Brief description of what this command does.
 
 ### ❌ Too Verbose
 ```markdown
-### Example: python.mdc (200 lines of detailed Python examples)
+### Example: my-command.mdc (hundreds of lines of language-specific guidance)
 ```
 
-### ✅ Concise and Clear
+### ✅ Concise and Generic
 ```markdown
 ### Example MDC Structure
 Use YAML frontmatter with tags and globs:
 \`\`\`yaml
 ---
-tags: ["python"]
-globs: ["**/*.py"]
+tags: ["example"]
+globs: ["**/*.*"]
 ---
 \`\`\`
 ```
@@ -95,3 +101,4 @@ If a command file exceeds 150 lines:
 - Move implementation details to bullet points
 - Keep only essential guidance
 - Use references instead of inline explanations
+- Remove concrete programming language or framework references
