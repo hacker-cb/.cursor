@@ -20,6 +20,12 @@
 - **Add docstrings/comments** for complex logic
 - **Use linting and formatting** tools (eslint, prettier, ruff, black, etc.)
 
+## Language & Communication Conventions
+
+- **All generated files use English** - regardless of user's input language, all files (.mdc, .md, source code, documentation, etc.) must be written in English
+- **Agent responses match user language** - conversational responses and comments can be provided in the language that matches the user's input
+- **Maintain consistency** - keep codebase and documentation in English for international collaboration and tooling compatibility
+
 ## Environment & Dependencies
 
 - **Use isolated environments** - venv for Python, nvm/fnm for Node.js, rbenv for Ruby, etc. - never use system installations
