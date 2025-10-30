@@ -1,0 +1,99 @@
+---
+tags: ["commands", "documentation", "markdown"]
+globs: ["commands/*.md"]
+---
+
+# Command File Guidelines
+
+Command files in `commands/` directory must be concise and actionable, following a consistent structure.
+
+## File Length Requirement
+
+- **Target**: 100-150 lines maximum
+- **Never exceed**: 200 lines
+- Focus on WHAT to do, not exhaustive HOW
+
+## Required Structure
+
+Every command file must include:
+
+1. **Title**: `# Command Name`
+2. **Overview**: Brief description (2-3 sentences)
+3. **Steps**: Numbered steps with sub-bullets
+4. **Checklist**: Task tracking with `- [ ]` items
+
+## Writing Style
+
+### Be Concise
+- Use bullet points, not paragraphs
+- One action per line
+- Remove verbose explanations
+
+### Be Specific
+- Include exact commands when helpful
+- Reference specific files or tools
+- Use concrete examples, not generic advice
+
+### Be Actionable
+- Start bullets with verbs (Scan, Identify, Generate, Check)
+- Focus on outcomes, not process details
+- Make each step clear and executable
+
+## What to Avoid
+
+- ❌ Detailed code examples (use simple templates only)
+- ❌ Multiple example sections (one brief example max)
+- ❌ Lengthy explanations of concepts
+- ❌ Repetitive information
+- ❌ Framework-specific deep dives
+- ❌ Implementation tutorials
+
+## Structure Template
+
+```markdown
+# Command Name
+
+## Overview
+Brief description of what this command does.
+
+## Steps
+1. **Action one**
+   - Sub-step
+   - Sub-step
+
+2. **Action two**
+   - Sub-step
+   - Sub-step
+
+## Checklist
+- [ ] Task one
+- [ ] Task two
+```
+
+## Good vs Bad Examples
+
+### ❌ Too Verbose
+```markdown
+### Example: python.mdc (200 lines of detailed Python examples)
+```
+
+### ✅ Concise and Clear
+```markdown
+### Example MDC Structure
+Use YAML frontmatter with tags and globs:
+\`\`\`yaml
+---
+tags: ["python"]
+globs: ["**/*.py"]
+---
+\`\`\`
+```
+
+## Refactoring Existing Commands
+
+If a command file exceeds 150 lines:
+- Remove detailed examples
+- Consolidate repetitive sections
+- Move implementation details to bullet points
+- Keep only essential guidance
+- Use references instead of inline explanations
