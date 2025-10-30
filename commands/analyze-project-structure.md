@@ -6,98 +6,97 @@ Deep analysis of project structure, framework conventions, dependencies, configu
 ## Steps
 
 ### 1. Detect Project Composition
-- Identify if single-component or multi-component project
+- Identify single-component or multi-component project
 - Check for monorepo indicators (workspaces, multiple manifests)
 - Detect microservices architecture patterns
-- List all components with their root directories
-- For each component: identify language, framework, and build tools
+- List components with root directories
+- Identify language, framework, and build tools per component
 
 ### 2. Analyze Structure & Organization
-- For each component: verify folder structure matches framework conventions
-- Check source, test, and documentation directories per component
-- Validate file naming conventions align with language standards
+- Verify folder structure matches framework conventions
+- Check source, test, and documentation directories
+- Validate file naming conventions
 - Review module/package organization hierarchy
-- Verify separation of concerns across layers
-- Check for circular dependencies within and across components
-- Review inter-component communication patterns if applicable
+- Verify separation of concerns
+- Check for circular dependencies
+- Review inter-component communication patterns
 
 ### 3. Audit Dependencies
-- For each component: list dependencies with version specifications
-- Verify versions are properly pinned across all components
-- Scan for known security vulnerabilities
-- Identify outdated packages requiring updates
-- Review separation of development vs production dependencies
+- List dependencies with version specifications per component
+- Verify versions are pinned across components
+- Scan for security vulnerabilities
+- Identify outdated packages
+- Review dev vs production dependency separation
 - Check for unused dependencies
-- Verify consistency of shared dependencies in multi-component projects
+- Verify shared dependency consistency
 
 ### 4. Review Configuration
-- Verify environment variable usage and templates per component
-- Check linting and formatting configuration exists for each language
-- Review CI/CD pipeline configuration and multi-component build orchestration
+- Verify environment variable usage and templates
+- Check linting and formatting configuration
+- Review CI/CD pipeline configuration
 - Verify containerization configuration if present
 - Check gitignore coverage for sensitive files
-- Review editor configuration consistency across components
-- Validate monorepo workspace configuration if applicable
+- Review editor configuration consistency
+- Validate monorepo workspace configuration
 
 ### 5. Evaluate Code Quality Tools
-- For each component: check linting tool setup and configuration
-- Verify code formatting tool integration per language
+- Check linting tool setup per component
+- Verify code formatting tool integration
 - Review static type checking if supported
-- Check pre-commit hook configuration covers all components
-- Verify test framework integration for each component
-- Check code coverage reporting aggregation for multi-component projects
+- Check pre-commit hook configuration
+- Verify test framework integration
+- Check code coverage reporting aggregation
 
 ### 6. Assess Testing Infrastructure
-- For each component: identify test framework and runner
-- Check test directory structure organization per component
-- Review test coverage configuration and thresholds
+- Identify test framework and runner per component
+- Check test directory structure
+- Review coverage configuration and thresholds
 - Verify integration tests within components
-- Check end-to-end tests across components if applicable
-- Verify test execution scripts handle all components
+- Check end-to-end tests across components
+- Verify test execution scripts
 
 ### 7. Review Documentation
 - Check README completeness (setup, usage, contributing)
 - Verify API documentation exists and is current
-- Check for changelog or release notes
-- Review inline code comments for complex logic
+- Check changelog or release notes
+- Review inline comments for complex logic
 - Verify license file present
-- Check contribution guidelines exist
+- Check contribution guidelines
 
 ### 8. Security & Privacy Audit
 - Scan for hardcoded secrets and credentials
-- Review gitignore for sensitive file patterns
-- Check authentication and authorization implementation
+- Review gitignore for sensitive patterns
+- Check authentication and authorization
 - Verify input validation across entry points
 - Review error handling for information leakage
 - Check cross-origin resource configuration
 - Verify secure dependency sources
 
 ### 9. Build & Deployment
-- Check build scripts exist and execute successfully
+- Check build scripts execute successfully
 - Verify deployment configuration completeness
-- Review containerization setup if used
-- Check environment-specific configuration handling
+- Review containerization setup
+- Check environment-specific configuration
 - Verify production optimization settings
 
 ### 10. Generate Report & Offer Fixes
-- Compile findings categorized by severity level
-- List specific issues with affected file paths
-- Provide actionable recommendations for each issue
-- Offer to fix issues interactively with user confirmation
-- Prioritize fixes by impact and effort required
+- Compile findings by severity level
+- List issues with affected file paths
+- Provide actionable recommendations
+- Offer to fix issues interactively
+- Prioritize by impact and effort
 
 ## Checklist
-- [ ] Project composition identified (single/multi-component)
-- [ ] All components and their technologies detected
-- [ ] Folder structure analyzed for each component
-- [ ] Dependencies audited across all components
-- [ ] Configuration reviewed for consistency
-- [ ] Code quality tools verified per component
-- [ ] Testing infrastructure assessed comprehensively
-- [ ] Documentation completeness checked
+- [ ] Project composition identified
+- [ ] Components and technologies detected
+- [ ] Folder structure analyzed
+- [ ] Dependencies audited
+- [ ] Configuration reviewed
+- [ ] Code quality tools verified
+- [ ] Testing infrastructure assessed
+- [ ] Documentation checked
 - [ ] Security audit completed
 - [ ] Build and deployment reviewed
-- [ ] Cross-component concerns evaluated
 - [ ] Comprehensive report generated
-- [ ] Fixes offered and applied interactively
+- [ ] Fixes offered interactively
 

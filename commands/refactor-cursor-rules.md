@@ -1,100 +1,74 @@
 # Refactor Cursor Rules
 
 ## Overview
-Analyze the project's tech stack and refactor `.cursor/rules/*.mdc` files to match the real project by removing duplicates, irrelevant rules, and unnecessary examples. Update rule metadata to ensure precise application conditions.
+Analyze project tech stack and refactor `.cursor/rules/*.mdc` files to match the project by removing duplicates, irrelevant rules, and unnecessary examples. Update metadata for precise application.
 
 ## Steps
 
-1. **Detect project tech stack**
-   - Scan for dependency files: `package.json`, `requirements.txt`, `go.mod`, `Cargo.toml`, `pom.xml`, `Gemfile`, etc.
-   - Identify languages from file extensions in the project
-   - Detect frameworks and major libraries from dependencies
-   - List build tools and development tools in use
-   - Create summary of detected tech stack
+### 1. Detect Project Tech Stack
+- Scan dependency files for frameworks and libraries
+- Identify languages from file extensions
+- List build tools and development tools
+- Create tech stack summary
 
-2. **Find all cursor rules**
-   - Recursively search for `.mdc` files in `.cursor/rules/` at any nesting level
-   - Use: `find .cursor/rules -name "*.mdc" -type f` or glob pattern `**/*.mdc`
-   - List all found rule files with their paths
-   - Provide count of total rules found
+### 2. Find All Cursor Rules
+- Recursively search for `.mdc` files in `.cursor/rules/`
+- Use `find .cursor/rules -name "*.mdc" -type f`
+- List all found rule files with paths
+- Provide total count
 
-3. **Analyze cursor rules**
-   - Read all found `.mdc` files
-   - Parse YAML frontmatter (metadata section)
-   - Extract rule content and identify purpose
-   - Categorize rules by type:
-     - Language-specific (Python, JavaScript, Go, etc.)
-     - Framework-specific (React, Django, Express, etc.)
-     - General best practices
-     - Project-specific custom rules
-   - Identify duplicate or overlapping rules
+### 3. Analyze Cursor Rules
+- Read all `.mdc` files
+- Parse YAML frontmatter metadata
+- Extract rule content and purpose
+- Categorize by type (language, framework, general, custom)
+- Identify duplicates or overlapping rules
 
-4. **Request user confirmation**
-   - Present summary of findings:
-     - Current tech stack detected
-     - Total number of rules found
-     - Rules that will be removed (irrelevant to project)
-     - Rules that will be consolidated (duplicates)
-     - Rules that will be updated (metadata changes)
-     - Rules that will be preserved as-is
-   - Provide clear breakdown of planned changes
-   - Ask for explicit confirmation to proceed with refactoring
-   - If user declines, stop execution
+### 4. Request User Confirmation
+Present summary:
+- Current tech stack detected
+- Total rules found
+- Rules to remove (irrelevant to project)
+- Rules to consolidate (duplicates)
+- Rules to update (metadata changes)
+- Rules to preserve as-is
+Ask for explicit confirmation; stop if declined
 
-5. **Refactor rules**
-   - Remove rules for technologies NOT used in the project
-   - Consolidate duplicate or overlapping rules into single comprehensive rules
-   - Trim verbose examples while keeping essential guidance
-   - Remove unnecessary code snippets that don't add value
-   - Simplify overly complex rules
-   - Preserve critical project-specific rules
-   - Ensure each rule has a clear, focused purpose
-   - Keep rule content concise and actionable
+### 5. Refactor Rules
+- Remove rules for unused technologies
+- Consolidate duplicate rules
+- Trim verbose examples while keeping essential guidance
+- Remove unnecessary code snippets
+- Simplify complex rules
+- Preserve critical project-specific rules
+- Ensure clear, focused purpose
+- Keep content concise and actionable
 
-6. **Update rule metadata**
-   - Refine YAML frontmatter "when to apply" conditions
-   - Update file glob patterns to match actual project structure
-   - Set appropriate language tags based on project languages
-   - Add or update path patterns for precise rule application
-   - Reference: https://cursor.com/docs/context/rules#rule-anatomy
-   - Ensure metadata accurately reflects when each rule should trigger
+### 6. Update Rule Metadata
+- Refine YAML frontmatter conditions
+- Update file glob patterns to match project structure
+- Set appropriate language tags
+- Add or update path patterns for precise application
+- Ensure metadata reflects when rules should trigger
 
-7. **Validate and save**
-   - Review refactored rules for completeness
-   - Ensure no critical guidance was lost
-   - Verify metadata syntax is correct
-   - Save updated `.mdc` files
-   - Provide summary of changes made
+### 7. Validate and Save
+- Review refactored rules for completeness
+- Ensure no critical guidance lost
+- Verify metadata syntax
+- Save updated `.mdc` files
+- Provide summary of changes
 
-## Refactoring Checklist
+## Checklist
 
-- [ ] Tech stack detected and documented
-- [ ] All `.mdc` files found recursively
+- [ ] Tech stack detected
+- [ ] All `.mdc` files found
 - [ ] Rules categorized by type
-- [ ] Summary of changes presented to user
+- [ ] Summary presented to user
 - [ ] User confirmation received
 - [ ] Irrelevant rules removed
 - [ ] Duplicate rules consolidated
-- [ ] Examples trimmed to essentials
-- [ ] Metadata updated with accurate conditions
-- [ ] File globs match project structure
+- [ ] Examples trimmed
+- [ ] Metadata updated
+- [ ] File globs match structure
 - [ ] Changes validated and saved
-
-## Example Metadata Update
-
-Before:
-```yaml
----
-tags: ["javascript", "typescript"]
-globs: ["**/*.js", "**/*.ts"]
----
-```
-
-After (for a Python-only project):
-```yaml
----
-tags: ["python"]
-globs: ["**/*.py", "src/**/*.py", "tests/**/*.py"]
----
-```
 
