@@ -1,21 +1,8 @@
 # Cursor Developer Configuration
 
-This repository contains Cursor developer configuration with AI agent behavior policies and development workflow templates.
+A personal Cursor IDE configuration repository that enforces strict AI agent behavior policies through `.mdc` rule files and provides reusable workflow command templates for common development tasks. Features a git-only access policy to protect privacy, framework-agnostic development best practices, and self-maintaining documentation with automatic README synchronization.
 
 **Note:** This project is located in the home directory at `~/.cursor`
-
-## Project Structure
-
-```
-.cursor/
-├── .cursor/                # Internal rules for this project
-│
-├── commands/               # Developer Cursor commands
-│
-├── DEVELOPER_RULES.md      # General AI coding best practices
-│
-└── .gitignore             # Git configuration
-```
 
 ## Available Commands
 
