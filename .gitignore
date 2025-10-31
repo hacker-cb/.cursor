@@ -11,9 +11,6 @@
 # Add root README.md
 !/README.md
 
-# Add developer rules
-!/DEVELOPER_RULES.md
-
 # Add cursor directory
 !/.cursor/
 !/.cursor/**

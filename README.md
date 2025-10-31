@@ -22,17 +22,9 @@ The [`commands/`](commands/) directory contains workflow templates for common de
 | [**security&#8209;audit**](commands/security-audit.md) | ![WIP](https://img.shields.io/badge/status-WIP-yellow) | Comprehensive security review to identify and fix vulnerabilities in dependencies, code, authentication, data handling, and infrastructure configuration |
 | [**setup&#8209;new&#8209;feature**](commands/setup-new-feature.md) | ![WIP](https://img.shields.io/badge/status-WIP-yellow) | Systematically set up a new feature from requirements gathering through implementation structure and testing strategy |
 
-## Developer Rules
+## Shared Rules
 
-The [`DEVELOPER_RULES.md`](DEVELOPER_RULES.md) file contains general best practices for AI-assisted development. These rules are project-independent and should be added to Cursor as User Rules.
-
-To apply these rules in Cursor:
-1. Open Cursor Settings (⌘+, on Mac, Ctrl+, on Windows/Linux)
-2. Navigate to **Rules, Memories, Commands**
-3. Scroll to **User Rules** section
-4. Click **+ Add Rule** button
-5. Copy and paste the entire content from [`DEVELOPER_RULES.md`](DEVELOPER_RULES.md)
-6. Save the rule
+The [`rules/`](rules/) directory contains common shared developer rules that can be synced to any project using the `sync-shared-rules` command. These rules are project-independent, framework-agnostic, and cover universal development best practices.
 
 ---
 
