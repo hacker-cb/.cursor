@@ -45,3 +45,36 @@ Becomes table row in README.md:
 ## Automation
 
 Update README.md automatically when command files change. No permission needed.
+
+## README.md Structure
+
+The README.md maintains several sections:
+
+### Shared Rules Section
+
+Static section describing the `rules/` directory:
+- **Location**: After introduction, before command tables
+- **Content**: Brief description linking to `/rules/` directory
+- **Maintenance**: Update manually when shared rules architecture changes
+- **Not auto-synced**: This section is documentation, not generated from files
+
+**Example:**
+```markdown
+## Shared Rules
+
+The [`rules/`](rules/) directory contains common shared developer rules that can be synced to any project using the `sync-shared-rules` command. These rules are project-independent, framework-agnostic, and cover universal development best practices.
+```
+
+### Command Tables Section
+
+Two separate tables for different command types:
+
+**System Commands** - Workspace maintenance commands:
+- Sync commands, workspace management
+- Example: `sync-shared-rules`
+- Format: `| [**command&#8209;name**](commands/filename.md) | Status Badge | Description |`
+
+**Development Commands** - Project workflow commands:
+- Auto-synced from `commands/` directory files
+- Updated when command files change (see "How It Works" above)
+- Format: `| [**command&#8209;name**](commands/filename.md) | Status Badge | Description |`
