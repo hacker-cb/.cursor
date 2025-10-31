@@ -1,0 +1,159 @@
+---
+alwaysApply: true
+---
+# Rules Management
+
+Guidelines for managing project-specific cursor rules.
+
+## Naming Convention
+
+Use `local-` prefix for project-specific rules to distinguish from `shared-` rules synced from the shared repository.
+
+**Naming pattern:**
+- Single level: `local-{topic}.mdc`
+- Multi-level: `local-{module}-{topic}.mdc`, `local-{module}-{subtopic}-{aspect}.mdc`
+
+**Examples:**
+- `local-architecture.mdc` - Project architecture decisions
+- `local-backend-api.mdc` - Backend API module rules
+- `local-esp32-platform.mdc` - ESP32 platform-specific rules
+- `local-frontend-testing.mdc` - Frontend testing conventions
+
+Choose naming depth based on project complexity.
+
+## Naming Consistency
+
+Local rule names should mirror shared rule topics when extending them for consistency.
+
+**Pattern:** `local-{module/platform}-{shared-topic}.mdc`
+
+**Extending shared rules:**
+- `shared-code-quality.mdc` → `local-python-code-quality.mdc`
+- `shared-testing-standards.mdc` → `local-backend-testing.mdc`
+- `shared-security-practices.mdc` → `local-firmware-security.mdc`
+
+**Module/platform-specific rules:**
+- `local-backend-api.mdc` - Backend module specific
+- `local-esp32-platform.mdc` - ESP32 platform specific
+- `local-frontend-web.mdc` - Frontend module specific
+- `local-ios-app.mdc` - iOS application specific
+
+**Cross-cutting project rules:**
+- `local-architecture.mdc` - Project architecture decisions
+- `local-deployment.mdc` - Deployment procedures
+- `local-database.mdc` - Database schema and conventions
+
+## When to Create Project Rules
+
+Create project-specific rules when:
+- Tech stack is chosen and patterns emerge
+- Framework-specific conventions need documentation
+- Language-specific style guides exist
+- Platform-specific practices develop
+- Project architecture decisions are made
+- Architecture evolves (refactoring, new modules, migration)
+- Adding rules to existing project (use `init-cursor-rules` command to analyze and generate)
+
+Project rules can be language/framework-specific (unlike shared rules which are universal).
+
+## Service-Specific Rules
+
+Shared rules are universal and framework-agnostic. For project-specific needs, create local rules.
+
+**Examples of service-specific topics (create only what you need):**
+- API design patterns (web services)
+- Cloud deployment strategies (cloud services)
+- Hardware abstraction layers (embedded systems)
+- Platform-specific guidelines (mobile apps)
+- Observability and monitoring setup (production services)
+
+**Naming pattern:**
+- `local-api-design.mdc` or `local-backend-api-design.mdc`
+- `local-deployment.mdc` or `local-backend-deployment.mdc`
+- `local-hardware-abstraction.mdc` or `local-esp32-hardware-abstraction.mdc`
+
+**Pattern:**
+1. Identify project-specific need
+2. Create appropriately named local rule
+3. Keep focused (50-150 lines, max 200)
+4. Build on shared rule principles
+
+Projects decide structure depth based on complexity and requirements.
+
+## File Organization
+
+Organize rules by domain:
+- One rule file per domain/category
+- Use descriptive names with `local-` prefix
+- Keep each file focused on single concern
+
+## Multi-Module Projects
+
+For projects with multiple modules, platforms, or components:
+
+**Web projects:**
+- Module-specific rules: `local-backend.mdc`, `local-frontend.mdc`
+- Use globs matching YOUR project structure
+
+**Embedded projects:**
+- Platform-specific rules: `local-esp32.mdc`, `local-stm32.mdc`
+- Device variant rules: `local-sensor-node.mdc`
+- Use globs matching YOUR project structure
+
+**Mobile projects:**
+- Platform rules: `local-ios.mdc`, `local-android.mdc`
+- Use globs matching YOUR project structure
+
+**Structure-agnostic approach:**
+- Don't assume specific directory names
+- Define globs based on your actual project organization
+- Document organization decisions in project rules
+
+## File Length
+
+Target file length:
+- **Target**: 50-150 lines
+- **Maximum**: 200 lines when content demands
+- Keep rules focused and easy to read
+- One rule file per domain/category
+- Quality and completeness over strict limits
+
+## Tags and Globs
+
+Use tags and globs to apply rules to specific files.
+
+**Tags for categorization:**
+```yaml
+---
+tags: ["python", "backend"]
+---
+```
+
+**Globs for file targeting:**
+
+Define globs based on your project's file organization:
+- By file type: `["**/*.c", "**/*.h"]`
+- By module directory: `["module-name/**/*"]`
+- Multiple patterns: `["dir1/**/*.py", "dir2/**/*.py"]`
+- Exclude tests: `["src/**/*.ts", "!**/*.test.ts"]`
+
+Test globs against your actual files to ensure they match intended targets.
+
+**Example frontmatter:**
+```yaml
+---
+tags: ["python", "backend"]
+globs: ["api/**/*.py", "services/**/*.py"]
+---
+```
+
+## Maintenance
+
+Keep project rules up to date:
+- Update rules when tech stack evolves
+- Review rules when adding new modules/platforms
+- Archive rules when modules are deprecated or removed
+- Review quarterly for relevance
+- Remove obsolete rules that no longer apply
+
+Active maintenance ensures rules remain useful and accurate.
