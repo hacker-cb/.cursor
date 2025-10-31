@@ -11,14 +11,17 @@ Keep README.md in sync with command files in `commands/` directory. Automaticall
 
 **When command files change:**
 1. Extract description from the `## Overview` section
-2. Update the corresponding row in README.md table
-3. Maintain table format: `| [**command-name**](commands/filename.md) | Description |`
+2. **Ask the user**: "Is this command Stable or WIP?" (if status changes)
+3. Update the corresponding row in README.md table
+4. Maintain table format: `| [**command&#8209;name**](commands/filename.md) | Status Badge | Description |`
+5. Use non-breaking hyphens (`&#8209;`) in command names to prevent wrapping
 
 **Operations:**
-- **New command** → Add new table row
-- **Modified command** → Update description in table
+- **New command** → Add new table row (ask user for status: Stable or WIP)
+- **Modified command** → Update description in table (ask user if status changed)
 - **Renamed command** → Update link and name in table
 - **Deleted command** → Remove table row
+- **Status change** → Ask user and update badge
 
 ## Example
 
@@ -32,8 +35,12 @@ This command does something useful.
 
 Becomes table row in README.md:
 ```markdown
-| [**new-command**](commands/new-command.md) | This command does something useful. |
+| [**new&#8209;command**](commands/new-command.md) | ![WIP](https://img.shields.io/badge/status-WIP-yellow) | This command does something useful. |
 ```
+
+**Status Badges:**
+- Stable: `![Stable](https://img.shields.io/badge/status-stable-green)`
+- WIP: `![WIP](https://img.shields.io/badge/status-WIP-yellow)`
 
 ## Automation
 
