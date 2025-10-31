@@ -17,14 +17,20 @@ Analyze project tech stack and refactor `.cursor/rules/*.mdc` files to match the
 - List all found rule files with paths
 - Provide total count
 
-### 3. Analyze Cursor Rules
+### 3. Check for Deprecated .cursorrules File
+- Search recursively for `.cursorrules` file from project root
+- Use `find . -name ".cursorrules" -type f`
+- If found, delete it
+- Notify user about removal and migration to `.cursor/rules/*.mdc` format
+
+### 4. Analyze Cursor Rules
 - Read all `.mdc` files
 - Parse YAML frontmatter metadata
 - Extract rule content and purpose
 - Categorize by type (language, framework, general, custom)
 - Identify duplicates or overlapping rules
 
-### 4. Request User Confirmation
+### 5. Request User Confirmation
 Present summary:
 - Current tech stack detected
 - Total rules found
@@ -34,7 +40,7 @@ Present summary:
 - Rules to preserve as-is
 Ask for explicit confirmation; stop if declined
 
-### 5. Refactor Rules
+### 6. Refactor Rules
 - Remove rules for unused technologies
 - Consolidate duplicate rules
 - Trim verbose examples while keeping essential guidance
@@ -44,14 +50,14 @@ Ask for explicit confirmation; stop if declined
 - Ensure clear, focused purpose
 - Keep content concise and actionable
 
-### 6. Update Rule Metadata
+### 7. Update Rule Metadata
 - Refine YAML frontmatter conditions
 - Update file glob patterns to match project structure
 - Set appropriate language tags
 - Add or update path patterns for precise application
 - Ensure metadata reflects when rules should trigger
 
-### 7. Validate and Save
+### 8. Validate and Save
 - Review refactored rules for completeness
 - Ensure no critical guidance lost
 - Verify metadata syntax
@@ -62,6 +68,7 @@ Ask for explicit confirmation; stop if declined
 
 - [ ] Tech stack detected
 - [ ] All `.mdc` files found
+- [ ] Deprecated .cursorrules file checked and removed if found
 - [ ] Rules categorized by type
 - [ ] Summary presented to user
 - [ ] User confirmation received
