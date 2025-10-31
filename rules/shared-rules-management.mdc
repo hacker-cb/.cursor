@@ -113,10 +113,11 @@ For projects with multiple modules, platforms, or components:
 
 Target file length:
 - **Target**: 50-150 lines
-- **Maximum**: 200 lines when content demands
+- **Maximum**: 300 lines when content demands
 - Keep rules focused and easy to read
 - One rule file per domain/category
 - Quality and completeness over strict limits
+- Comprehensive lifecycle files may need extra length
 
 ## Tags and Globs
 
