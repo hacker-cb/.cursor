@@ -40,11 +40,10 @@ This command analyzes GitHub workflow runs, watches for failed runs, and automat
      - Task complete - no fixes needed
      - Exit successfully
    - **If workflow runs exist with failures:**
-     - Call: [Ensure Manual Trigger Capability](#ensure-manual-trigger-capability)
      - Call: [Create Fix Branch and Apply Fixes](#create-fix-branch-and-apply-fixes)
      - Proceed to step 4
    - **If no workflow runs exist for current branch/commit:**
-     - Call: [Ensure Manual Trigger Capability](#ensure-manual-trigger-capability)
+     - Call: [Ensure Manual Trigger Capability](#ensure-manual-trigger-capability) (on current branch)
      - Manually trigger each workflow: `gh workflow run <workflow-name> --ref <branch-name>`
      - Wait for each workflow completion: `gh run watch <run-id>`
      - Check results and identify any failures
@@ -78,13 +77,20 @@ This command analyzes GitHub workflow runs, watches for failed runs, and automat
   - Push to current branch
 
 ### Create Fix Branch and Apply Fixes
-**Prerequisites:** Manual trigger capability must exist for all workflows (ensured by calling [Ensure Manual Trigger Capability](#ensure-manual-trigger-capability) first)
+**Purpose:** Create a fix branch and iteratively fix workflow failures until all pass
 
 **Steps:**
 - Analyze error details from failed workflows to generate meaningful branch name
 - Create branch name based on error context (e.g., `autofix/lint-errors`, `autofix/test-timeout`)
 - If error context not clear, use generic pattern: `autofix/workflow-failures-YYYYMMDD`
 - Create and checkout new branch: `git checkout -b <branch-name>`
+- **Ensure workflow_dispatch in fix branch:**
+  - Check each workflow file in `.github/workflows/` directory
+  - For each workflow, check for `workflow_dispatch` in the `on:` section
+  - If `workflow_dispatch` is missing:
+    - Add it to enable manual triggering
+    - Commit change: "Enable manual trigger for <workflow-name>"
+    - Push to fix branch
 - **Fixing Loop:**
   - For each failed workflow:
     - Analyze error logs from failed jobs
