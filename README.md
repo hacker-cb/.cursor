@@ -4,36 +4,6 @@ This repository contains Cursor developer configuration with AI agent behavior p
 
 **Note:** This project is located in the home directory at `~/.cursor`
 
-## Project Structure
-
-```
-~/.cursor/                      # Repository root
-├── .cursor/                    # Cursor IDE configuration
-│   └── rules/                  # AI agent behavior rules (.mdc files)
-│       ├── ai-agent-behavior.mdc
-│       ├── command-files.mdc
-│       ├── git-only-policy.mdc
-│       ├── readme-sync.mdc
-│       └── workspace-documentation.mdc
-│
-├── commands/                   # Developer workflow commands
-│   ├── add-test-coverage.md
-│   ├── analyze-project-structure.md
-│   ├── code-review.md
-│   ├── create-pull-request.md
-│   ├── github-workflow-autofix.md
-│   ├── init-cursor-rules.md
-│   ├── onboard-new-developer.md
-│   ├── refactor-cursor-rules.md
-│   ├── run-tests-and-fix-failures.md
-│   ├── security-audit.md
-│   └── setup-new-feature.md
-│
-├── DEVELOPER_RULES.md          # General AI coding best practices
-├── README.md                   # This file
-└── .gitignore                  # Git ignore configuration
-```
-
 ## Available Commands
 
 The [`commands/`](commands/) directory contains workflow templates for common development tasks:
