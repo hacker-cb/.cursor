@@ -9,52 +9,51 @@ This command analyzes GitHub workflow runs, watches for failed runs, and automat
 
 ### Key Commands
 - List all workflows: `gh workflow list`
-- Check last run for specific workflow: `gh run list --workflow=<workflow-name> --limit 1`
+- Check runs for current branch/commit: `gh run list --branch=$(git branch --show-current) --commit=$(git rev-parse HEAD)`
 - View workflow run details: `gh run view <run-id>`
 - View failed jobs: `gh run view <run-id> --log-failed`
-- Re-run failed jobs: `gh run rerun <run-id> --failed`
+- Manually trigger workflow: `gh workflow run <workflow-name> --ref <branch-name>`
 - Check workflow status (wait for completion): `gh run watch <run-id>`
 - Check for uncommitted changes: `git status --porcelain`
 - Create fix branch: `git checkout -b <branch-name>`
 - Create pull request: `gh pr create`
 
 ## Steps
-1. **Check and prepare**
+1. **Check workflows from current branch/commit**
    - Get current branch: `git branch --show-current`
+   - Get current commit: `git rev-parse HEAD`
+   - Check workflow runs for current branch/commit: `gh run list --branch=$(git branch --show-current) --commit=$(git rev-parse HEAD)`
    - List all defined workflows: `gh workflow list`
-   - For each workflow, check last run status: `gh run list --workflow=<workflow-name> --limit 1`
-   - Identify workflows with runs in progress, failed, passed, or never run
+   - If workflow runs exist, identify status: in progress, failed, or passed
    - If any workflow is still running, use `gh run watch <run-id>` to wait for completion before analyzing results
    - For each failed run: `gh run view <run-id> --log-failed` to view error details
-   - Provide a summary: total workflows, which passed, which failed, which are running, which never ran
+   - Provide a summary: total workflows, which passed, which failed, which are running
    - If more than one workflow fails, ask user which workflow to prioritize (Single workflow, All workflows)
 
-2. **Create fix branch**
+2. **Check for uncommitted changes**
    - Check for uncommitted changes: `git status --porcelain`
    - If uncommitted changes exist, refuse and ask user to commit or stash first
-   - Analyze error details from failed workflows to generate meaningful branch name
-   - Create branch name based on error context (e.g., `autofix/lint-errors`, `autofix/test-timeout`)
-   - If error context not clear, use generic pattern: `autofix/workflow-failures-YYYYMMDD`
-   - Create and checkout new branch: `git checkout -b <branch-name>`
+   - This check ensures safe operation before any modifications
 
-3. **Request user permission**
-   - Provide status on autofix branch created
-   - State agent will work in the autofix branch (not original branch)
-   - State agent requires permission to create branch, commit, and push fixes
-   - Request explicit user permission to proceed
+3. **Handle workflow runs based on status**
+   - **If workflow runs exist and all passed:**
+     - Task complete - no fixes needed
+     - Exit successfully
+   - **If workflow runs exist with failures:**
+     - Call: [Ensure Manual Trigger Capability](#ensure-manual-trigger-capability)
+     - Call: [Create Fix Branch and Apply Fixes](#create-fix-branch-and-apply-fixes)
+     - Proceed to step 4
+   - **If no workflow runs exist for current branch/commit:**
+     - Call: [Ensure Manual Trigger Capability](#ensure-manual-trigger-capability)
+     - Manually trigger each workflow: `gh workflow run <workflow-name> --ref <branch-name>`
+     - Wait for each workflow completion: `gh run watch <run-id>`
+     - Check results and identify any failures
+     - If failures found:
+       - Call: [Create Fix Branch and Apply Fixes](#create-fix-branch-and-apply-fixes)
+       - Proceed to step 4
+     - If all workflows pass: task complete - exit successfully
 
-4. **Fixing Loop**
-   - For each failed workflow:
-     - Analyze error logs from failed jobs
-     - Apply fixes to project files in the autofix branch
-     - Commit changes with a descriptive message
-     - Push to the autofix branch
-     - Re-run only the failed workflow: `gh run rerun <run-id> --failed`
-     - Wait for workflow completion: `gh run watch <run-id>`
-     - If workflow still fails, repeat the fixing steps
-   - Continue process until all workflows pass
-
-5. **Merge or Create PR**
+4. **Merge or Create PR**
    - After all workflows pass, ask user: "All workflows pass. Would you like to: a) Merge branch directly back, or b) Create a Pull Request?"
    - If user chooses merge directly:
      - Switch back to original branch
@@ -65,15 +64,48 @@ This command analyzes GitHub workflow runs, watches for failed runs, and automat
      - Create pull request with summary of fixes: `gh pr create --title "Auto-fix workflow failures" --body "<summary>"`
      - Provide PR URL to user
 
+## Functions
+
+### Ensure Manual Trigger Capability
+**Purpose:** Ensure all workflows can be manually triggered
+
+**Steps:**
+- Check each workflow file in `.github/workflows/` directory
+- For each workflow, check for `workflow_dispatch` in the `on:` section
+- If `workflow_dispatch` is missing:
+  - Add it to enable manual triggering
+  - Commit change: "Enable manual trigger for <workflow-name>"
+  - Push to current branch
+
+### Create Fix Branch and Apply Fixes
+**Prerequisites:** Manual trigger capability must exist for all workflows (ensured by calling [Ensure Manual Trigger Capability](#ensure-manual-trigger-capability) first)
+
+**Steps:**
+- Analyze error details from failed workflows to generate meaningful branch name
+- Create branch name based on error context (e.g., `autofix/lint-errors`, `autofix/test-timeout`)
+- If error context not clear, use generic pattern: `autofix/workflow-failures-YYYYMMDD`
+- Create and checkout new branch: `git checkout -b <branch-name>`
+- **Fixing Loop:**
+  - For each failed workflow:
+    - Analyze error logs from failed jobs
+    - Apply fixes to project files in the autofix branch
+    - Commit changes with a descriptive message
+    - Push to the autofix branch
+    - Trigger workflow on fix branch: `gh workflow run <workflow-name> --ref <autofix-branch>`
+    - Wait for workflow completion: `gh run watch <run-id>`
+    - If workflow still fails, repeat the fixing steps
+  - Continue process until all workflows pass
+
 ## Checklist
-- [ ] Current branch and all workflows checked
+- [ ] Current branch/commit workflows checked
 - [ ] Waiting for in-progress workflows completed
+- [ ] Uncommitted changes verified (early check)
+- [ ] Manual triggers enabled if needed
+- [ ] Workflows triggered if no runs exist
 - [ ] Failed workflows and details identified
-- [ ] Uncommitted changes checked
 - [ ] Fix branch created with meaningful name
-- [ ] User permission obtained for branch creation and commits
 - [ ] Fixes applied and committed to autofix branch
-- [ ] Workflows rerun and watched to completion
+- [ ] Workflows triggered on fix branch and watched to completion
 - [ ] All workflows pass
 - [ ] User choice for merge/PR obtained
 - [ ] Branch merged or PR created
