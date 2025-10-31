@@ -1,0 +1,98 @@
+---
+alwaysApply: true
+---
+# Shared Rules File Guidelines
+
+Shared rule files in `rules/` directory define common development standards that can be synced to any project.
+
+## File Purpose
+
+- **Location**: Root-level `/rules/` directory
+- **Target**: Universal developer best practices
+- **Scope**: Project-independent, framework-agnostic, language-neutral
+- **Distribution**: Synced to projects via `sync-shared-rules` command
+
+## File Length Requirement
+
+- **Target**: 50-150 lines
+- Keep rules focused and easy to read
+- One rule file per domain/category
+
+## Content Requirements
+
+### Be Universal
+- Project-independent - works for any tech stack
+- Framework-agnostic - not tied to specific tools
+- Language-neutral - applicable across programming languages
+- Platform-agnostic - not specific to deployment environments
+
+### Be Actionable
+- Clear guidelines that can be followed
+- Specific enough to be useful
+- General enough to apply broadly
+- Focus on principles over implementations
+
+### Be Concise
+- Use bullet points, not paragraphs
+- One guideline per line
+- Avoid verbose explanations
+- Focus on essential practices
+
+## File Structure
+
+Every shared rule file must include:
+
+1. **YAML Frontmatter**: `alwaysApply: true`
+2. **Title**: `# Rule Name`
+3. **Purpose**: Brief description (1-2 sentences)
+4. **Guidelines**: Clear, actionable bullet points organized by sections
+
+## Template
+
+```markdown
+---
+alwaysApply: true
+---
+# Rule Name
+
+Brief purpose statement.
+
+## Section One
+- Guideline point
+- Guideline point
+
+## Section Two
+- Guideline point
+- Guideline point
+```
+
+## What to Include
+
+- ✅ Code quality standards
+- ✅ Testing principles
+- ✅ Security best practices
+- ✅ Documentation requirements
+- ✅ Development workflows
+- ✅ Review guidelines
+- ✅ Environment practices
+
+## What to Avoid
+
+- ❌ Language-specific syntax examples
+- ❌ Framework-specific implementations
+- ❌ Tool-specific configurations
+- ❌ Project-specific conventions
+- ❌ Environment-specific details
+- ❌ Concrete code examples
+
+## Rule Categories
+
+Organize shared rules by domain. Examples:
+- Rules and commands management
+- Version control and collaboration
+- Planning and architecture
+- Code quality and standards
+- Testing conventions
+- Security practices
+- Documentation guidelines
+- Environment and tooling

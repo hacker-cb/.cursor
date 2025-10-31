@@ -17,3 +17,7 @@
 # Add cursor directory
 !/.cursor/
 !/.cursor/**
+
+# Add shared rules folder
+!/rules/
+!/rules/**
