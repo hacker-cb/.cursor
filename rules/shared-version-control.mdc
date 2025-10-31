@@ -7,7 +7,7 @@ Git workflow and collaboration standards.
 
 ## Commit Message Standards
 
-Use conventional commits format for clarity and consistency.
+Use conventional commits for clarity and consistency.
 
 **Format:** `type(scope): description`
 
@@ -21,30 +21,23 @@ Use conventional commits format for clarity and consistency.
 - `chore` - Maintenance
 - `perf` - Performance
 
-**Examples:**
-- `feat(auth): add OAuth login`
-- `fix(api): handle null database response`
-- `refactor(parser): simplify token handling`
-
 **Best practices:**
 - Clear and concise description
 - Use present tense
 - Describe what and why
 - Reference issue numbers when applicable
+- Add body for complex changes
 
-## Branch Naming Conventions
+**Examples:**
+- `feat(auth): add OAuth login`
+- `fix(api): handle null database response`
+- `refactor(parser): simplify token handling`
+
+## Branch Naming
 
 Use consistent, descriptive branch names.
 
 **Pattern:** `type/description`
-
-**Types:**
-- `feature/` - New features
-- `bugfix/` - Bug fixes
-- `hotfix/` - Urgent production fixes
-- `refactor/` - Code refactoring
-- `docs/` - Documentation updates
-- `test/` - Test additions or updates
 
 **Examples:**
 - `feature/user-authentication`
@@ -53,117 +46,141 @@ Use consistent, descriptive branch names.
 - `refactor/simplify-api-layer`
 
 **Guidelines:**
-- Use lowercase with hyphens
-- Keep descriptive but concise
-- Include issue number when applicable: `feature/123-add-oauth`
+- Lowercase with hyphens
+- Descriptive but concise
+- Include issue number when applicable
 - Avoid ambiguous names
 
-## Git Workflow Best Practices
+## Git Workflow
 
 **Branch and commit:**
-- Create feature branches from main
-- Make small, focused commits
+- Create feature branches from master (or main if project uses it)
+- Commit early and often
 - Keep commits atomic (one logical change)
 - Write meaningful commit messages
+- Each commit should work (build and pass tests)
 
 **Stay synchronized:**
 - Pull latest changes before starting work
-- Rebase or merge main regularly
+- Sync with master regularly
 - Resolve conflicts promptly
+- Push changes to remote regularly
 
 **Keep history clean:**
 - Squash related commits before merging
-- Don't commit WIP to main
+- Don't commit WIP to master
 - Use `.gitignore` properly
+- Remove temporary/debug commits
 
 **Never commit:**
 - Secrets or credentials
 - Generated files (unless necessary)
 - Personal IDE configurations
 - Large binary files (use Git LFS if needed)
+- Sensitive data
 
-## Rebase vs Merge Strategies
+**Merge conflicts:**
+- Communicate with affected developers
+- Understand both sides
+- Test thoroughly after resolution
+- Don't blindly pick one side
+- Commit resolution separately
+
+## Rebase vs Merge
 
 **Rebase:**
-- Use for feature branches before merging to main
+- For feature branches before merging
 - Creates linear history
-- Makes history easier to follow
+- Easier to follow
 - Never rebase public/shared branches
 
 **Merge:**
-- Use for long-lived branches
+- For long-lived branches
 - Preserves complete history
-- Safer for shared branches
-- Shows branch structure
+- Safer for shared work
 
 **Squash and merge:**
-- Use when merging feature branches to main
-- Combines all feature commits into one
-- Keeps main history clean
-- Loses detailed feature branch history
+- For feature branches to master
+- Combines commits into one
+- Keeps master history clean
 
 **Guidelines:**
-- Rebase feature branch on main before creating PR
-- Squash related commits within feature branch
-- Use merge for release branches
+- Rebase feature on master before PR
+- Squash related commits within branch
 - Never force push to shared branches
 
-## Pull Request Guidelines
+## Pull Requests
 
 **PR description:**
-- Clear title describing the change
-- Summary of what changed and why
+- Clear title
+- What changed and why
 - Link to related issues
 - Breaking changes highlighted
 - Testing instructions
+- Screenshots for UI changes
 
-**Before creating PR:**
+**Before creating:**
 - Self-review your changes
-- Ensure all tests pass
-- Update documentation
-- Check code formatting
+- All tests pass locally
+- Documentation updated
+- Code formatted and linted
+- No debug code or TODOs
+- No sensitive information
 
 **PR size:**
-- Keep focused and reasonably sized
-- Split large changes into multiple PRs
-- Group related changes together
+- Focused and reasonably sized
+- Split large changes
+- One logical change per PR
+
+**Draft PRs:**
+- Early feedback on approach
+- Mark ready when complete
 
 **Responding to feedback:**
 - Address all comments
+- Don't force push during review
 - Discuss and resolve conversations
-- Update PR if scope changes
+- Re-request review after changes
 
-## Code Review Expectations
+**PR lifecycle:**
+- Keep updated with master
+- Monitor CI/CD status
+- Be responsive
+- Don't let PRs go stale
 
-Effective code review improves quality and knowledge sharing.
+## Code Review
 
 **What to review:**
 - Functionality correctness
 - Code quality and readability
-- Test coverage
+- Test coverage adequacy
 - Security and performance
 - Backward compatibility
 
 **Giving feedback:**
 - Be constructive and specific
-- Explain reasoning behind suggestions
-- Suggest alternatives when requesting changes
+- Explain reasoning
+- Suggest alternatives
 - Appreciate good work
 - Focus on code, not person
 
 **Comment types:**
 - `nit:` - Minor, not blocking
-- `blocking:` - Must fix before merge
+- `blocking:` - Must fix
 - `question:` - Need clarification
+- `suggestion:` - Optional
+- `praise:` - Acknowledge good work
 
 **Receiving feedback:**
-- Don't take feedback personally
+- Don't take personally
 - Fix blocking issues promptly
 - Discuss concerns respectfully
+- Implement or respond to all
 
 **Review timing:**
-- Review within 1-2 business days
-- Don't rush reviews
+- Within 1-2 business days
+- Prioritize urgent changes
+- Balance thoroughness with speed
 
 ## Merge Requirements
 
@@ -174,26 +191,47 @@ Effective code review improves quality and knowledge sharing.
 - CI/CD checks green
 - Documentation updated
 - Linter passes
-- Branch up to date with main
+- Branch up to date with master
 
 **After merge:**
 - Delete feature branch
 - Close related issues
 - Monitor deployment
+- Verify change works
 
-## Collaboration Best Practices
+## Branch Management
 
-**Communication:**
-- Keep team informed of progress
-- Discuss architectural changes before implementation
+**Creating branches:**
+- Branch from master (or main if project uses it)
+- Descriptive names
+- Focused purpose
+- Push early
+
+**Maintaining branches:**
+- Sync with master regularly
+- Keep CI green
+- Update with feedback
+
+**Cleanup:**
+- Delete after merge
+- Remove stale branches regularly
+- Archive important unmerged work
+
+## Collaboration
+
+**Team communication:**
+- Keep team informed
+- Discuss architectural changes early
 - Ask for help when stuck
+- Share knowledge
+- Communicate breaking changes
 
-**Conflict resolution:**
-- Resolve conflicts locally before pushing
-- Test thoroughly after resolution
-- Ask for help with complex conflicts
-
-**Protect main branch:**
-- Require PR for all changes
-- No direct commits to main
+**Protect master branch:**
+- Require PR for all changes to master
+- No direct commits to master (ever)
 - Enforce branch protection rules
+- Require status checks
+- Require reviews
+- Prevent force push to master
+
+**Note:** Use "master" for new projects, "main" if project already uses it.
