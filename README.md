@@ -4,6 +4,37 @@ A personal Cursor IDE configuration repository that enforces strict AI agent beh
 
 **Note:** This project is located in the home directory at `~/.cursor`
 
+## Quick Start
+
+### For New Projects
+
+1. Navigate to your project directory
+2. Run `sync-shared-rules` command to get universal development rules
+3. Run `setup-cursor-rules` command to generate project-specific rules
+4. Review and customize generated rules in `.cursor/rules/`
+
+### For Existing Projects
+
+1. Navigate to your project directory
+2. Run `sync-shared-rules` to get or update shared rules
+3. Run `setup-cursor-rules` to validate and refactor existing rules
+4. Review refactored rules and start new agent session
+
+### Shared Rules
+
+The shared rules provide universal guidance:
+- Rules and commands management
+- Version control and collaboration
+- Development workflow (planning, features, bugs, refactoring)
+- Code quality and standards
+- Testing conventions
+- Security practices
+- Documentation standards
+- Environment setup
+- Release management
+
+See [`rules/`](rules/) directory for all shared rules.
+
 ## System Commands
 
 Workspace maintenance commands:
@@ -28,10 +59,6 @@ The [`commands/`](commands/) directory contains workflow templates for common de
 | [**run&#8209;tests&#8209;and&#8209;fix&#8209;failures**](commands/run-tests-and-fix-failures.md) | ![WIP](https://img.shields.io/badge/status-WIP-yellow) | Execute full test suite, analyze failures systematically, fix issues by priority, and ensure all tests pass with proper validation |
 | [**security&#8209;audit**](commands/security-audit.md) | ![WIP](https://img.shields.io/badge/status-WIP-yellow) | Comprehensive security review to identify and fix vulnerabilities in dependencies, code, authentication, data handling, and infrastructure configuration |
 | [**setup&#8209;new&#8209;feature**](commands/setup-new-feature.md) | ![WIP](https://img.shields.io/badge/status-WIP-yellow) | Systematically set up a new feature from requirements gathering through implementation structure and testing strategy |
-
-## Shared Rules
-
-The [`rules/`](rules/) directory contains common shared developer rules that can be synced to any project using the `sync-shared-rules` command. These rules are project-independent, framework-agnostic, and cover universal development best practices.
 
 ---
 
