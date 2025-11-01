@@ -4,7 +4,15 @@ A personal Cursor IDE configuration repository that enforces strict AI agent beh
 
 **Note:** This project is located in the home directory at `~/.cursor`
 
-## Available Commands
+## System Commands
+
+Workspace maintenance commands:
+
+| Command | Status | Description |
+|---------|--------|-------------|
+| [**sync&#8209;shared&#8209;rules**](commands/sync-shared-rules.md) | ![Stable](https://img.shields.io/badge/status-stable-green) | Sync common shared developer rules from this workspace to a target project. |
+
+## Development Commands
 
 The [`commands/`](commands/) directory contains workflow templates for common development tasks:
 
