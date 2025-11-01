@@ -1,9 +1,11 @@
 # Sync Shared Rules
 
 ## Overview
-Sync common shared developer rules from this workspace (`~/.cursor/rules/`) to a target project's `.cursor/rules/` directory. Updates shared rules source before syncing and handles file conflicts interactively.
+**One-way sync** of shared developer rules FROM `~/.cursor/rules/` TO a target project's `.cursor/rules/` directory. This command ONLY syncs from the shared rules repository to projects, never in reverse. Updates shared rules source before syncing and handles file conflicts interactively.
 
 ## Steps
+
+**Note:** This is a one-way sync. Source is always `~/.cursor/rules/` (shared rules repository). Target is always the project's `.cursor/rules/` directory. Never syncs changes back to `~/.cursor/`.
 
 ### 1. Update Shared Rules Source
 - Navigate to `~/.cursor/` directory
@@ -31,14 +33,15 @@ Sync common shared developer rules from this workspace (`~/.cursor/rules/`) to a
 - Verify directories created successfully
 - Confirm write access to `.cursor/rules/`
 
-### 4. Sync Rule Files
-- List all `shared-*.mdc` files in `~/.cursor/rules/`
+### 4. Sync Rule Files (One-Way: Source → Target)
+- List all `shared-*.mdc` files in `~/.cursor/rules/` (source)
 - For each shared rule file:
-  - Check if file exists in target `.cursor/rules/`
-  - If file doesn't exist: copy file to target
-  - If file exists: check if identical
+  - Check if file exists in target project's `.cursor/rules/`
+  - If file doesn't exist in target: copy from source to target
+  - If file exists in target: compare with source
   - If different: ask user (overwrite/skip/show diff)
   - Track synced and skipped files
+- **Never** copy files from target back to `~/.cursor/rules/`
 
 ### 5. Handle Conflicts
 When target file exists and differs from source:
@@ -57,10 +60,11 @@ When target file exists and differs from source:
 - Indicate sync completion status
 
 ## Checklist
-- [ ] Shared rules source updated (git pull)
+- [ ] Shared rules source (`~/.cursor/rules/`) updated (git pull)
 - [ ] Target project validated (git repo, write access)
 - [ ] Target `.cursor/rules/` directory prepared
-- [ ] All shared rule files processed
+- [ ] All `shared-*.mdc` files synced from source to target
 - [ ] Conflicts handled appropriately
 - [ ] Sync report generated and displayed
+- [ ] Confirmed: no files synced back to `~/.cursor/`
 
