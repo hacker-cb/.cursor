@@ -3,7 +3,7 @@
 ## Overview
 Analyze project and setup cursor rules in `.cursor/rules/`. For new projects: generates rules from scratch based on detected patterns. For existing projects: validates and refactors rules against current codebase. Handles both initialization and ongoing maintenance.
 
-## Steps
+## Common Steps
 
 ### 1. Verify Git Repository
 - Check for `.git` directory in project root
@@ -41,9 +41,11 @@ Analyze project and setup cursor rules in `.cursor/rules/`. For new projects: ge
 
 ---
 
-## INIT Flow (No Local Rules)
+## Common Functions
 
-### 6A. Detect Project Tech Stack
+These functions are used by both INIT and REFACTOR flows.
+
+### Detect Tech Stack
 - Use `git ls-files` for tracked files only
 - Detect architecture: single-module, multi-platform, or multi-module
 - Scan dependency manifests per module/platform
@@ -51,163 +53,154 @@ Analyze project and setup cursor rules in `.cursor/rules/`. For new projects: ge
 - List build tools and frameworks
 - Create tech stack summary
 
-### 7A. Analyze Code Patterns
+### Analyze Code Patterns
 Sample tracked code (20-30 files per language per module):
 - Naming conventions (variables, functions, classes)
 - Project structure and organization
-- Architecture style
-- Testing approaches
-- Error handling patterns
-- Code formatting
-- Per-module if multi-module
+- Architecture style (MVC, layered, microservices)
+- Testing approaches and patterns
+- Error handling and logging patterns
+- Code formatting and style
 
-### 8A. Confirm Structure and Naming Policy
+### Confirm Structure and Naming Policy
 - Present detected architecture
 - List modules/platforms if applicable
 - Show detected structure
-- Ask user to confirm
+- Ask user to confirm accuracy
 - Present naming policy options from shared-rules-management.mdc
-- Ask user which pattern to use
+- Ask user which pattern to use (local-*, module-name-*, platform-*, feature-*)
 - Document agreed convention
 
-### 9A. Present Generation Plan
-- Tech stack detected
-- Modules/platforms identified
-- Patterns found
-- Local rules to generate (list with naming)
+### Validate Generated Rules
+- Verify YAML frontmatter syntax correct
+- Test globs match tracked files with `git ls-files`
+- Check naming follows agreed convention
+- Verify tags accurate for file targeting
+- Ensure 50-150 lines per rule (max 300 if needed)
+- Save all rule files
+
+### Generate Report
+- Tech stack summary
+- Shared rules status
+- Local rules created/updated (list with descriptions)
+- Patterns documented
+- Issues found and resolved
+- Next steps and recommendations
+
+---
+
+## INIT Flow (No Local Rules)
+
+Generate rules from scratch based on project analysis.
+
+### 6. Detect and Analyze Project
+- Call: [Detect Tech Stack](#detect-tech-stack)
+- Call: [Analyze Code Patterns](#analyze-code-patterns)
+- Document findings for rule generation
+
+### 7. Confirm with User
+- Call: [Confirm Structure and Naming Policy](#confirm-structure-and-naming-policy)
+- Get user approval before generation
+
+### 8. Present Generation Plan
+- Tech stack detected (languages, frameworks, tools)
+- Architecture identified (modules, platforms, structure)
+- Local rules to generate with proposed names
+- Patterns to document (naming, testing, style)
 - Ask confirmation to proceed
 
-### 10A. Generate Local Rules
+### 9. Generate Local Rules
 Create `local-*.mdc` files following confirmed naming:
-- Per language/framework rules
-- Per module/platform rules if applicable
-- Architecture and structure rules
-- Testing conventions
-- Code style rules
-- Use YAML frontmatter with tags and globs
-- Base on actual code patterns
-- 50-150 lines per rule (max 300)
+- Per language/framework rules (e.g., `local-python.mdc`, `local-typescript.mdc`)
+- Per module/platform rules if multi-module (e.g., `local-backend.mdc`, `local-frontend.mdc`)
+- Architecture and structure rules (e.g., `local-architecture.mdc`)
+- Testing conventions (e.g., `local-testing.mdc`)
+- Code style and formatting (e.g., `local-style.mdc`)
+- Use YAML frontmatter with appropriate tags and globs
+- Base rules on actual code patterns found
 
-### 11A. Validate Generated Rules
-- Verify metadata syntax
-- Test globs match tracked files
-- Check naming follows convention
-- Verify tags accurate
-- Save all generated files
-
-### 12A. Generate Report
-- Tech stack summary
-- Shared rules synced
-- Local rules generated (list)
-- Patterns documented
-- Next steps: review and refine rules
+### 10. Validate and Report
+- Call: [Validate Generated Rules](#validate-generated-rules)
+- Call: [Generate Report](#generate-report)
+- Recommend reviewing and refining generated rules
 
 ---
 
 ## REFACTOR Flow (Has Local Rules)
 
-### 6B. Refresh Agent Context
-- Re-read all existing rules
-- Load into agent context
-- Ensures fresh understanding
+Validate and update existing rules against current codebase.
 
-### 7B. Migrate Old Rules
+### 6. Refresh Context and Migrate
+- Re-read all existing local rules
+- Load into agent context for fresh understanding
 - For files without prefix: suggest `local-` names
 - Follow confirmed naming convention
-- Ask user approval for each
+- Ask user approval for each migration
 
-### 8B. Detect Project Tech Stack
-- Same as 6A (detect from tracked files)
+### 7. Detect Current State
+- Call: [Detect Tech Stack](#detect-tech-stack)
+- Call: [Analyze Code Patterns](#analyze-code-patterns)
+- Document current project state
 
-### 9B. Confirm Structure and Naming Policy
-- Same as 8A (confirm with user)
+### 8. Confirm with User
+- Call: [Confirm Structure and Naming Policy](#confirm-structure-and-naming-policy)
+- Verify understanding matches reality
 
-### 10B. Analyze Current Codebase
-- Sample tracked code per module/platform
-- Extract actual conventions
-- Document practices found
+### 9. Compare Rules to Reality
+- Analyze existing local rules content
+- Identify valuable practices worth keeping
+- Compare rules to actual code patterns
+- Check tech stack still matches documented
+- Verify globs still match project structure
+- Find obsolete or outdated guidance
+- Identify coverage gaps (missing rules)
 
-### 11B. Analyze Existing Local Rules
-- Read current guidance
-- Identify valuable practices
-- Find outdated guidance
+### 10. Present Refactoring Plan
+- Tech stack changes vs documented
+- Rules to update with specific changes
+- Rules to remove or consolidate
+- Metadata corrections needed (globs, tags)
+- New rules to create for gaps
+- Ask user confirmation to proceed
 
-### 12B. Validate Against Reality
-- Compare rules to actual code
-- Check tech stack still accurate
-- Verify globs match structure
-- Find obsolete rules
-- Identify gaps
+### 11. Refactor Local Rules
+- Preserve valuable guidance that's still relevant
+- Update rules to match current code reality
+- Remove obsolete sections and outdated practices
+- Fix metadata (globs, tags) for accuracy
+- Create new rules for identified gaps
+- Target 50-150 lines per rule (max 300 if comprehensive)
 
-### 13B. Present Refactoring Plan
-- Tech stack vs documented
-- Rules to update/remove/consolidate
-- Metadata corrections
-- New rules suggested
-- Ask confirmation
+### 12. Validate, Report, and Recommend
+- Call: [Validate Generated Rules](#validate-generated-rules)
+- Call: [Generate Report](#generate-report)
+- Recommend starting new agent session to load updated rules
 
-### 14B. Refactor Local Rules
-- Preserve valuable guidance
-- Update to current reality
-- Remove obsolete sections
-- Target 50-150 lines
-
-### 15B. Update Metadata
-- Fix globs for tracked files
-- Update tags
-- Test with git ls-files
-
-### 16B. Suggest New Rules
-- For gaps found
-- Follow naming convention
-
-### 17B. Validate and Save
-- Verify all changes
-- Save updates
-
-### 18B. Recommend New Session
-- Inform rules refactored
-- Recommend new agent session
-
-### 19B. Generate Report
-- Changes made
-- Migrations
-- Removals
-- New rules created
+---
 
 ## Checklist
 
-### Both Flows
+### Common (All Flows)
 - [ ] Git repository verified
-- [ ] Shared rules checked/synced
-- [ ] Deprecated .cursorrules handled
+- [ ] Existing rules categorized
+- [ ] Shared rules present/synced
+- [ ] Deprecated files handled
 - [ ] Nested directories resolved
-- [ ] Existing rules checked
-
-### Init Flow
 - [ ] Tech stack detected
 - [ ] Code patterns analyzed
 - [ ] Structure and naming confirmed
-- [ ] Generation plan presented
-- [ ] User confirmation received
+
+### INIT Flow
+- [ ] Generation plan approved
 - [ ] Local rules generated
 - [ ] Rules validated
-- [ ] Report generated
+- [ ] Report provided
 
-### Refactor Flow
-- [ ] Agent context refreshed
+### REFACTOR Flow
 - [ ] Old rules migrated
-- [ ] Tech stack detected
-- [ ] Structure and naming confirmed
-- [ ] Codebase analyzed
-- [ ] Existing rules analyzed
-- [ ] Rules validated against reality
-- [ ] Refactoring plan presented
-- [ ] User confirmation received
-- [ ] Local rules refactored
-- [ ] Metadata updated
-- [ ] New rules suggested
-- [ ] Changes validated
+- [ ] Rules compared to reality
+- [ ] Refactoring plan approved
+- [ ] Local rules updated
+- [ ] New rules created
 - [ ] New session recommended
-- [ ] Report generated
-
+- [ ] Report provided
