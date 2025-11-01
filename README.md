@@ -11,6 +11,7 @@ Workspace maintenance commands:
 | Command | Status | Description |
 |---------|--------|-------------|
 | [**sync&#8209;shared&#8209;rules**](commands/sync-shared-rules.md) | ![Stable](https://img.shields.io/badge/status-stable-green) | Sync common shared developer rules from this workspace to a target project. |
+| [**refactor&#8209;cursor&#8209;rules**](commands/refactor-cursor-rules.md) | ![Stable](https://img.shields.io/badge/status-stable-green) | Analyze project tech stack and refactor project-specific cursor rules in `.cursor/rules/`. Validates rules against current codebase reality, preserves valuable guidance, and maintains rule quality and relevance |
 
 ## Development Commands
 
@@ -25,7 +26,6 @@ The [`commands/`](commands/) directory contains workflow templates for common de
 | [**github&#8209;workflow&#8209;autofix**](commands/github-workflow-autofix.md) | ![Stable](https://img.shields.io/badge/status-stable-green) | Analyzes GitHub workflow runs, watches for failed runs, and automatically applies fixes until all workflows pass. If any workflow is currently running, it waits for the result before proceeding, then handles failures iteratively |
 | [**init&#8209;cursor&#8209;rules**](commands/init-cursor-rules.md) | ![WIP](https://img.shields.io/badge/status-WIP-yellow) | Analyze a project and generate tech-stack-specific Cursor rules as `.mdc` files in `.cursor/rules/` directory based on detected patterns, conventions, and architecture |
 | [**onboard&#8209;new&#8209;developer**](commands/onboard-new-developer.md) | ![WIP](https://img.shields.io/badge/status-WIP-yellow) | Comprehensive onboarding process to get a new developer up and running with proper environment setup, project understanding, and first contribution |
-| [**refactor&#8209;cursor&#8209;rules**](commands/refactor-cursor-rules.md) | ![WIP](https://img.shields.io/badge/status-WIP-yellow) | Analyze project tech stack and refactor `.cursor/rules/*.mdc` files to match the project by removing duplicates, irrelevant rules, and unnecessary examples. Update metadata for precise application |
 | [**run&#8209;tests&#8209;and&#8209;fix&#8209;failures**](commands/run-tests-and-fix-failures.md) | ![WIP](https://img.shields.io/badge/status-WIP-yellow) | Execute full test suite, analyze failures systematically, fix issues by priority, and ensure all tests pass with proper validation |
 | [**security&#8209;audit**](commands/security-audit.md) | ![WIP](https://img.shields.io/badge/status-WIP-yellow) | Comprehensive security review to identify and fix vulnerabilities in dependencies, code, authentication, data handling, and infrastructure configuration |
 | [**setup&#8209;new&#8209;feature**](commands/setup-new-feature.md) | ![WIP](https://img.shields.io/badge/status-WIP-yellow) | Systematically set up a new feature from requirements gathering through implementation structure and testing strategy |
