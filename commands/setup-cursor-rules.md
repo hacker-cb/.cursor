@@ -16,10 +16,11 @@ Analyze project and setup cursor rules in `.cursor/rules/`. For new projects: ge
 - Categorize:
   - **Shared rules:** `shared-*.mdc` (from workspace)
   - **Local rules:** `local-*.mdc` (project-specific)
-  - **Old rules:** Without prefix
+  - **Old rules:** Without prefix (require migration)
 - Determine workflow:
-  - **If no local rules:** INIT flow (generate from scratch)
+  - **If no local rules and no old rules:** INIT flow (generate from scratch)
   - **If has local rules:** REFACTOR flow (validate and update)
+  - **If has old rules only:** OLD RULES flow (analyze, refactor, migrate)
 
 ### 3. Check Shared Rules Present
 - List all `shared-*.mdc` files in `.cursor/rules/`
@@ -130,12 +131,13 @@ Create `local-*.mdc` files following confirmed naming:
 
 Validate and update existing rules against current codebase.
 
-### 6. Refresh Context and Migrate
+### 6. Refresh Context and Handle Mixed Rules
 - Re-read all existing local rules
 - Load into agent context for fresh understanding
-- For files without prefix: suggest `local-` names
-- Follow confirmed naming convention
-- Ask user approval for each migration
+- If old rules (without prefix) also exist:
+  - Note their presence for deeper analysis
+  - Will analyze alongside local rules in step 9
+  - Will suggest migration in step 10
 
 ### 7. Detect Current State
 - Call: [Detect Tech Stack](#detect-tech-stack)
@@ -148,12 +150,14 @@ Validate and update existing rules against current codebase.
 
 ### 9. Compare Rules to Reality
 - Analyze existing local rules content
+- If old rules exist: analyze their content too
 - Identify valuable practices worth keeping
 - Compare rules to actual code patterns
 - Check tech stack still matches documented
 - Verify globs still match project structure
 - Find obsolete or outdated guidance
 - Identify coverage gaps (missing rules)
+- For old rules: determine migration strategy
 
 ### 10. Present Refactoring Plan
 - Tech stack changes vs documented
@@ -161,6 +165,7 @@ Validate and update existing rules against current codebase.
 - Rules to remove or consolidate
 - Metadata corrections needed (globs, tags)
 - New rules to create for gaps
+- If old rules exist: migration plan (rename, refactor, split)
 - Ask user confirmation to proceed
 
 ### 11. Refactor Local Rules
@@ -169,11 +174,73 @@ Validate and update existing rules against current codebase.
 - Remove obsolete sections and outdated practices
 - Fix metadata (globs, tags) for accuracy
 - Create new rules for identified gaps
+- If old rules exist: migrate to proper `local-*` naming and delete old files
 - Target 50-150 lines per rule (max 300 if comprehensive)
 
 ### 12. Validate, Report, and Recommend
 - Call: [Validate Generated Rules](#validate-generated-rules)
 - Call: [Generate Report](#generate-report)
+- Recommend starting new agent session to load updated rules
+
+---
+
+## OLD RULES Flow (Has Old Rules Without Prefix)
+
+Deep analysis and refactoring of rules without proper naming prefix.
+
+### 6. Analyze Old Rules Content
+- Read all old rule files (without `local-` or `shared-` prefix)
+- Categorize content by domain:
+  - Language/framework-specific guidance
+  - Architecture and structure patterns
+  - Testing conventions
+  - Code style and formatting
+  - Project-specific vs universal guidance
+- Identify valuable vs outdated content
+- Check for mixed content that should be split
+
+### 7. Detect Current Project State
+- Call: [Detect Tech Stack](#detect-tech-stack)
+- Call: [Analyze Code Patterns](#analyze-code-patterns)
+- Document current codebase reality
+
+### 8. Compare Old Rules to Current Reality
+- Match old rules content to current code patterns
+- Identify still-relevant guidance worth preserving
+- Find outdated practices no longer used
+- Detect mismatches with current tech stack
+- Check if globs/tags still accurate
+- Find content better suited for shared rules
+
+### 9. Confirm with User
+- Call: [Confirm Structure and Naming Policy](#confirm-structure-and-naming-policy)
+- Present findings from old rules analysis
+- Show what's still relevant vs outdated
+
+### 10. Present Migration and Refactoring Plan
+- Old rules content breakdown
+- Guidance worth preserving with rationale
+- Outdated content to remove with explanation
+- Suggested new file structure with proper naming
+- Content to split into multiple files
+- Content to consolidate
+- Potential shared rules candidates
+- Ask user confirmation to proceed
+
+### 11. Refactor and Migrate
+- Create new `local-*.mdc` files with proper naming
+- Preserve valuable guidance from old rules
+- Update content to match current codebase
+- Remove outdated and irrelevant sections
+- Split mixed content into focused files
+- Add proper YAML frontmatter (tags, globs)
+- Ensure 50-150 lines per rule (max 300)
+- Delete old rule files after successful migration
+
+### 12. Validate, Report, and Recommend
+- Call: [Validate Generated Rules](#validate-generated-rules)
+- Call: [Generate Report](#generate-report)
+- Show migration summary (old → new mapping)
 - Recommend starting new agent session to load updated rules
 
 ---
@@ -204,3 +271,14 @@ Validate and update existing rules against current codebase.
 - [ ] New rules created
 - [ ] New session recommended
 - [ ] Report provided
+
+### OLD RULES Flow
+- [ ] Old rules content analyzed
+- [ ] Content compared to current codebase
+- [ ] Valuable content identified
+- [ ] Outdated content identified
+- [ ] Migration plan approved
+- [ ] New local rules created
+- [ ] Old rules deleted
+- [ ] Migration summary provided
+- [ ] New session recommended
