@@ -58,6 +58,7 @@ When target file exists and differs from source:
 - List any errors encountered
 - Show total: X files synced, Y files skipped, Z errors
 - Indicate sync completion status
+- **If files were synced (count > 0):** remind user to create new agent in target project to activate synced rules
 
 **Note:** To display rules information at any time, you can run `display-rules-summary` command.
 
@@ -68,5 +69,6 @@ When target file exists and differs from source:
 - [ ] All `shared-*.mdc` files synced from source to target
 - [ ] Conflicts handled appropriately
 - [ ] Sync report generated and displayed
+- [ ] If changes synced: user reminded to create new agent in target project
 - [ ] Confirmed: no files synced back to `~/.cursor/`
 
