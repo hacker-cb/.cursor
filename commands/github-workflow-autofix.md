@@ -3,6 +3,8 @@
 ## Overview
 This command analyzes GitHub workflow runs, watches for failed runs, and automatically applies fixes until all workflows pass. If any workflow is currently running, it waits for the result before proceeding, then handles failures iteratively.
 
+**Note:** After fixing workflows, use `merge-squash-push` for clean squash merge with conventional commit messages.
+
 ## Common
 
 - Use `gh` CLI command for working with GitHub workflows

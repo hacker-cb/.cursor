@@ -5,6 +5,8 @@ Scan and display all Cursor rules with their apply modes, descriptions, and meta
 
 ## Steps
 
+**Note:** To sync shared rules from workspace, use `sync-shared-rules`. To setup or refactor project rules, use `setup-cursor-rules`.
+
 1. **Scan rules directory**
    - Check `.cursor/rules/` in project root
    - Parse all `.mdc` files for metadata

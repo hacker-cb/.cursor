@@ -57,6 +57,7 @@ Comprehensive analysis of project architecture, dependencies, configuration, cod
 - Check integration tests within components
 - Check end-to-end tests across components
 - Verify test execution scripts in package manifest
+- **Note:** To add missing tests systematically, see `add-test-coverage`
 
 ### 7. Review Documentation
 - Check README completeness: setup, usage, architecture, contributing
@@ -74,6 +75,7 @@ Comprehensive analysis of project architecture, dependencies, configuration, cod
 - Review error handling for information leakage
 - Check CORS and cross-origin policies
 - Verify dependency sources are secure and official
+- **Note:** For comprehensive security review, see `security-audit`
 
 ### 9. Build and Deployment
 - Verify build scripts execute successfully
@@ -90,6 +92,7 @@ Comprehensive analysis of project architecture, dependencies, configuration, cod
 - Prioritize fixes by impact and implementation effort
 - Offer to fix issues interactively with user confirmation
 - Generate summary with counts by severity and category
+- **Note:** After analysis, consider running `setup-cursor-rules` to update project rules based on findings
 
 ## Checklist
 - [ ] Project composition and architecture identified

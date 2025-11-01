@@ -3,6 +3,8 @@
 ## Overview
 Comprehensive code review workflow covering functionality, quality, security, performance, testing, and documentation to ensure changes meet project standards before merge.
 
+**Note:** For comprehensive security review, see `security-audit`. For test coverage analysis, see `add-test-coverage`.
+
 ## Steps
 
 ### 1. Understand Context

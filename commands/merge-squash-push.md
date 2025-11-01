@@ -3,6 +3,8 @@
 ## Overview
 Interactive squash merge workflow with automatic base branch detection, change summary, and confirmation prompts. Follows git workflow standards for clean commit history.
 
+**Note:** If workflows fail after push, use `github-workflow-autofix` to automatically resolve issues.
+
 ## Steps
 
 ### 1. Detect Base Branch

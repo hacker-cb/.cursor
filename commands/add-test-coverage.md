@@ -3,6 +3,8 @@
 ## Overview
 Analyze project for test coverage gaps, suggest testing frameworks if missing, identify missing tests by priority, and implement tests systematically with user-guided selection.
 
+**Note:** After adding tests, run `code-review` for comprehensive review before merge.
+
 ## Steps
 
 ### 1. Analyze Testing Infrastructure

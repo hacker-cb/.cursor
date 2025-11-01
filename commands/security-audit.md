@@ -3,6 +3,8 @@
 ## Overview
 Comprehensive security review to identify and fix vulnerabilities in dependencies, code, authentication, authorization, data handling, and infrastructure configuration using industry best practices.
 
+**Note:** For comprehensive code review including functionality and quality, see `code-review`.
+
 ## Steps
 
 ### 1. Dependency Security Audit
