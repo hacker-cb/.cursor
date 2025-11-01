@@ -2,7 +2,15 @@
 
 [![Test Installation Script](https://github.com/hacker-cb/.cursor/actions/workflows/test-install.yml/badge.svg)](https://github.com/hacker-cb/.cursor/actions/workflows/test-install.yml)
 
-A personal Cursor IDE configuration repository that enforces strict AI agent behavior policies through `.mdc` rule files and provides reusable workflow command templates for common development tasks. Features a git-only access policy to protect privacy, framework-agnostic development best practices, and self-maintaining documentation with automatic README synchronization.
+A personal Cursor IDE configuration with strict AI agent policies and reusable development workflows.
+
+## Features
+
+- **Strict AI Boundaries** - Git-only access policy protects privacy and sensitive data
+- **Universal Standards** - Framework-agnostic development rules for any tech stack
+- **Workflow Automation** - Ready-to-use command templates for common tasks
+- **Self-Maintaining** - Automatic documentation synchronization
+- **Easy Distribution** - One-command sync to any project
 
 **Note:** This project is located in the home directory at `~/.cursor`
 
@@ -29,19 +37,14 @@ See [INSTALL.md](INSTALL.md) for detailed instructions and troubleshooting.
 
 ## Quick Start
 
-### For New Projects
+### Setup Your Project
 
-1. Navigate to your project directory
-2. Run `sync-shared-rules` command to get universal development rules
-3. Run `setup-cursor-rules` command to generate project-specific rules
-4. Review and customize generated rules in `.cursor/rules/`
+1. **Navigate to your project** directory
+2. **Run `sync-shared-rules`** to get universal development rules
+3. **Run `setup-cursor-rules`** to generate/validate project-specific rules
+4. **Review and customize** rules in `.cursor/rules/`
 
-### For Existing Projects
-
-1. Navigate to your project directory
-2. Run `sync-shared-rules` to get or update shared rules
-3. Run `setup-cursor-rules` to validate and refactor existing rules
-4. Review refactored rules and start new agent session
+The setup process works for both new and existing projects - the commands automatically detect and adapt.
 
 ### Shared Rules
 
@@ -58,24 +61,42 @@ The shared rules provide universal guidance:
 
 See [`rules/`](rules/) directory for all shared rules.
 
-## System Commands
+## Commands
 
-Workspace maintenance commands:
+Workflow templates that guide development tasks. All commands are framework-agnostic and adapt to your project.
+
+### System Commands
+
+Workspace maintenance and setup:
 
 | Command | Status | Description |
 |---------|--------|-------------|
 | [**sync&#8209;shared&#8209;rules**](commands/sync-shared-rules.md) | ![Stable](https://img.shields.io/badge/status-stable-green) | One-way sync of shared developer rules from this workspace (`~/.cursor/rules/`) to a target project's `.cursor/rules/` directory. Handles conflicts interactively. |
 | [**setup&#8209;cursor&#8209;rules**](commands/setup-cursor-rules.md) | ![Stable](https://img.shields.io/badge/status-stable-green) | Analyze project and setup cursor rules. For new projects: generates rules from scratch. For existing: validates and refactors against current codebase. |
 
-## Development Commands
+### Git & CI/CD Commands
 
-The [`commands/`](commands/) directory contains workflow templates for common development tasks:
+Version control and continuous integration workflows:
+
+| Command | Status | Description |
+|---------|--------|-------------|
+| [**merge&#8209;squash&#8209;push**](commands/merge-squash-push.md) | ![Stable](https://img.shields.io/badge/status-stable-green) | Interactive squash merge workflow with automatic base branch detection, change summary, and confirmation prompts. Follows git workflow standards for clean commit history |
+| [**github&#8209;workflow&#8209;autofix**](commands/github-workflow-autofix.md) | ![Stable](https://img.shields.io/badge/status-stable-green) | Analyzes GitHub workflow runs, watches for failed runs, and automatically applies fixes until all workflows pass. If any workflow is currently running, it waits for the result before proceeding, then handles failures iteratively |
+
+### Code Quality Commands
+
+Analysis and review workflows:
+
+| Command | Status | Description |
+|---------|--------|-------------|
+| [**code&#8209;review**](commands/code-review.md) | ![Stable](https://img.shields.io/badge/status-stable-green) | Comprehensive code review workflow covering functionality, quality, security, performance, testing, and documentation to ensure changes meet project standards before merge |
+| [**analyze&#8209;project&#8209;structure**](commands/analyze-project-structure.md) | ![Stable](https://img.shields.io/badge/status-stable-green) | Comprehensive analysis of project architecture, dependencies, configuration, code quality, testing, security, and deployment setup with prioritized fix recommendations |
+
+### Testing & Security Commands
+
+Testing coverage and security audit workflows:
 
 | Command | Status | Description |
 |---------|--------|-------------|
 | [**add&#8209;test&#8209;coverage**](commands/add-test-coverage.md) | ![Stable](https://img.shields.io/badge/status-stable-green) | Analyze project for test coverage gaps, suggest testing frameworks if missing, identify missing tests by priority, and implement tests systematically with user-guided selection |
-| [**analyze&#8209;project&#8209;structure**](commands/analyze-project-structure.md) | ![Stable](https://img.shields.io/badge/status-stable-green) | Comprehensive analysis of project architecture, dependencies, configuration, code quality, testing, security, and deployment setup with prioritized fix recommendations |
-| [**code&#8209;review**](commands/code-review.md) | ![Stable](https://img.shields.io/badge/status-stable-green) | Comprehensive code review workflow covering functionality, quality, security, performance, testing, and documentation to ensure changes meet project standards before merge |
-| [**github&#8209;workflow&#8209;autofix**](commands/github-workflow-autofix.md) | ![Stable](https://img.shields.io/badge/status-stable-green) | Analyzes GitHub workflow runs, watches for failed runs, and automatically applies fixes until all workflows pass. If any workflow is currently running, it waits for the result before proceeding, then handles failures iteratively |
-| [**merge&#8209;squash&#8209;push**](commands/merge-squash-push.md) | ![Stable](https://img.shields.io/badge/status-stable-green) | Interactive squash merge workflow with automatic base branch detection, change summary, and confirmation prompts. Follows git workflow standards for clean commit history |
 | [**security&#8209;audit**](commands/security-audit.md) | ![Stable](https://img.shields.io/badge/status-stable-green) | Comprehensive security review to identify and fix vulnerabilities in dependencies, code, authentication, authorization, data handling, and infrastructure configuration using industry best practices |
