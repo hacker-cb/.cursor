@@ -11,16 +11,39 @@ Keep README.md focused on:
 - Links to important files and documentation
 - Brief, scannable format
 
-## DEVELOPER_RULES.md
+## This Workspace (`.cursor/`)
 
-This file contains universal AI development best practices:
-- **Project-independent** - works for any tech stack
-- **Framework-agnostic** - not tied to specific tools
-- **General principles** - applicable across languages and platforms
-- **Consultative approach** - suggest options with benefits, let user decide
+Workspace-specific rules for maintaining this Cursor configuration repository.
 
-When updating DEVELOPER_RULES.md:
-- Keep rules generic and widely applicable
-- Use examples from multiple ecosystems (Python, Node.js, Ruby, etc.)
-- Focus on principles over specific implementations
-- Maintain clear section organization
+### `.cursor/rules/` - Workspace Rules
+
+Guidelines for maintaining this workspace:
+- **Scope**: This workspace only
+- **Purpose**: Enforce universal, framework-agnostic standards for content in this repository
+- **Not synced**: These rules stay in this workspace
+- **Examples**: command-files.mdc, rules-files.mdc, git-only-policy.mdc
+
+## Shared Resources
+
+Common resources distributed to all developer projects.
+
+### `commands/` - Shared Commands
+
+Development workflow templates:
+- **Scope**: Generic, reusable workflow commands
+- **Purpose**: Common development tasks applicable to any project
+- **Usage**: Referenced directly or copied to project workflows
+- **Examples**: init-cursor-rules.md, code-review.md, security-audit.md
+
+### `rules/` - Shared Rules
+
+Universal development guidelines:
+- **Scope**: Framework-agnostic, language-neutral best practices
+- **Purpose**: Synced to projects via `sync-shared-rules` command
+- **Target**: Any developer project regardless of tech stack
+- **Content**: Rules and commands management, version control, planning, code quality, testing, security, documentation, environment
+
+## Key Distinction
+
+- **This workspace rules** (`.cursor/rules/`) - enforce universal standards FOR this repository
+- **Shared resources** (`commands/`, `rules/`) - provide universal guidelines and workflows TO other projects

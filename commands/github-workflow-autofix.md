@@ -80,10 +80,15 @@ This command analyzes GitHub workflow runs, watches for failed runs, and automat
 **Purpose:** Create a fix branch and iteratively fix workflow failures until all pass
 
 **Steps:**
-- Analyze error details from failed workflows to generate meaningful branch name
-- Create branch name based on error context (e.g., `autofix/lint-errors`, `autofix/test-timeout`)
-- If error context not clear, use generic pattern: `autofix/workflow-failures-YYYYMMDD`
-- Create and checkout new branch: `git checkout -b <branch-name>`
+- Check current branch name: `git branch --show-current`
+- **If already in autofix branch** (branch name starts with `autofix/`):
+  - Stay on current branch - no need to create new one
+  - Skip branch creation step
+- **If not in autofix branch:**
+  - Analyze error details from failed workflows to generate meaningful branch name
+  - Create branch name based on error context (e.g., `autofix/lint-errors`, `autofix/test-timeout`)
+  - If error context not clear, use generic pattern: `autofix/workflow-failures-YYYYMMDD`
+  - Create and checkout new branch: `git checkout -b <branch-name>`
 - **Ensure workflow_dispatch in fix branch:**
   - Check each workflow file in `.github/workflows/` directory
   - For each workflow, check for `workflow_dispatch` in the `on:` section
