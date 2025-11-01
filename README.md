@@ -64,7 +64,7 @@ Workspace maintenance commands:
 
 | Command | Status | Description |
 |---------|--------|-------------|
-| [**sync&#8209;shared&#8209;rules**](commands/sync-shared-rules.md) | ![Stable](https://img.shields.io/badge/status-stable-green) | One-way sync of shared developer rules from this workspace (`~/.cursor/rules/`) to a target project's `.cursor/rules/` directory. |
+| [**sync&#8209;shared&#8209;rules**](commands/sync-shared-rules.md) | ![Stable](https://img.shields.io/badge/status-stable-green) | One-way sync of shared developer rules from this workspace (`~/.cursor/rules/`) to a target project's `.cursor/rules/` directory. Intelligently migrates existing rules with deep content analysis and rewriting. |
 | [**setup&#8209;cursor&#8209;rules**](commands/setup-cursor-rules.md) | ![Stable](https://img.shields.io/badge/status-stable-green) | Analyze project and setup cursor rules. For new projects: generates rules from scratch. For existing: validates and refactors against current codebase. |
 
 ## Development Commands
