@@ -1,155 +1,106 @@
 # Code Review
 
 ## Overview
-Comprehensive code review process to ensure functionality, quality, security, performance, testing, and documentation meet project standards.
+Comprehensive code review workflow covering functionality, quality, security, performance, testing, and documentation to ensure changes meet project standards before merge.
 
 ## Steps
 
 ### 1. Understand Context
-- Read PR description and linked issues
+- Read PR/MR description and linked issues
 - Understand the problem being solved
-- Review user stories or requirements
-- Check if approach aligns with architecture
-- Identify affected areas of codebase
+- Review user stories, requirements, or acceptance criteria
+- Verify approach aligns with project architecture
+- Identify affected areas and potential impact
+- Check change scope is appropriate (not too large)
 
 ### 2. Review Functionality
-- Verify code implements stated requirements
-- Check logic correctness
+- Verify code implements stated requirements correctly
+- Check logic correctness and algorithm soundness
 - Test edge cases and boundary conditions
-- Verify error handling is appropriate
-- Check for potential bugs or logic errors
-- Ensure no unintended side effects
+- Verify error handling is appropriate and comprehensive
+- Check for potential bugs, race conditions, or logic errors
+- Ensure no unintended side effects or breaking changes
 
 ### 3. Assess Code Quality
-- Check code readability and clarity
-- Verify functions are small and focused
-- Ensure descriptive variable and function names
-- Check for code duplication (DRY principle)
-- Verify proper separation of concerns
-- Ensure code follows project conventions
-- Check for proper abstraction levels
+- Check code readability, clarity, and maintainability
+- Verify functions are small, focused, and single-purpose
+- Ensure descriptive variable, function, and class names
+- Check for code duplication (DRY principle violations)
+- Verify proper separation of concerns and layering
+- Ensure code follows project conventions and style guide
+- Check for appropriate abstraction levels
 
 ### 4. Review Security
-- Check for security vulnerabilities
-- Verify input validation is present
-- Ensure sensitive data handled properly
-- Check for SQL injection risks
-- Verify XSS protection
-- Ensure no hardcoded secrets
-- Check authorization and authentication
+- Check for common security vulnerabilities (OWASP Top 10)
+- Verify input validation and sanitization is present
+- Ensure sensitive data handled properly (encryption, secure storage)
+- Check for SQL injection risks in queries
+- Verify XSS protection in output rendering
+- Ensure no hardcoded secrets, credentials, or API keys
+- Check authorization and authentication implementation
 - Review error messages for information leakage
 
 ### 5. Evaluate Performance
-- Check for performance issues
-- Review database query efficiency
-- Check for N+1 query problems
-- Verify proper use of caching
-- Check memory usage patterns
-- Review algorithm complexity
-- Ensure no unnecessary computations
+- Check for obvious performance issues or inefficiencies
+- Review database query efficiency and indexing
+- Check for N+1 query problems in ORMs
+- Verify proper use of caching where appropriate
+- Check memory usage patterns and potential leaks
+- Review algorithm complexity (time and space)
+- Ensure no unnecessary computations or redundant operations
 
 ### 6. Review Testing
-- Verify tests cover new functionality
-- Check test quality and clarity
-- Ensure tests cover edge cases
-- Verify tests are isolated and independent
-- Check for proper test data setup
-- Ensure tests follow project patterns
-- Verify meaningful test descriptions
+- Verify tests cover new functionality adequately
+- Check test quality, clarity, and maintainability
+- Ensure tests cover edge cases and error conditions
+- Verify tests are isolated, independent, and deterministic
+- Check for proper test data setup and teardown
+- Ensure tests follow project testing patterns
+- Verify meaningful test descriptions and assertions
 
 ### 7. Check Documentation
-- Verify complex logic is commented
-- Check for updated API documentation
-- Ensure README updated if needed
-- Verify docstrings for public APIs
-- Check for updated changelog
-- Ensure migration guides if breaking changes
+- Verify complex logic has explanatory comments
+- Check API documentation updated if public interfaces changed
+- Ensure README updated if setup or usage changed
+- Verify docstrings/comments for public APIs and complex functions
+- Check changelog updated with user-facing changes
+- Ensure migration guides provided if breaking changes introduced
 
 ### 8. Review Dependencies
-- Check if new dependencies are necessary
-- Verify dependency versions are pinned
-- Review licenses of new dependencies
-- Check for security advisories
+- Check if new dependencies are truly necessary
+- Verify dependency versions are pinned (not using ranges)
+- Review licenses of new dependencies for compatibility
+- Check for known security advisories on dependencies
 - Ensure dependencies are actively maintained
+- Verify dependencies don't introduce bloat or conflicts
 
 ### 9. Verify Configuration
-- Check environment variable usage
-- Verify configuration follows project patterns
-- Ensure backward compatibility
-- Check for proper defaults
-- Verify deployment configurations updated
+- Check environment variable usage follows project patterns
+- Verify configuration changes maintain backward compatibility
+- Ensure proper defaults provided for all configuration
+- Check deployment configurations updated if needed
+- Verify environment variables documented
 
 ### 10. Provide Constructive Feedback
-- Be specific and actionable
-- Explain reasoning behind suggestions
+- Be specific and actionable in comments
+- Explain reasoning behind suggestions and concerns
 - Distinguish between blocking and non-blocking issues
-- Acknowledge good practices
-- Ask questions instead of making demands
-- Provide examples or alternatives
-- Balance criticism with praise
+- Acknowledge good practices and well-written code
+- Ask clarifying questions instead of making demands
+- Provide examples or alternatives when suggesting changes
+- Balance constructive criticism with positive feedback
+- Focus on improving code, not criticizing the author
 
-## Review Checklist
-
-### Context
-- [ ] PR description clear
-- [ ] Requirements understood
-- [ ] Approach aligns with architecture
-- [ ] Changes scope appropriate
-
-### Functionality
-- [ ] Implements stated requirements
-- [ ] Logic is correct
-- [ ] Edge cases handled
-- [ ] Error handling appropriate
-- [ ] No obvious bugs
-
-### Code Quality
-- [ ] Code readable and clear
-- [ ] Functions small and focused
-- [ ] Names descriptive
-- [ ] No code duplication
-- [ ] Follows project conventions
-- [ ] Proper separation of concerns
-
-### Security
-- [ ] No security vulnerabilities
-- [ ] Input validation present
-- [ ] Sensitive data handled properly
-- [ ] No hardcoded secrets
-- [ ] Authorization checked
-- [ ] SQL injection prevented
-- [ ] XSS protection in place
-
-### Performance
-- [ ] No obvious performance issues
-- [ ] Database queries efficient
-- [ ] No N+1 problems
-- [ ] Proper caching used
-- [ ] Reasonable algorithm complexity
-
-### Testing
-- [ ] Tests cover new functionality
-- [ ] Tests cover edge cases
-- [ ] Tests are independent
-- [ ] Test quality is good
-- [ ] Meaningful test descriptions
-
-### Documentation
-- [ ] Complex logic commented
-- [ ] API documentation updated
-- [ ] README updated if needed
-- [ ] Changelog updated
-- [ ] Migration guide if needed
-
-### Dependencies & Config
-- [ ] New dependencies justified
-- [ ] Dependency versions pinned
-- [ ] Licenses reviewed
-- [ ] Configuration properly updated
-- [ ] Environment variables documented
-
-### Final
-- [ ] CI checks passing
-- [ ] No merge conflicts
-- [ ] Feedback provided
+## Checklist
+- [ ] Context and requirements understood
+- [ ] Functionality correct and complete
+- [ ] Code quality meets standards
+- [ ] Security vulnerabilities addressed
+- [ ] Performance acceptable
+- [ ] Tests adequate and passing
+- [ ] Documentation updated
+- [ ] Dependencies justified and secure
+- [ ] Configuration properly handled
+- [ ] Constructive feedback provided
+- [ ] CI/CD checks passing
 - [ ] Approval or change requests given
