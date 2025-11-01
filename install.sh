@@ -120,17 +120,13 @@ check_cursor_running() {
     fi
 }
 
-# Create backup of existing installation
+# Create backup of existing installation (silent - only returns path)
 create_backup() {
-    heading "Creating Backup" >&2
-    
     local timestamp
     timestamp=$(date +%Y-%m-%d-%H%M%S)
     local backup_dir="$HOME/.cursor.backup.$timestamp"
     
-    info "Backing up ~/.cursor to $backup_dir" >&2
     mv "$INSTALL_DIR" "$backup_dir"
-    success "Backup created: $backup_dir" >&2
     
     echo "$backup_dir"
 }
@@ -337,8 +333,11 @@ handle_install() {
     check_cursor_running "$force_mode"
     
     # Create backup
+    heading "Creating Backup"
     local backup_dir
     backup_dir=$(create_backup)
+    info "Backing up ~/.cursor to $backup_dir"
+    success "Backup created: $backup_dir"
     
     # Clone repository
     clone_repository
