@@ -88,6 +88,8 @@ Sample tracked code (20-30 files per language per module):
 - Issues found and resolved
 - Next steps and recommendations
 
+**Note:** To display rules information at any time, you can run `display-rules-summary` command.
+
 ---
 
 ## INIT Flow (No Local Rules)

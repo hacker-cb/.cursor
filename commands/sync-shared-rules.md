@@ -59,6 +59,8 @@ When target file exists and differs from source:
 - Show total: X files synced, Y files skipped, Z errors
 - Indicate sync completion status
 
+**Note:** To display rules information at any time, you can run `display-rules-summary` command.
+
 ## Checklist
 - [ ] Shared rules source (`~/.cursor/rules/`) updated (git pull)
 - [ ] Target project validated (git repo, write access)
