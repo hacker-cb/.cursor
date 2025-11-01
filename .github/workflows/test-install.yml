@@ -1,0 +1,318 @@
+name: Test Installation Script
+
+on:
+  push:
+    branches: [ master, main ]
+    paths:
+      - 'install.sh'
+      - '.github/workflows/test-install.yml'
+  pull_request:
+    branches: [ master, main ]
+    paths:
+      - 'install.sh'
+      - '.github/workflows/test-install.yml'
+
+jobs:
+  shellcheck:
+    name: ShellCheck Linting
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Run ShellCheck
+        uses: ludeeus/action-shellcheck@master
+        with:
+          scandir: '.'
+          severity: warning
+          ignore_paths: '.git extensions projects'
+
+  syntax-validation:
+    name: Bash Syntax Validation
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Validate bash syntax
+        run: |
+          bash -n install.sh
+          echo "✓ Bash syntax is valid"
+
+  test-mode-1-no-cursor:
+    name: Test Mode 1 - Cursor Not Installed
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Make script executable
+        run: chmod +x install.sh
+      
+      - name: Ensure .cursor doesn't exist
+        run: rm -rf ~/.cursor
+      
+      - name: Test Mode 1 (should exit with code 1)
+        run: |
+          set +e
+          output=$(./install.sh 2>&1)
+          exit_code=$?
+          set -e
+          
+          echo "Exit code: $exit_code"
+          echo "$output"
+          
+          # Should exit with error code 1
+          if [ $exit_code -ne 1 ]; then
+            echo "✗ Expected exit code 1, got $exit_code"
+            exit 1
+          fi
+          
+          # Should contain error message about Cursor not detected
+          echo "$output" | grep -q "Cursor IDE Not Detected" || exit 1
+          echo "$output" | grep -q "https://cursor.sh" || exit 1
+          
+          echo "✓ Mode 1 works correctly"
+
+  test-mode-2-already-installed:
+    name: Test Mode 2 - Already Installed
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Make script executable
+        run: chmod +x install.sh
+      
+      - name: Simulate existing installation
+        run: |
+          mkdir -p ~/.cursor
+          touch ~/.cursor/.cursor-shared-workspace
+      
+      - name: Test Mode 2 (should exit with code 0)
+        run: |
+          set +e
+          output=$(./install.sh 2>&1)
+          exit_code=$?
+          set -e
+          
+          echo "Exit code: $exit_code"
+          echo "$output"
+          
+          # Should exit successfully with code 0
+          if [ $exit_code -ne 0 ]; then
+            echo "✗ Expected exit code 0, got $exit_code"
+            exit 1
+          fi
+          
+          # Should contain message about already installed
+          echo "$output" | grep -q "Already Installed" || exit 1
+          echo "$output" | grep -q "git pull" || exit 1
+          
+          echo "✓ Mode 2 works correctly"
+
+  test-mode-3-restore:
+    name: Test Mode 3 - Backup and Restore
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Make script executable
+        run: chmod +x install.sh
+      
+      - name: Setup fake Cursor installation with user files
+        run: |
+          echo "Creating fake Cursor installation..."
+          
+          # Create fake .cursor directory structure
+          mkdir -p ~/.cursor/extensions/test-extension
+          mkdir -p ~/.cursor/projects/my-project
+          
+          # Create fake user files
+          echo "user_extension_data" > ~/.cursor/extensions/test-extension/config.json
+          echo "project_metadata" > ~/.cursor/projects/my-project/metadata.json
+          echo '{"theme": "dark"}' > ~/.cursor/ide_state.json
+          echo '{"servers": []}' > ~/.cursor/mcp.json
+          echo "custom_setting" > ~/.cursor/user_config.txt
+          
+          echo "✓ Fake Cursor installation created"
+          echo ""
+          echo "User files created:"
+          find ~/.cursor -type f | sort
+      
+      - name: Run installation (non-interactive)
+        run: |
+          echo "Running installation..."
+          
+          # Mock the installation by answering 'y' to confirmation
+          # and using --force to skip Cursor running check
+          echo "y" | ./install.sh --force || {
+            echo "✗ Installation failed"
+            exit 1
+          }
+          
+          echo "✓ Installation completed"
+      
+      - name: Verify backup was created
+        run: |
+          echo "Checking for backup..."
+          
+          # Find backup directory
+          backup_dir=$(ls -td ~/.cursor.backup.* 2>/dev/null | head -1)
+          
+          if [ -z "$backup_dir" ]; then
+            echo "✗ No backup directory found"
+            exit 1
+          fi
+          
+          echo "✓ Backup created: $backup_dir"
+          
+          # Verify backup contains original files
+          if [ ! -f "$backup_dir/ide_state.json" ]; then
+            echo "✗ Backup missing ide_state.json"
+            exit 1
+          fi
+          
+          echo "✓ Backup contains original files"
+      
+      - name: Verify repo files were installed
+        run: |
+          echo "Checking installed repo files..."
+          
+          # Check marker file
+          if [ ! -f ~/.cursor/.cursor-shared-workspace ]; then
+            echo "✗ Marker file not installed"
+            exit 1
+          fi
+          echo "✓ Marker file installed"
+          
+          # Check workspace rules
+          if [ ! -d ~/.cursor/.cursor/rules ]; then
+            echo "✗ Workspace rules not installed"
+            exit 1
+          fi
+          rule_count=$(find ~/.cursor/.cursor/rules -name "*.mdc" | wc -l)
+          echo "✓ Workspace rules installed ($rule_count files)"
+          
+          # Check shared rules
+          if [ ! -d ~/.cursor/rules ]; then
+            echo "✗ Shared rules not installed"
+            exit 1
+          fi
+          shared_count=$(find ~/.cursor/rules -name "*.mdc" | wc -l)
+          echo "✓ Shared rules installed ($shared_count files)"
+          
+          # Check commands
+          if [ ! -d ~/.cursor/commands ]; then
+            echo "✗ Commands not installed"
+            exit 1
+          fi
+          cmd_count=$(find ~/.cursor/commands -name "*.md" | wc -l)
+          echo "✓ Commands installed ($cmd_count files)"
+      
+      - name: Verify user files were restored
+        run: |
+          echo "Checking restored user files..."
+          
+          # Check extensions directory
+          if [ ! -d ~/.cursor/extensions/test-extension ]; then
+            echo "✗ Extensions directory not restored"
+            exit 1
+          fi
+          echo "✓ Extensions directory restored"
+          
+          if [ ! -f ~/.cursor/extensions/test-extension/config.json ]; then
+            echo "✗ Extension config not restored"
+            exit 1
+          fi
+          echo "✓ Extension config restored"
+          
+          # Check projects directory
+          if [ ! -d ~/.cursor/projects/my-project ]; then
+            echo "✗ Projects directory not restored"
+            exit 1
+          fi
+          echo "✓ Projects directory restored"
+          
+          if [ ! -f ~/.cursor/projects/my-project/metadata.json ]; then
+            echo "✗ Project metadata not restored"
+            exit 1
+          fi
+          echo "✓ Project metadata restored"
+          
+          # Check user config files
+          if [ ! -f ~/.cursor/ide_state.json ]; then
+            echo "✗ ide_state.json not restored"
+            exit 1
+          fi
+          echo "✓ ide_state.json restored"
+          
+          if [ ! -f ~/.cursor/mcp.json ]; then
+            echo "✗ mcp.json not restored"
+            exit 1
+          fi
+          echo "✓ mcp.json restored"
+          
+          if [ ! -f ~/.cursor/user_config.txt ]; then
+            echo "✗ user_config.txt not restored"
+            exit 1
+          fi
+          echo "✓ user_config.txt restored"
+      
+      - name: Verify file contents preserved
+        run: |
+          echo "Verifying file contents..."
+          
+          # Check that user file contents are preserved
+          content=$(cat ~/.cursor/ide_state.json)
+          if [ "$content" != '{"theme": "dark"}' ]; then
+            echo "✗ ide_state.json content not preserved"
+            echo "Expected: {\"theme\": \"dark\"}"
+            echo "Got: $content"
+            exit 1
+          fi
+          echo "✓ File contents preserved"
+      
+      - name: Summary
+        run: |
+          echo ""
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "✓ Mode 3 Backup and Restore Test PASSED"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo ""
+          echo "Verified:"
+          echo "  ✓ Backup created with original files"
+          echo "  ✓ Repository files installed correctly"
+          echo "  ✓ User extensions restored"
+          echo "  ✓ User projects restored"
+          echo "  ✓ User config files restored"
+          echo "  ✓ File contents preserved"
+          echo ""
+
+  validation-summary:
+    name: Validation Summary
+    runs-on: ubuntu-latest
+    needs: [shellcheck, syntax-validation, test-mode-1-no-cursor, test-mode-2-already-installed, test-mode-3-restore]
+    
+    steps:
+      - name: All tests passed
+        run: |
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "✓ All installation script tests passed!"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo ""
+          echo "Validated:"
+          echo "  ✓ ShellCheck linting"
+          echo "  ✓ Bash syntax validation"
+          echo "  ✓ Mode 1: Cursor not installed"
+          echo "  ✓ Mode 2: Already installed"
+          echo "  ✓ Mode 3: Backup and restore (comprehensive)"
+          echo ""
+          echo "Ready for deployment! 🚀"
+

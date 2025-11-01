@@ -1,8 +1,31 @@
 # Cursor Developer Configuration
 
+[![Test Installation Script](https://github.com/hacker-cb/.cursor/actions/workflows/test-install.yml/badge.svg)](https://github.com/hacker-cb/.cursor/actions/workflows/test-install.yml)
+
 A personal Cursor IDE configuration repository that enforces strict AI agent behavior policies through `.mdc` rule files and provides reusable workflow command templates for common development tasks. Features a git-only access policy to protect privacy, framework-agnostic development best practices, and self-maintaining documentation with automatic README synchronization.
 
 **Note:** This project is located in the home directory at `~/.cursor`
+
+## Installation
+
+**Prerequisites:** Install [Cursor IDE](https://cursor.sh) first
+
+**Quick Install:**
+
+```bash
+# Using curl
+bash <(curl -fsSL https://raw.githubusercontent.com/hacker-cb/.cursor/master/install.sh)
+
+# Using wget
+bash <(wget -qO- https://raw.githubusercontent.com/hacker-cb/.cursor/master/install.sh)
+```
+
+The script will:
+- Backup your existing `.cursor` directory
+- Install shared workspace configuration  
+- Automatically restore your personal settings
+
+See [INSTALL.md](INSTALL.md) for detailed instructions and troubleshooting.
 
 ## Quick Start
 

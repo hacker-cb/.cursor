@@ -7,6 +7,14 @@
 # Add marker file
 !.cursor-shared-workspace
 
+# Add installation files
+!/install.sh
+!/INSTALL.md
+
+# Add GitHub workflows
+!/.github/
+!/.github/**
+
 # And not the commands folder and its contents
 !/commands/
 !/commands/**
