@@ -4,6 +4,9 @@
 # But not the .gitignore file itself
 !.gitignore
 
+# Add marker file
+!.cursor-shared-workspace
+
 # And not the commands folder and its contents
 !/commands/
 !/commands/**
