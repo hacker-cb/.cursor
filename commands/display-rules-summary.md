@@ -15,19 +15,14 @@ Scan and display all Cursor rules with their apply modes, descriptions, and meta
    - Extract title from first `#` heading
    - Extract description from first paragraph after title
    - Extract globs/tags from frontmatter for conditional rules
-   - Count lines with `wc -l` (or tokens if possible)
+   - For local rules: detect project area from filename (e.g., `local-backend-api.mdc` → Backend)
+   - Count lines with `wc -l`
 
 3. **Display formatted summary**
    - Present clear, readable table with emoji indicators
-   - Group by category (Shared/Local)
-   - For local rules: detect subcategories from filename patterns
-     - Backend rules: `local-backend-*.mdc` or `*-backend-*.mdc`
-     - Frontend rules: `local-frontend-*.mdc` or `*-frontend-*.mdc`
-     - CLI rules: `local-cli-*.mdc` or `*-cli-*.mdc`
-     - Infrastructure rules: `local-infra-*.mdc` or `*-infrastructure-*.mdc`
-     - Module-specific: `local-{module}-*.mdc` patterns
-     - Cross-cutting: other `local-*.mdc` files
-   - Show statistics (total, shared/local split, always/conditional split)
+   - Group shared rules in one section
+   - Split local rules by project area (Backend, Frontend, CLI, Infrastructure, Documentation, etc.)
+   - Show statistics (total, shared/local split, always/conditional split, line count)
    - Include descriptions with conditions for conditional rules
 
 4. **Implementation notes**
@@ -43,7 +38,7 @@ Scan and display all Cursor rules with their apply modes, descriptions, and meta
 ```markdown
 # Cursor Rules Summary
 
-**Statistics:** Total: X rules | Shared: Y | Local: Z (Backend: N, Frontend: M, CLI: P, Infrastructure: Q, Other: R) | Always: A | Conditional: B | Total Lines: W
+**Statistics:** Total: X rules | Shared: Y | Local: Z | Always: A | Conditional: B | Total Lines: W
 
 ## Shared Rules
 
@@ -51,40 +46,31 @@ Scan and display all Cursor rules with their apply modes, descriptions, and meta
 |---|------|------|-------|-------------|
 | ✓ | Git Workflow | `shared-version-control.mdc` | 142 | Universal git workflow and branching strategy for project development |
 | ✓ | Code Quality Standards | `shared-code-quality.mdc` | 98 | Code quality principles, standards, and best practices |
-| 🔀 | TypeScript Standards | `shared-typescript.mdc` | 87 | TypeScript patterns and conventions|
+| 🔀 | TypeScript Standards | `shared-typescript.mdc` | 87 | TypeScript patterns and conventions — **Applies to:** `**/*.ts`, `**/*.tsx` |
 
 ## Local Rules
 
-### Backend (3 rules)
+### Backend
 
 |   | Rule | File | Lines | Description |
 |---|------|------|-------|-------------|
-| 🔀 | Backend API Patterns | `local-backend-api.mdc` | 87 | REST API patterns, multi-tenancy, and Traefik integration|
-| 🔀 | Backend Multi-Tenancy | `local-backend-multi-tenancy.mdc` | 124 | Multi-tenancy architecture and ownership patterns|
-| 🔀 | Backend Testing | `local-backend-testing.mdc` | 92 | Backend testing patterns, fixtures, and requirements (pytest)|
+| 🔀 | Backend API Patterns | `local-backend-api.mdc` | 87 | REST API patterns, multi-tenancy, and Traefik integration — **Applies to:** `backend/app/api/**/*.py` |
+| 🔀 | Backend Testing | `local-backend-testing.mdc` | 124 | Backend testing patterns and fixtures (pytest) — **Applies to:** `backend/tests/**/*.py` |
 
-### Frontend (2 rules)
-
-|   | Rule | File | Lines | Description |
-|---|------|------|-------|-------------|
-| 🔀 | Frontend Vue.js | `local-frontend-vue.mdc` | 65 | Vue.js conventions and testing with Vitest|
-| 🔀 | Frontend Testing | `local-frontend-testing.mdc` | 78 | Frontend testing patterns with Vitest and Playwright|
-
-### CLI (2 rules)
+### Frontend
 
 |   | Rule | File | Lines | Description |
 |---|------|------|-------|-------------|
-| 🔀 | CLI Python | `local-cli-python.mdc` | 105 | Python CLI architecture with Typer and Rich|
-| 🔀 | CLI Bash | `local-cli-bash.mdc` | 68 | Bash CLI patterns and hostname functions|
+| 🔀 | Frontend Vue.js | `local-frontend-vue.mdc` | 65 | Vue.js patterns and conventions — **Applies to:** `frontend/**/*.vue`, `frontend/**/*.ts` |
+| 🔀 | Frontend Testing | `local-frontend-testing.mdc` | 89 | Frontend testing (Vitest + Playwright) — **Applies to:** `frontend/tests/**/*` |
 
-### Infrastructure (2 rules)
+### CLI
 
 |   | Rule | File | Lines | Description |
 |---|------|------|-------|-------------|
-| 🔀 | Infrastructure Docker | `local-infra-docker.mdc` | 89 | Docker containers management and commands|
-| ✓ | Infrastructure Deployment | `local-infra-deployment.mdc` | 72 | Deployment and SSH access patterns (Linux only)|
+| 🔀 | CLI Python | `local-cli-python.mdc` | 142 | Python CLI architecture with Typer — **Applies to:** `scripts/cli/**/*.py` |
 
-### Cross-Cutting (1 rule)
+### Cross-Cutting
 
 |   | Rule | File | Lines | Description |
 |---|------|------|-------|-------------|
@@ -100,33 +86,38 @@ Scan and display all Cursor rules with their apply modes, descriptions, and meta
 **Statistics:**
 - Total rule count
 - Shared vs local breakdown
-- Local rules subcategory breakdown (backend, frontend, cli, infrastructure, other)
 - Always applied vs conditional breakdown
-- Total line count (or token count if possible)
+- Total line count
 
 **Table structure:**
-- Group shared rules in one section
-- Group local rules by subcategory (backend, frontend, cli, infrastructure, cross-cutting)
-- Each subcategory shows count in heading
 - Emoji column: ✓ (always) or 🔀 (conditional)
 - Rule title
 - File name
-- Line count (or token count if possible)
+- Line count
 - Description with conditions for conditional rules
 
 **Apply mode detection:**
 - `alwaysApply: true` → ✓ (always applied)
 - `alwaysApply: false` → 🔀 (conditional with globs/tags)
-- For conditional rules: append " — **Applies to:** [globs]" (comma-separated) to description
+- For conditional rules: append " — **Applies to:** [comma-separated globs]" to description
+
+**Local rules grouping:**
+- Detect project area from filename pattern: `local-{area}-*.mdc` or `local-{area}.mdc`
+- Common areas: Backend, Frontend, CLI, Infrastructure, Documentation, Testing
+- Group rules under subsections: `### Backend`, `### Frontend`, etc.
+- Cross-cutting rules (no area prefix or `local-architecture.mdc`): group under `### Cross-Cutting`
+- Sort areas alphabetically, with Cross-Cutting last
 
 ## Checklist
 
 - [ ] Scan and parse all `.mdc` files in `.cursor/rules/`
-- [ ] Extract metadata (title, description, apply mode, globs/tags, line/token count)
+- [ ] Extract metadata (title, description, apply mode, globs/tags, line count)
 - [ ] Determine emoji indicator (✓ or 🔀) based on `alwaysApply` flag
-- [ ] Append conditions inline with em dash (—) for conditional rules
+- [ ] Append conditions with em dash (—) for conditional rules
 - [ ] Group shared rules in one section
-- [ ] Group local rules into subcategories (backend, frontend, cli, infrastructure, cross-cutting)
-- [ ] Display formatted summary with statistics breakdown and icon legend
+- [ ] Detect project areas from local rule filenames
+- [ ] Group local rules by area (Backend, Frontend, CLI, Infrastructure, etc.)
+- [ ] Sort local rule subsections alphabetically (Cross-Cutting last)
+- [ ] Display formatted summary with statistics and icon legend
 - [ ] Show only final output (hide implementation details)
 
