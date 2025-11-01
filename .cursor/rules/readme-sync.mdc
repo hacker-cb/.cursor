@@ -46,6 +46,15 @@ Becomes table row in README.md:
 
 Update README.md automatically when command files change. No permission needed.
 
+## Updating This Rule
+
+When README.md structure is manually changed:
+- Update this readme-sync.mdc file to reflect new structure
+- Update section descriptions in "README.md Structure"
+- Update examples to match new format
+- Keep this rule synchronized with actual README.md organization
+- This ensures future automated updates follow correct structure
+
 ## README.md Structure
 
 The README.md maintains several sections:
