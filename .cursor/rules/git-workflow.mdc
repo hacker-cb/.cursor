@@ -1,215 +1,218 @@
 ---
 alwaysApply: true
 ---
-# Git Workflow for Cursor Workspace
+# Git Workflow
 
-Git practices specific to this Cursor configuration workspace.
+Universal git workflow and branching strategy for project development.
 
-## Branch Naming Conventions
+## Branch Types and Names
+
+**Main branches (preferred names in order):**
+- `master` (most preferred)
+- `main`
+
+**Development branches (preferred names in order):**
+- `dev` (most preferred)
+- `develop`
+
+**Protected branches:**
+- Never commit directly to main or development branches
+- Always create feature branches for changes
+- If user attempts to commit to protected branches, suggest creating appropriate feature branch and ask for confirmation before creating
+
+## Feature Branch Naming Conventions
 
 Use descriptive branch names that reflect the type of change.
 
 **Pattern:** `type/description` or `type-description`
 
 **Common types:**
-- `add-*` - New commands or rules
-- `update-*` - Modifications to existing files
-- `fix-*` - Bug fixes or corrections
-- `refactor-*` - Restructuring without behavior change
-- `remove-*` - Deletions
+- `feature/*` or `feat/*` - New features or functionality
+- `fix/*` or `bugfix/*` - Bug fixes
+- `hotfix/*` - Critical production fixes
+- `refactor/*` - Code restructuring without behavior change
+- `docs/*` - Documentation changes
+- `test/*` - Test additions or modifications
+- `chore/*` - Maintenance tasks
 
 **Examples:**
-- `add-security-audit-command`
-- `update-shared-rules-sync`
-- `fix-readme-sync`
-- `refactor-command-structure`
+- `feature/user-authentication`
+- `fix/login-validation-error`
+- `hotfix/security-patch`
+- `refactor/database-layer`
+- `docs/api-documentation`
 
 ## Commit Message Format
 
-Follow conventional commits for workspace changes.
+Follow conventional commits standard.
 
 **Format:** `type(scope): description`
 
-**Types for this workspace:**
-- `feat` - New command or rule file
-- `fix` - Bug fix in command/rule logic
-- `docs` - README or documentation updates
-- `refactor` - Restructure commands or rules
-- `chore` - Maintenance, cleanup, organization
+**Types:**
+- `feat` - New feature
+- `fix` - Bug fix
+- `docs` - Documentation changes
+- `style` - Code style changes (formatting, semicolons, etc.)
+- `refactor` - Code refactoring
+- `test` - Test additions or modifications
+- `chore` - Maintenance tasks
+- `perf` - Performance improvements
+- `ci` - CI/CD changes
+- `build` - Build system changes
 
-**Scopes:**
-- `command` - Changes to `/commands/` directory
-- `rule` - Changes to `/rules/` (shared rules)
-- `workspace-rule` - Changes to `.cursor/rules/` (workspace rules)
-- `readme` - README.md updates
-- `sync` - Sync-related changes
+**Scope (optional):**
+- Module, component, or area affected
+- Examples: `auth`, `api`, `ui`, `database`, `config`
 
 **Examples:**
-- `feat(command): add security-audit workflow`
-- `fix(rule): correct version control guidelines`
-- `docs(readme): update command table`
-- `refactor(command): consolidate testing commands`
-- `chore(workspace): clean up old files`
+- `feat(auth): add OAuth2 login support`
+- `fix(api): resolve null pointer in user endpoint`
+- `docs: update installation instructions`
+- `refactor(database): optimize query performance`
+- `test(api): add integration tests for user service`
 
 ## Commit Practices
 
 **Atomic commits:**
 - One logical change per commit
-- Command file changes → separate commit
-- Rule file changes → separate commit
-- README sync → automatic or separate commit
+- Each commit should be independently deployable
+- Related changes stay together
+
+**Commit quality:**
+- Write clear, descriptive messages
+- Explain what and why, not how
+- Reference issue numbers when applicable
+- Keep commits focused and small
 
 **What to commit:**
-- Command files (`.md` in `commands/`)
-- Shared rule files (`.mdc` in `rules/`)
-- Workspace rule files (`.mdc` in `.cursor/rules/`)
-- README.md updates
-- Git-tracked configuration files
+- Source code changes
+- Configuration files
+- Documentation updates
+- Test files
+- Build scripts
 
 **Never commit:**
-- IDE state files (unless tracked)
-- Extension data (unless tracked)
-- Personal project data
+- Secrets, credentials, API keys
+- Generated files (build artifacts, compiled code)
+- IDE-specific settings (unless shared)
+- Dependencies (node_modules, vendor, etc.)
 - Temporary files
-- Untracked files per git-only policy
+- Large binary files without LFS
 
 ## Workflow Process
 
 **Starting work:**
-1. Create descriptive feature branch
-2. Make focused changes (command, rule, or workspace rule)
-3. Test changes if applicable
-4. Update README.md if command/rule added or modified
-5. Commit with clear message
+1. Sync with main branch
+2. Create descriptive feature branch
+3. Make focused changes
+4. Write tests for changes
+5. Commit with clear messages
 
 **Before creating PR:**
 - Self-review all changes
-- Verify README.md is in sync
-- Check no unintended files included
+- Run tests locally
+- Update documentation if needed
 - Ensure commit messages follow format
+- Rebase on main branch if needed
 - No WIP or debug commits
 
 **Pull request:**
-- Clear title describing change
-- Explain what and why in description
-- Link to related issues if applicable
-- Mark as draft if feedback needed early
-
-## Change Types and Handling
-
-**Adding new command:**
-- Create command file in `commands/`
-- Follow command file guidelines (50-150 lines)
-- Update README.md table
-- Commit: `feat(command): add [command-name]`
-
-**Adding new shared rule:**
-- Create rule file in `rules/`
-- Follow shared rules guidelines
-- Keep universal and framework-agnostic
-- Commit: `feat(rule): add [rule-name]`
-
-**Adding/updating workspace rule:**
-- Create/modify rule in `.cursor/rules/`
-- Keep focused on this workspace
-- Commit: `feat(workspace-rule): add [rule-name]` or `fix(workspace-rule): update [rule-name]`
-
-**Updating README.md:**
-- Sync with command/rule changes
-- Update descriptions if changed
-- Update status badges if needed
-- Commit: `docs(readme): sync with [change]` or include in same commit
-
-**Refactoring:**
-- Keep behavior same
-- Update multiple files if needed
-- Test that commands still work as expected
-- Commit: `refactor(scope): [description]`
-
-## README.md Synchronization
-
-**When to update README:**
-- New command added → add table row
-- Command modified → update description
-- Command deleted → remove table row
-- Command renamed → update link and name
-- Status changed → update badge
-
-**Commit strategy:**
-- Include README update in same commit as command/rule change, OR
-- Separate commit: `docs(readme): sync with [command-name]`
-
-**Table format:**
-```markdown
-| [**command&#8209;name**](commands/filename.md) | ![Status](badge-url) | Description |
-```
+- Clear, descriptive title
+- Explain what, why, and how
+- Link related issues
+- Add screenshots for UI changes
+- Request appropriate reviewers
+- Mark as draft for early feedback
 
 ## Branch Management
 
 **Feature branches:**
-- Branch from master
+- Branch from main branch (master or main)
 - One feature/fix per branch
 - Keep branches focused and short-lived
-- Sync with master before PR
+- Sync with main branch regularly
+- Delete after merge
+
+**Branch protection policy:**
+- No direct commits to main branches (master/main)
+- No direct commits to development branches (dev/develop)
+- Always require feature branches for changes
+- Always require PR for merging to protected branches
+
+**When user attempts work on protected branches:**
+1. Detect if current branch is main or development branch
+2. Suggest creating appropriate feature branch based on change context
+3. Propose branch name following naming conventions
+4. Ask user for confirmation before creating branch
+5. Only create branch after user approval
 
 **After merge:**
 - Delete feature branch
-- Pull latest master
+- Pull latest from main branch
 - Start new branch for next change
-
-**Branch protection:**
-- No direct commits to master
-- Require PR for all changes
-- Keep master stable and clean
 
 ## Merge Strategy
 
 **Before merging:**
-- All changes reviewed
-- README.md in sync
-- No conflicts with master
+- All reviews approved
+- All tests passing
+- No conflicts with main branch
 - Commit messages follow format
-- Branch up to date
+- Documentation updated
 
-**Merge method:**
-- Squash and merge for feature branches
-- Keeps master history clean
-- Preserves full history in branches
+**Merge methods:**
+- **Squash and merge** - For feature branches (cleaner history)
+- **Rebase and merge** - For linear history preference
+- **Merge commit** - For preserving full branch history
+- Choose based on team preference and project needs
 
 **After merge:**
 - Delete merged branch
-- Monitor for any issues
-- Verify workspace still works correctly
+- Monitor for issues
 
-## Versioning and Tagging
+## Release Management
 
-**When to tag:**
-- Significant workspace updates
-- Major command or rule additions
-- Breaking changes to structure
-- Milestone releases
+**Versioning:**
+- Follow semantic versioning (SemVer): `MAJOR.MINOR.PATCH`
+- MAJOR: Breaking changes
+- MINOR: New features (backward compatible)
+- PATCH: Bug fixes (backward compatible)
 
-**Tag format:**
-- `v1.2.3` for version tags
-- Annotated tags with changelog
+**Release branches:**
+- Create from main branch for release preparation
+- Name: `release/v1.2.3`
+- Only bug fixes allowed
+- Merge back to main and dev
+
+**Hotfix branches:**
+- Create from main for critical production fixes
+- Name: `hotfix/issue-description`
+- Merge to main and dev
+- Tag immediately
+
+**Tags:**
+- Tag all releases: `v1.2.3`
+- Use annotated tags with changelog
 - Push tags to remote
-
-**Version bumps:**
-- MAJOR: Breaking changes to structure or workflow
-- MINOR: New commands or rules added
-- PATCH: Bug fixes or minor updates
+- Never delete or move tags
 
 ## Collaboration
 
 **Communication:**
 - Keep changes focused and understandable
 - Discuss major changes before implementation
-- Document reasoning in commits and PRs
-- Share knowledge about workspace organization
+- Document decisions in commits and PRs
+- Share knowledge with team
 
-**Review focus:**
-- Content quality (commands, rules)
-- Adherence to guidelines (length, format, structure)
-- README.md synchronization
-- Commit message quality
-- No framework-specific or language-specific content in shared rules
+**Code review focus:**
+- Code quality and standards
+- Test coverage
+- Security concerns
+- Performance implications
+- Documentation completeness
+
+**Conflict resolution:**
+- Communicate with team members
+- Resolve conflicts promptly
+- Test thoroughly after resolution
+- Ask for help when needed
