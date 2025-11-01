@@ -179,7 +179,7 @@ Installation Complete!
 ℹ Next steps:
 ℹ   1. Open Cursor IDE in your project directory
 ℹ   2. Run 'sync-shared-rules' command
-ℹ   3. Run 'setup-cursor-rules' command
+ℹ   3. Run 'manage-cursor-rules' command
 ℹ   4. Start developing with enhanced AI rules
 ```
 
@@ -414,8 +414,8 @@ The shared workspace installation includes:
 │   ├── analyze-project-structure.md
 │   ├── code-review.md
 │   ├── github-workflow-autofix.md
+│   ├── manage-cursor-rules.md
 │   ├── security-audit.md
-│   ├── setup-cursor-rules.md
 │   └── sync-shared-rules.md
 │
 ├── README.md                         # Project documentation
@@ -470,10 +470,10 @@ In Cursor, run the `sync-shared-rules` command to copy shared rules to your proj
 
 ### 5. Setup Project Rules
 
-Run the `setup-cursor-rules` command to generate project-specific rules:
+Run the `manage-cursor-rules` command to generate project-specific rules:
 
 1. Open Command Palette (Cmd/Ctrl+Shift+P)
-2. Type: `setup-cursor-rules`
+2. Type: `manage-cursor-rules`
 3. Follow the analysis and generation process
 
 ### 6. Start Developing

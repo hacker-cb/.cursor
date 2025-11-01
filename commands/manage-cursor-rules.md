@@ -1,7 +1,7 @@
-# Setup Cursor Rules
+# Manage Cursor Rules
 
 ## Overview
-Analyze project and setup cursor rules in `.cursor/rules/`. For new projects: generates rules from scratch based on detected patterns. For existing projects: validates and refactors rules against current codebase. Handles both initialization and ongoing maintenance.
+Analyze project and manage cursor rules in `.cursor/rules/`. For new projects: generates rules from scratch based on detected patterns. For existing projects: validates and refactors rules against current codebase. Handles both initialization and ongoing maintenance.
 
 ## Common Steps
 

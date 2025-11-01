@@ -92,7 +92,7 @@ Comprehensive analysis of project architecture, dependencies, configuration, cod
 - Prioritize fixes by impact and implementation effort
 - Offer to fix issues interactively with user confirmation
 - Generate summary with counts by severity and category
-- **Note:** After analysis, consider running `setup-cursor-rules` to update project rules based on findings
+- **Note:** After analysis, consider running `manage-cursor-rules` to update project rules based on findings
 
 ## Checklist
 - [ ] Project composition and architecture identified
