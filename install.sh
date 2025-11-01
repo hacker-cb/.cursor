@@ -122,14 +122,15 @@ check_cursor_running() {
 
 # Create backup of existing installation
 create_backup() {
-    heading "Creating Backup"
+    heading "Creating Backup" >&2
     
-    local timestamp=$(date +%Y-%m-%d-%H%M%S)
+    local timestamp
+    timestamp=$(date +%Y-%m-%d-%H%M%S)
     local backup_dir="$HOME/.cursor.backup.$timestamp"
     
-    info "Backing up ~/.cursor to $backup_dir"
+    info "Backing up ~/.cursor to $backup_dir" >&2
     mv "$INSTALL_DIR" "$backup_dir"
-    success "Backup created: $backup_dir"
+    success "Backup created: $backup_dir" >&2
     
     echo "$backup_dir"
 }
