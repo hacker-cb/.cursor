@@ -55,7 +55,3 @@ The [`commands/`](commands/) directory contains workflow templates for common de
 | [**code&#8209;review**](commands/code-review.md) | ![Stable](https://img.shields.io/badge/status-stable-green) | Comprehensive code review workflow covering functionality, quality, security, performance, testing, and documentation to ensure changes meet project standards before merge |
 | [**github&#8209;workflow&#8209;autofix**](commands/github-workflow-autofix.md) | ![Stable](https://img.shields.io/badge/status-stable-green) | Analyzes GitHub workflow runs, watches for failed runs, and automatically applies fixes until all workflows pass. If any workflow is currently running, it waits for the result before proceeding, then handles failures iteratively |
 | [**security&#8209;audit**](commands/security-audit.md) | ![Stable](https://img.shields.io/badge/status-stable-green) | Comprehensive security review to identify and fix vulnerabilities in dependencies, code, authentication, authorization, data handling, and infrastructure configuration using industry best practices |
-
----
-
-*This workspace enforces a git-only policy for AI agent access to protect privacy and security.*
