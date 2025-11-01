@@ -75,7 +75,7 @@ Shared rules are universal and framework-agnostic. For project-specific needs, c
 **Pattern:**
 1. Identify project-specific need
 2. Create appropriately named local rule
-3. Keep focused (50-150 lines, max 200)
+3. Keep focused (50-150 lines, max 300)
 4. Build on shared rule principles
 
 Projects decide structure depth based on complexity and requirements.

@@ -9,7 +9,7 @@ Guidelines for managing project-specific workflow commands.
 
 Target file length for command files:
 - **Target**: 50-150 lines
-- **Maximum**: 200 lines when content demands
+- **Maximum**: 300 lines when content demands
 - Focus on WHAT to do, not exhaustive HOW
 - Quality and completeness over strict limits
 

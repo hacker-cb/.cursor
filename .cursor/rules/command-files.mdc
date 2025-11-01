@@ -7,8 +7,8 @@ Command files in `commands/` directory must be concise and actionable, following
 
 ## File Length Requirement
 
-- **Target**: 100-150 lines
-- **Maximum**: 200 lines when content demands
+- **Target**: 50-150 lines
+- **Maximum**: 300 lines when content demands
 - Focus on WHAT to do, not exhaustive HOW
 - Quality and completeness over strict limits
 
