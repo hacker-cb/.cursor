@@ -1,9 +1,11 @@
 # Sync Shared Rules
 
 ## Overview
-**One-way sync** of shared developer rules FROM `~/.cursor/rules/` TO a target project's `.cursor/rules/` directory. This command ONLY syncs from the shared rules repository to projects, never in reverse. Updates shared rules source before syncing and handles file conflicts interactively. For project analysis and local rule management, use `setup-cursor-rules` command.
+**One-way sync** of shared developer rules FROM `~/.cursor/rules/` TO a target project's `.cursor/rules/` directory. This command ONLY syncs from the shared rules repository to projects, never in reverse. Updates shared rules source before syncing and handles file conflicts interactively.
 
 ## Steps
+
+**Note:** This is a one-way sync. Source is always `~/.cursor/rules/` (shared rules repository). Target is always the project's `.cursor/rules/` directory. Never syncs changes back to `~/.cursor/`.
 
 ### 1. Update Shared Rules Source
 - Navigate to `~/.cursor/` directory
@@ -28,42 +30,41 @@
 ### 3. Prepare Target Directory
 - Create `.cursor/` directory in target if missing
 - Create `.cursor/rules/` directory in target if missing
-- Verify directories ready for sync
+- Verify directories created successfully
+- Confirm write access to `.cursor/rules/`
 
-### 4. Sync Shared Rule Files
+### 4. Sync Rule Files (One-Way: Source → Target)
 - List all `shared-*.mdc` files in `~/.cursor/rules/` (source)
-- Copy each shared rule file to target project's `.cursor/rules/`
-- Track successfully synced files
+- For each shared rule file:
+  - Check if file exists in target project's `.cursor/rules/`
+  - If file doesn't exist in target: copy from source to target
+  - If file exists in target: compare with source
+  - If different: ask user (overwrite/skip/show diff)
+  - Track synced and skipped files
+- **Never** copy files from target back to `~/.cursor/rules/`
 
 ### 5. Handle Conflicts
-If any `shared-*.mdc` files already exist in target:
-- Compare with source versions
-- Show differences if any
-- **Ask user:** `[O]verwrite with latest`, `[K]eep existing`, or `[D]iff`
-- If `Overwrite`: replace with latest from source
-- If `Keep`: leave existing version, note in report
-- If `Diff`: show full diff, then ask overwrite/keep again
+When target file exists and differs from source:
+- **Show file name** and brief diff summary
+- **Ask user:** `[O]verwrite`, `[S]kip`, or `[D]iff`
+- If `Overwrite`: replace target with source file
+- If `Skip`: leave target unchanged, note in report
+- If `Diff`: show full diff, then ask overwrite/skip again
+- Continue with next file
 
-### 6. Handle Old Rules
-If old rule files exist (without `shared-` or `local-` prefix, or `.cursorrules` file):
-- Notify user that old rules were found
-- Recommend running `setup-cursor-rules` to analyze and migrate them
-- Continue with shared rules sync
-
-### 7. Generate Sync Report
-- Shared rules synced (with count and file names)
-- Files kept/skipped (with count)
-- Any errors encountered
-- Display final `.cursor/rules/` directory structure
-- If old rules found: remind to run `setup-cursor-rules`
+### 6. Generate Sync Report
+- List successfully synced files (with count)
+- List skipped files (with count)
+- List any errors encountered
+- Show total: X files synced, Y files skipped, Z errors
+- Indicate sync completion status
 
 ## Checklist
 - [ ] Shared rules source (`~/.cursor/rules/`) updated (git pull)
 - [ ] Target project validated (git repo, write access)
 - [ ] Target `.cursor/rules/` directory prepared
 - [ ] All `shared-*.mdc` files synced from source to target
-- [ ] Conflicts handled (overwrite/keep decisions made)
-- [ ] Old rules detected and user notified
-- [ ] Sync report generated
-- [ ] User reminded to run `setup-cursor-rules` if needed
+- [ ] Conflicts handled appropriately
+- [ ] Sync report generated and displayed
+- [ ] Confirmed: no files synced back to `~/.cursor/`
 
