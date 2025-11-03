@@ -21,6 +21,27 @@ This allows:
 - Team autonomy in decision-making
 - Experimentation without affecting shared standards
 
+## Modifying Shared Rules
+
+**Never modify `shared-*.mdc` files directly in projects.**
+
+Shared rules are synced from central repository and should remain unchanged in projects:
+- **Modifications will be overwritten** - next sync will restore original versions
+- **Projects lose consistency** - local changes break uniformity across projects
+- **Sync conflicts** - modifications create confusion about rule source of truth
+
+**Instead of modifying shared rules:**
+- **Create local overrides** - use `local-*.mdc` files to customize or replace shared rules
+- **Local rules take precedence** - completely override shared rules for same topic
+- **Preserve sync ability** - projects can receive shared rule updates without conflicts
+
+**If shared rule needs improvement:**
+- **Update in source workspace** - modify shared rule in central `.cursor/` repository
+- **Re-sync to projects** - use `sync-shared-rules` command to distribute updates
+- **Consistent improvements** - all projects benefit from enhanced shared rules
+
+This approach maintains clean separation between universal standards and project-specific needs.
+
 ## Naming Convention
 
 Use `local-` prefix for project-specific rules to distinguish from `shared-` rules synced from the shared repository.
