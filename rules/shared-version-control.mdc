@@ -226,6 +226,20 @@ Use consistent, descriptive branch names.
 - Focused purpose
 - Push early
 
+**Protected branch policy:**
+- No direct commits to master (or main)
+- No direct commits to development branches (dev/develop)
+- Always require feature branches for changes
+- Always require PR for merging to protected branches
+
+**When user attempts work on protected branches:**
+1. Detect if current branch is master, main, dev, or develop
+2. Suggest creating appropriate feature branch based on change context
+3. Propose branch name following naming conventions
+4. Ask user for confirmation before creating branch
+5. Only create branch after user approval
+6. Never commit directly without explicit user override
+
 **Maintaining branches:**
 - Sync with master regularly
 - Keep CI green
@@ -278,9 +292,7 @@ on:
 - Communicate breaking changes
 
 **Protect master branch:**
-- Require PR for all changes to master
-- No direct commits to master (ever)
-- Enforce branch protection rules
+- Enforce branch protection rules (see Branch Management section)
 - Require status checks
 - Require reviews
 - Prevent force push to master
