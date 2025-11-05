@@ -231,3 +231,47 @@ Keep project rules up to date:
 - Remove obsolete rules that no longer apply
 
 Active maintenance ensures rules remain useful and accurate.
+
+## .cursor/ Folder Scope
+
+**One `.cursor/` folder per git repository.**
+
+### Valid Configurations
+
+✅ **Each git repository has its own `.cursor/` folder:**
+- Main repository: `.cursor/`
+- Git submodule A: `submodules/lib-a/.cursor/`
+- Git submodule B: `submodules/lib-b/.cursor/`
+
+Each is independent because each is a separate git repository.
+
+### Invalid Configurations
+
+❌ **Multiple `.cursor/` folders in same git repository:**
+```
+my-project/              # One git repo
+  .cursor/               # Root rules
+  backend/.cursor/       # ⚠️ Same repo - shouldn't exist
+  frontend/.cursor/      # ⚠️ Same repo - shouldn't exist
+```
+
+**Problems:**
+- Cursor IDE behavior unclear (which rules apply?)
+- Rule precedence unpredictable
+- Maintenance complexity
+- Indicates misunderstanding of `.cursor/` purpose
+
+### Proper Solutions
+
+Instead of nested `.cursor/` folders in same repo, use:
+- **Glob patterns** - target specific subdirectories: `globs: ["backend/**/*.py"]`
+- **Module-specific rules** - `local-backend.mdc`, `local-frontend.mdc` files
+- **Tags** - categorize and organize rules within single `.cursor/rules/`
+
+### If You Find Nested Folders
+
+If you discover nested `.cursor/` folders in same repository:
+1. **Determine if valid** - check if subdirectory is actually a git submodule
+2. **If submodule** - keep it (separate project, independent management)
+3. **If same repo** - consolidate into root `.cursor/` with globs/tags
+4. **Use sync-shared-rules per repo** - sync each git repository's `.cursor/` independently
