@@ -22,10 +22,10 @@ A personal Cursor IDE configuration with strict AI agent policies and reusable d
 
 ```bash
 # Using curl
-curl -fsSL https://raw.githubusercontent.com/hacker-cb/.cursor/master/install.sh | bash
+bash <(curl -fsSL https://raw.githubusercontent.com/hacker-cb/.cursor/master/install.sh)
 
 # Using wget
-wget -qO- https://raw.githubusercontent.com/hacker-cb/.cursor/master/install.sh | bash
+bash <(wget -qO- https://raw.githubusercontent.com/hacker-cb/.cursor/master/install.sh)
 ```
 
 The script will:
