@@ -126,7 +126,7 @@ check_cursor_running() {
             info "  • Cursor IDE application (should be closed)"
             info "  • System processes (safe to ignore)"
             echo ""
-            read -p "Continue with installation anyway? [Y/n] " -n 1 -r < /dev/tty
+            read -p "Continue with installation anyway? [Y/n] " -n 1 -r
             echo
             if [[ $REPLY =~ ^[Nn]$ ]]; then
                 info "Installation cancelled"
@@ -339,7 +339,7 @@ handle_install() {
     echo ""
     
     # Confirm installation
-    read -p "Continue with installation? [Y/n] " -n 1 -r < /dev/tty
+    read -p "Continue with installation? [Y/n] " -n 1 -r
     echo
     if [[ $REPLY =~ ^[Nn]$ ]]; then
         info "Installation cancelled"
@@ -396,7 +396,7 @@ uninstall() {
     
     if [ -z "$latest_backup" ]; then
         warning "No backup found to restore"
-        read -p "Remove installation anyway? [y/N] " -n 1 -r < /dev/tty
+        read -p "Remove installation anyway? [y/N] " -n 1 -r
         echo
         if [[ ! $REPLY =~ ^[Yy]$ ]]; then
             info "Uninstall cancelled"
@@ -406,7 +406,7 @@ uninstall() {
         success "Installation removed"
     else
         info "Found backup: $latest_backup"
-        read -p "Remove installation and restore backup? [Y/n] " -n 1 -r < /dev/tty
+        read -p "Remove installation and restore backup? [Y/n] " -n 1 -r
         echo
         if [[ $REPLY =~ ^[Nn]$ ]]; then
             info "Uninstall cancelled"
