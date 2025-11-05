@@ -110,12 +110,29 @@ check_cursor_running() {
     local force_mode=$1
     
     if [ "$force_mode" = false ]; then
-        if ps aux | grep -i "[C]ursor" > /dev/null; then
-            error "Cursor is running"
-            warning "Please close all Cursor instances before installing"
+        # Find all processes containing "Cursor" (case-insensitive)
+        local cursor_processes
+        cursor_processes=$(ps aux | grep -i "[C]ursor" || true)
+        
+        if [ -n "$cursor_processes" ]; then
+            warning "Found processes containing 'Cursor':"
             echo ""
-            info "To force installation anyway, use: $0 --force"
-            exit 1
+            # Show processes with basic formatting
+            echo "$cursor_processes" | while IFS= read -r line; do
+                echo "  $line"
+            done
+            echo ""
+            info "These may include:"
+            info "  • Cursor IDE application (should be closed)"
+            info "  • System processes (safe to ignore)"
+            echo ""
+            read -p "Continue with installation anyway? [Y/n] " -n 1 -r
+            echo
+            if [[ $REPLY =~ ^[Nn]$ ]]; then
+                info "Installation cancelled"
+                info "To skip this check in future, use: $0 --force"
+                exit 0
+            fi
         fi
     fi
 }
