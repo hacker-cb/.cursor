@@ -33,6 +33,15 @@ Use conventional commits for clarity and consistency.
 - `fix(api): handle null database response`
 - `refactor(parser): simplify token handling`
 
+**Cursor rules and commands (`.cursor/`):**
+- Scope: `cursor-rules` for rules, `cursor-cmd` for commands
+- Use standard types (feat, fix, docs, refactor, etc.)
+- Examples:
+  - `feat(cursor-rules): add testing standards`
+  - `docs(cursor-rules): update commit message policy`
+  - `feat(cursor-cmd): add security audit command`
+  - `fix(cursor-cmd): update sync command`
+
 ## Branch Naming
 
 Use consistent, descriptive branch names.
