@@ -71,6 +71,23 @@ Follow conventional commits standard.
 - `refactor(database): optimize query performance`
 - `test(api): add integration tests for user service`
 
+**Cursor workspace (`.cursor/`):**
+- Scope: `cursor-rules` for workspace rules, `cursor-cmd` for workspace commands
+- Use standard types (feat, fix, docs, refactor, etc.)
+- Examples:
+  - `feat(cursor-rules): add git-only policy`
+  - `docs(cursor-rules): update README sync rule`
+  - `feat(cursor-cmd): add display rules command`
+
+**Shared rules and commands (`rules/`, `commands/`):**
+- Scope: `shared-rules` for shared rules, `shared-cmd` for shared commands
+- Use standard types (feat, fix, docs, refactor, etc.)
+- Examples:
+  - `feat(shared-rules): add testing standards`
+  - `docs(shared-rules): update version control policy`
+  - `feat(shared-cmd): add security audit command`
+  - `fix(shared-cmd): update sync command`
+
 ## Commit Practices
 
 **Atomic commits:**
