@@ -42,6 +42,16 @@ Use conventional commits for clarity and consistency.
   - `feat(cursor-cmd): add security audit command`
   - `fix(cursor-cmd): update sync command`
 
+**Multi-platform/module projects:**
+- Scope: platform, module, aspect, or subsystem name
+- Use `/` to specify subsystems
+- Examples:
+  - `feat(esp32): add WiFi driver`
+  - `fix(stm32): resolve SPI timing`
+  - `feat(backend): add user endpoint`
+  - `fix(esp32/drivers): add I2C support`
+  - `fix(backend/api): handle timeout`
+
 ## Branch Naming
 
 Use consistent, descriptive branch names.
