@@ -57,8 +57,10 @@ This command analyzes GitHub workflow runs, watches for failed runs, and automat
 4. **Merge or Create PR**
    - After all workflows pass, ask user: "All workflows pass. Would you like to: a) Merge branch directly back, or b) Create a Pull Request?"
    - If user chooses merge directly:
-     - Switch back to original branch
-     - Merge autofix branch: `git merge <autofix-branch>`
+     - Ask user about merge strategy: "Do you want to: a) Merge commit (--no-ff) to preserve branch history, or b) Squash merge to combine commits into one?"
+     - Switch back to original branch (master, main, devel, or develop)
+     - If merge commit chosen (or default): `git merge --no-ff <autofix-branch>`
+     - If squash merge chosen: `git merge --squash <autofix-branch>` then `git commit -m "fix: resolve workflow failures"`
      - Push to remote
      - Delete autofix branch: `git branch -d <autofix-branch>`
    - If user chooses create PR:

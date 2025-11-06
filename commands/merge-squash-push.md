@@ -3,6 +3,8 @@
 ## Overview
 Interactive squash merge workflow with automatic base branch detection, change summary, and confirmation prompts. Follows git workflow standards for clean commit history.
 
+**When to use:** This command is for explicit squash merging (combining all commits into one). For preserving branch history, use regular `git merge --no-ff` instead.
+
 **Note:** If workflows fail after push, use `github-workflow-autofix` to automatically resolve issues.
 
 ## Steps

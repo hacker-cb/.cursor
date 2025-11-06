@@ -73,7 +73,7 @@ Use consistent, descriptive branch names.
 ## Git Workflow
 
 **Branch and commit:**
-- Create feature branches from master (or main if project uses it)
+- Create feature branches from main branch (master, main, devel, or develop depending on project)
 - Commit early and often
 - Keep commits atomic (one logical change)
 - Write meaningful commit messages
@@ -81,13 +81,13 @@ Use consistent, descriptive branch names.
 
 **Stay synchronized:**
 - Pull latest changes before starting work
-- Sync with master regularly
+- Sync with main branch regularly
 - Resolve conflicts promptly
 - Push changes to remote regularly
 
 **Keep history clean:**
-- Squash related commits before merging
-- Don't commit WIP to master
+- Keep related commits organized
+- Don't commit WIP to main branches
 - Use `.gitignore` properly
 - Remove temporary/debug commits
 
@@ -113,19 +113,29 @@ Use consistent, descriptive branch names.
 - Easier to follow
 - Never rebase public/shared branches
 
+**Merge commit (--no-ff) - DEFAULT:**
+- Default method for merging feature branches to main branches (master/main/devel/develop)
+- Preserves complete branch history
+- Creates explicit merge commit even for fast-forward merges
+- Makes it clear when features were integrated
+- Command: `git merge --no-ff feature-branch`
+
 **Merge:**
 - For long-lived branches
 - Preserves complete history
 - Safer for shared work
 
 **Squash and merge:**
-- For feature branches to master
+- Only use when explicitly requested by user
 - Combines commits into one
-- Keeps master history clean
+- Keeps main branch history clean
+- Trade-off: loses individual commit history
 
 **Guidelines:**
-- Rebase feature on master before PR
-- Squash related commits within branch
+- Before merging, ask user: "Do you want to: a) Merge commit (--no-ff) to preserve branch history, or b) Squash merge to combine commits into one?"
+- Default to merge commit (--no-ff) if user doesn't specify
+- Rebase feature on main branch before PR
+- Keep related commits within branch
 - Never force push to shared branches
 
 ## Pull Requests
@@ -210,7 +220,13 @@ Use consistent, descriptive branch names.
 - CI/CD checks green
 - Documentation updated
 - Linter passes
-- Branch up to date with master
+- Branch up to date with main branch
+
+**Merge strategy:**
+- Ask user: "Do you want to: a) Merge commit (--no-ff) to preserve branch history, or b) Squash merge to combine commits into one?"
+- Default to merge commit (--no-ff) if user doesn't specify
+- Use `git merge --no-ff <branch>` for merge commits
+- Use `git merge --squash <branch>` for squash merges
 
 **After merge:**
 - Delete feature branch
@@ -221,14 +237,14 @@ Use consistent, descriptive branch names.
 ## Branch Management
 
 **Creating branches:**
-- Branch from master (or main if project uses it)
+- Branch from main branch (master, main, devel, or develop depending on project)
 - Descriptive names
 - Focused purpose
 - Push early
 
 **Protected branch policy:**
-- No direct commits to master (or main)
-- No direct commits to development branches (dev/develop)
+- No direct commits to main branches (master/main)
+- No direct commits to development branches (devel/develop)
 - Always require feature branches for changes
 - Always require PR for merging to protected branches
 
@@ -241,7 +257,7 @@ Use consistent, descriptive branch names.
 6. Never commit directly without explicit user override
 
 **Maintaining branches:**
-- Sync with master regularly
+- Sync with main branch regularly
 - Keep CI green
 - Update with feedback
 
@@ -291,10 +307,10 @@ on:
 - Share knowledge
 - Communicate breaking changes
 
-**Protect master branch:**
+**Protect main branches:**
 - Enforce branch protection rules (see Branch Management section)
 - Require status checks
 - Require reviews
-- Prevent force push to master
+- Prevent force push to main branches
 
-**Note:** Use "master" for new projects, "main" if project already uses it.
+**Note:** Use "master" for new projects, or follow existing project convention (main/devel/develop).
