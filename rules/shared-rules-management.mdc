@@ -82,6 +82,18 @@ Create only what your project needs.
 - **Keep together** - don't artificially split coherent topics
 - **Write efficiently** - bullet points, remove verbosity, stay actionable
 
+## Writing Style
+
+**Avoid verbose patterns:**
+- DO/DON'T lists with checkmarks, "Benefits" sections, "Summary" recaps
+- "Best Practices" with redundant bullets, "Migration Checklist" todo lists
+- "Troubleshooting" guides (belong in docs, not rules)
+
+**Write efficiently:**
+- Demonstrate through examples, not exhaustive antipattern lists
+- Focus on actionable guidance
+- Keep concise and direct
+
 ## Avoiding Redundancy Across Rules
 
 **Don't duplicate shared rules. Don't duplicate between local rules.**
