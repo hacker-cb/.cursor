@@ -82,6 +82,44 @@ Create only what your project needs.
 - **Keep together** - don't artificially split coherent topics
 - **Write efficiently** - bullet points, remove verbosity, stay actionable
 
+## Avoiding Redundancy Across Rules
+
+**Don't duplicate shared rules. Don't duplicate between local rules.**
+
+**Local rules should extend or override shared rules, never duplicate them:**
+- Shared rules already provide universal guidelines
+- Only create local rules for project-specific details not covered by shared rules
+- If shared rule covers it, don't repeat it in local rule
+- Local rules override shared rules by precedence, not by copying content
+
+**Where to put project-specific concepts:**
+- Place in the most relevant local rule file
+- Cross-reference from related local rules when needed
+- Don't repeat the same guideline in multiple local files
+
+**Common overlaps to avoid:**
+- Testing standards vs Security practices - testing security features belongs in security, not testing
+- Code quality vs Development workflow - code style in quality, workflow processes in development
+- Architecture vs Module-specific rules - architecture decisions in architecture, module details in module rules
+- Documentation vs Code quality - doc standards in documentation, code comments in quality
+
+**Cross-referencing instead of duplicating:**
+- Reference shared rules: "Follow security testing guidelines from shared-security-practices.mdc"
+- Reference local rules: "See local-architecture.mdc for service boundaries"
+- Don't copy-paste guidelines from other rule files
+
+**Identifying redundancy:**
+- Same guideline appears in multiple local rule files
+- Local rule repeats what shared rule already covers
+- One rule explains another rule's core responsibility
+- Content could be removed without losing meaning
+
+**Resolving duplication in local rules:**
+- Keep guideline in most relevant local file only
+- Remove or replace with cross-reference in other local files
+- If covered by shared rule, remove from local rule entirely
+- If truly cross-cutting, choose primary owner and reference from others
+
 ## Targeting Rules to Files
 
 Use YAML frontmatter to control which files each rule applies to.
