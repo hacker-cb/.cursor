@@ -72,7 +72,7 @@ Workspace maintenance and setup:
 | Command | Status | Description |
 |---------|--------|-------------|
 | [**sync&#8209;shared&#8209;rules**](commands/sync-shared-rules.md) | ![Stable](https://img.shields.io/badge/status-stable-green) | One-way sync of shared developer rules from this workspace (`~/.cursor/rules/`) to a target project's `.cursor/rules/` directory. Handles conflicts interactively. |
-| [**manage&#8209;cursor&#8209;rules**](commands/manage-cursor-rules.md) | ![Stable](https://img.shields.io/badge/status-stable-green) | Analyze project and manage cursor rules. For new projects: generates rules from scratch. For existing: validates and refactors against current codebase. |
+| [**manage&#8209;cursor&#8209;rules**](commands/manage-cursor-rules.md) | ![Stable](https://img.shields.io/badge/status-stable-green) | Analyze project and manage cursor rules. For new projects: generates rules from scratch. For existing: validates and refactors against current codebase, or quickly cleans up outdated content. |
 | [**display&#8209;rules&#8209;summary**](commands/display-rules-summary.md) | ![Stable](https://img.shields.io/badge/status-stable-green) | Scan and display all Cursor rules with their apply modes, descriptions, and metadata. Helps understand which rules are active and their configuration. |
 
 ### Git & CI/CD Commands
