@@ -94,6 +94,10 @@ Sample tracked code (20-30 files per language per module):
 
 ### Validate Generated Rules
 - Verify YAML frontmatter syntax correct
+- Verify tags match rule content (tags should reflect languages/frameworks/concerns covered in the rule)
+- Verify globs are appropriately specific (not too broad like `**/*`, not too narrow)
+- Verify tags and globs alignment (tags should match file types in globs, e.g., Python tag with `*.py` globs)
+- Verify frontmatter completeness (check if tags and globs are present when needed for file targeting)
 - Test globs match tracked files with `git ls-files`
 - Check naming follows agreed convention
 - Verify tags accurate for file targeting
