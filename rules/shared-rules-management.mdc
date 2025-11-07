@@ -76,10 +76,9 @@ Create only what your project needs.
 ## File Length Guidelines
 
 - **Target**: 50-150 lines for most files
-- **Maximum**: 300 lines when comprehensive coverage needed
 - **Priority**: Completeness of single aspect over arbitrary limits
 - **One aspect per file** - don't mix testing with security, code quality with deployment
-- **Keep together** - don't artificially split coherent topics
+- **Keep together** - don't artificially split coherent topics for one complicated aspect
 - **Write efficiently** - bullet points, remove verbosity, stay actionable
 
 ## Writing Style
