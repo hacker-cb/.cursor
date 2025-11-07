@@ -184,13 +184,17 @@ Use globs in frontmatter to target files based on YOUR project structure.
 
 ## File Length
 
-Target file length:
-- **Target**: 50-150 lines
-- **Maximum**: 300 lines when content demands
-- Keep rules focused and easy to read
-- One rule file per domain/category
-- Quality and completeness over strict limits
-- Comprehensive lifecycle files may need extra length
+Keep rule files focused on specific aspects:
+- **Primary goal**: One focused aspect/domain per file
+- **Keep concise but clear** - make files as small as possible while remaining clear for AI agents
+- **Avoid verbosity** - use bullet points, remove redundant explanations, focus on actionable guidelines
+- **Never split single aspects** - if one coherent topic needs 500+ lines, keep it together
+- **Only split when mixing concerns** - separate testing from security, code quality from deployment
+- **Typical length**: 50-150 lines (most well-focused, concise files)
+- **Extended topics**: 300+ lines when aspect requires comprehensive coverage
+- **No hard maximum** - completeness of single aspect matters more than line count
+
+Write efficiently: remove unnecessary words while maintaining clarity for AI comprehension. A 400-line file covering one aspect well is better than artificially splitting it into multiple files.
 
 ## Tags and Globs
 
