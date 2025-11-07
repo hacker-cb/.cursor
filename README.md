@@ -81,7 +81,6 @@ Version control and continuous integration workflows:
 
 | Command | Status | Description |
 |---------|--------|-------------|
-| [**merge&#8209;squash&#8209;push**](commands/merge-squash-push.md) | ![Stable](https://img.shields.io/badge/status-stable-green) | Interactive squash merge workflow with automatic base branch detection, change summary, and confirmation prompts. Follows git workflow standards for clean commit history |
 | [**github&#8209;workflow&#8209;autofix**](commands/github-workflow-autofix.md) | ![Stable](https://img.shields.io/badge/status-stable-green) | Analyzes GitHub workflow runs, watches for failed runs, and automatically applies fixes until all workflows pass. If any workflow is currently running, it waits for the result before proceeding, then handles failures iteratively |
 
 ### Code Quality Commands
