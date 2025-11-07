@@ -18,8 +18,10 @@ Use conventional commits for clarity and consistency.
 - `style` - Formatting
 - `refactor` - Code refactoring
 - `test` - Tests
-- `chore` - Maintenance
 - `perf` - Performance
+- `build` - Build system changes
+- `ci` - CI/CD configuration
+- `chore` - Maintenance
 
 **Best practices:**
 - Clear and concise description
@@ -32,10 +34,12 @@ Use conventional commits for clarity and consistency.
 - `feat(auth): add OAuth login`
 - `fix(api): handle null database response`
 - `refactor(parser): simplify token handling`
+- `ci(esp32): add parallel test matrix`
+- `build(cmake): update compiler flags`
 
 **Cursor rules and commands (`.cursor/`):**
 - Scope: `cursor-rules` for rules, `cursor-cmd` for commands
-- Use standard types (feat, fix, docs, refactor, etc.)
+- Use standard types (feat, fix, docs, refactor, build, ci, etc.)
 - Examples:
   - `feat(cursor-rules): add testing standards`
   - `docs(cursor-rules): update commit message policy`
