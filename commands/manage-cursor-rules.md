@@ -101,6 +101,7 @@ Sample tracked code (20-30 files per language per module):
 - Test globs match tracked files with `git ls-files`
 - Check naming follows agreed convention
 - Verify tags accurate for file targeting
+- Check for broken links (validate internal anchor links and cross-references to other rule files exist)
 - Ensure 50-150 lines per rule (max 300 if needed)
 - Save all rule files
 
