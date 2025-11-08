@@ -58,7 +58,35 @@ Development patterns for all phases of project work.
 - Organize: common/ + platform directories
 - Build system for multiple targets
 
+## Workflow First Step: Branch Management
+
+**ALWAYS start every plan with branch check:**
+
+1. **Check current branch:**
+   - If on protected branch (master, main, dev, develop):
+     - Automatically create feature branch with appropriate type (see [Branch Naming](shared-version-control.mdc#branch-naming) for type selection)
+     - Inform user: "Created feature branch: `<branch-name>`"
+   - If already on feature branch:
+     - Acknowledge in plan: "Using existing feature branch: `<branch-name>`"
+     - Continue with this branch for current work
+
+2. **Document in plan:**
+   - Make branch creation/acknowledgment the **FIRST** step
+   - Show branch name clearly
+   - Never skip this step
+
+**Branch type selection:** See [branch type selection logic](shared-version-control.mdc#branch-management) in shared-version-control.mdc
+
+**This ensures:**
+- Protected branches never receive direct commits
+- Multiple plans in one session use correct branch
+- Branch context is always clear
+- Each plan is self-documenting about branch state
+
 ## Feature Development
+
+**Start with branch (see Workflow First Step section):**
+- Ensure feature branch is created or acknowledged as first plan step
 
 **Requirements gathering:**
 - Understand user needs and problem
@@ -102,6 +130,9 @@ Development patterns for all phases of project work.
 
 ## Bug Fixing & Troubleshooting
 
+**Start with branch (see Workflow First Step section):**
+- Ensure feature branch is created or acknowledged as first plan step
+
 **Investigation:**
 - Reproduce bug reliably
 - Identify root cause, not symptoms
@@ -121,6 +152,9 @@ Development patterns for all phases of project work.
 - Share learnings with team
 
 ## Refactoring
+
+**Start with branch (see Workflow First Step section):**
+- Ensure feature branch is created or acknowledged as first plan step
 
 **When to refactor:**
 - Code hard to understand or maintain
@@ -153,6 +187,9 @@ Development patterns for all phases of project work.
 - Update related documentation
 
 ## Performance Optimization
+
+**Start with branch (see Workflow First Step section):**
+- Ensure feature branch is created or acknowledged as first plan step
 
 **Before optimizing:**
 - Measure first, never guess

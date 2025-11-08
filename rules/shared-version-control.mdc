@@ -62,11 +62,19 @@ Use consistent, descriptive branch names.
 
 **Pattern:** `type/description`
 
+**Branch types by work context:**
+- `feature/` - New features or functionality
+- `bugfix/` - Bug fixes and corrections
+- `hotfix/` - Critical production fixes (urgent)
+- `refactor/` - Code restructuring without behavior change
+- `perf/` - Performance improvements and optimizations
+
 **Examples:**
 - `feature/user-authentication`
 - `bugfix/login-error-handling`
 - `hotfix/critical-memory-leak`
 - `refactor/simplify-api-layer`
+- `perf/optimize-database-queries`
 
 **Guidelines:**
 - Lowercase with hyphens
@@ -77,7 +85,7 @@ Use consistent, descriptive branch names.
 ## Git Workflow
 
 **Branch and commit:**
-- Create feature branches from main branch (master, main, devel, or develop depending on project)
+- Create feature branches from main branch (master, main, dev, or develop depending on project)
 - Commit early and often
 - Keep commits atomic (one logical change)
 - Write meaningful commit messages
@@ -118,7 +126,7 @@ Use consistent, descriptive branch names.
 - Never rebase public/shared branches
 
 **Merge commit (--no-ff) - DEFAULT:**
-- Default method for merging feature branches to main branches (master/main/devel/develop)
+- Default method for merging feature branches to main branches (master/main/dev/develop)
 - Preserves complete branch history
 - Creates explicit merge commit even for fast-forward merges
 - Makes it clear when features were integrated
@@ -241,24 +249,36 @@ Use consistent, descriptive branch names.
 ## Branch Management
 
 **Creating branches:**
-- Branch from main branch (master, main, devel, or develop depending on project)
+- Branch from main branch (master, main, dev, or develop depending on project)
 - Descriptive names
 - Focused purpose
 - Push early
 
 **Protected branch policy:**
 - No direct commits to main branches (master/main)
-- No direct commits to development branches (devel/develop)
+- No direct commits to development branches (dev/develop)
 - Always require feature branches for changes
 - Always require PR for merging to protected branches
 
-**When user attempts work on protected branches:**
-1. Detect if current branch is master, main, dev, or develop
-2. Suggest creating appropriate feature branch based on change context
-3. Propose branch name following naming conventions
-4. Ask user for confirmation before creating branch
-5. Only create branch after user approval
-6. Never commit directly without explicit user override
+**Before starting any work (AUTOMATIC):**
+1. Check current branch (master, main, dev, or develop)
+2. If on protected branch:
+   - Automatically create feature branch following [Branch Naming](#branch-naming) conventions
+   - Choose branch type based on work context:
+     - New features → `feature/`
+     - Bug fixes → `bugfix/` (or `hotfix/` if urgent)
+     - Refactoring → `refactor/`
+     - Performance work → `perf/`
+   - Inform user: "Created feature branch: `<branch-name>`"
+3. If already on feature branch:
+   - Inform user: "Using existing feature branch: `<branch-name>`"
+   - Continue work on existing branch
+4. Never commit to protected branches without explicit user override
+
+**This applies to:**
+- Starting any plan (detailed in shared-development-workflow.mdc)
+- Making any code changes outside of plan mode
+- Any development work that would modify files
 
 **Maintaining branches:**
 - Sync with main branch regularly
@@ -317,4 +337,4 @@ on:
 - Require reviews
 - Prevent force push to main branches
 
-**Note:** Use "master" for new projects, or follow existing project convention (main/devel/develop).
+**Note:** Use "master" for new projects, or follow existing project convention (main/dev/develop).
