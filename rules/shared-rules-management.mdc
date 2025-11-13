@@ -48,6 +48,37 @@ Use `local-` prefix for project-specific rules.
 - Applies across entire project
 - Example: `local-architecture.mdc`
 
+## Cursor Rules vs Documentation
+
+**Cursor rules guide the AI agent. Documentation guides humans.**
+
+**Belongs in cursor rules (`.cursor/rules/*.mdc`):**
+- Code patterns and conventions agent should follow
+- Naming conventions for variables, functions, classes
+- Architecture patterns and module boundaries
+- Testing approaches and patterns
+- Error handling and logging patterns
+- Code style and formatting rules
+- Build and tooling commands agent needs
+- Agent-specific guidance for code generation
+
+**Belongs in project documentation (README, `/docs`):**
+- API endpoint details, request/response schemas
+- Deployment instructions and infrastructure setup
+- Architecture diagrams and system overviews
+- Installation and environment setup steps
+- User-facing features and usage examples
+- Troubleshooting guides and FAQs
+- Release notes and changelogs
+- Operational runbooks
+
+**Rules should reference documentation, not duplicate it:**
+- "See README.md for API endpoint details"
+- "Follow deployment guide in docs/deployment.md"
+- "Architecture documented in docs/architecture.md"
+
+**Keep cursor rules focused on what agent needs to write good code.**
+
 ## When to Create Project Rules
 
 Create project-specific rules when:

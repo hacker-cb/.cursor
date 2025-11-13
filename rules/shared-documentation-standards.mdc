@@ -9,6 +9,31 @@ Documentation principles and language conventions.
 
 Write clear, maintainable documentation.
 
+**Documentation vs Cursor Rules:**
+
+Documentation and cursor rules serve different audiences and purposes.
+
+**Documentation (README, `/docs`) is for humans:**
+- API endpoint details, request/response formats
+- Deployment procedures and infrastructure
+- Architecture diagrams and system design
+- Installation and setup instructions
+- Usage examples and tutorials
+- Troubleshooting and operational guides
+
+**Cursor rules (`.cursor/rules/*.mdc`) are for AI agent:**
+- Code patterns and conventions to follow
+- Naming standards and style guidelines
+- Testing and error handling patterns
+- Architecture boundaries agent must respect
+- Commands and tools agent needs to use
+
+**Don't duplicate between documentation and rules:**
+- Keep API specifications in documentation
+- Keep code patterns in cursor rules
+- Rules can reference documentation: "See docs/api.md for endpoints"
+- Documentation can reference rules for contributors
+
 **Keep documentation compact:**
 - Be concise and avoid verbose explanations
 - Get to the point quickly
