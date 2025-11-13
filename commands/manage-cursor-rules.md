@@ -1,7 +1,7 @@
 # Manage Cursor Rules
 
 ## Overview
-Analyze project and manage cursor rules in `.cursor/rules/`. For new projects: generates rules from scratch based on detected patterns. For existing projects: validates and refactors rules against current codebase, or quickly cleans up outdated content. Handles initialization, maintenance, and cleanup.
+Analyze project and manage cursor rules in `.cursor/rules/`. For new projects: generates rules from scratch based on detected patterns. For existing projects: validates and refactors rules against current codebase, quickly cleans up outdated content, or performs comprehensive documentation audit (cursor rules + all project .md files). Handles initialization, maintenance, cleanup, and complete documentation organization.
 
 ## Common Steps
 
@@ -30,9 +30,10 @@ Analyze project and manage cursor rules in `.cursor/rules/`. For new projects: g
 
 **Priority 2: If no old rules, but has local rules:**
 - Show status: Local rules found: X files
-- Ask user: "What would you like to do? [refactor/cleanup/init]"
+- Ask user: "What would you like to do? [refactor/cleanup/docs-check/init]"
   - **refactor** - Full validation and update with gap filling
   - **cleanup** - Quick removal of outdated content only
+  - **docs-check** - Audit and organize all documentation (rules + scattered .md files)
   - **init** - Start fresh (regenerate all rules from scratch)
 - Proceed with chosen workflow
 
@@ -83,6 +84,33 @@ Sample tracked code (20-30 files per language per module):
 - Error handling and logging patterns
 - Code formatting and style
 
+### Check Documentation Separation
+Validate cursor rules contain agent guidance, not human documentation:
+
+**Detect documentation content in rules:**
+- API endpoint details, request/response schemas, HTTP methods
+- Deployment procedures, infrastructure setup, server configurations
+- Installation steps, environment setup for users
+- Troubleshooting guides, FAQ sections, error resolution
+- User-facing feature descriptions and tutorials
+- Operational runbooks, monitoring dashboards
+- Architecture diagrams and extensive system overviews
+
+**Flag for removal or relocation:**
+- Mark sections that belong in README.md or `/docs`
+- Suggest moving API specs to documentation
+- Suggest moving deployment guides to `/docs/deployment.md`
+- Suggest moving architecture diagrams to `/docs/architecture.md`
+- Suggest replacing detailed content with references: "See README.md for API details"
+
+**Keep in cursor rules:**
+- Code patterns agent should follow
+- Naming conventions for code generation
+- Architecture boundaries agent must respect
+- Testing patterns agent should implement
+- Error handling patterns for code
+- Build commands agent needs to use
+
 ### Confirm Structure and Naming Policy
 - Present detected architecture
 - List modules/platforms if applicable
@@ -103,6 +131,7 @@ Sample tracked code (20-30 files per language per module):
 - Verify tags accurate for file targeting
 - Check for broken links (validate internal anchor links and cross-references to other rule files exist)
 - Ensure 50-150 lines per rule (max 300 if needed)
+- Call: [Check Documentation Separation](#check-documentation-separation)
 - Save all rule files
 
 ### Generate Report
@@ -111,6 +140,7 @@ Sample tracked code (20-30 files per language per module):
 - Local rules created/updated (list with descriptions)
 - Patterns documented
 - Issues found and resolved
+- Documentation content flagged (API specs, deployment, troubleshooting moved to docs)
 - Next steps and recommendations
 
 **Note:** To display rules information at any time, you can run `display-rules-summary` command.
@@ -345,6 +375,13 @@ For each `local-*.mdc` file, across all iterations:
 - Flag references to removed dependencies
 - Flag version-specific advice for outdated versions
 
+**Documentation Separation Check:**
+- Call: [Check Documentation Separation](#check-documentation-separation)
+- Flag API endpoint details, schemas, deployment procedures
+- Flag installation guides, troubleshooting sections
+- Flag user-facing content that belongs in README or `/docs`
+- Suggest moving to appropriate documentation files
+
 ### 10. Categorize Outdated Items
 
 **Files to Delete (entire file outdated):**
@@ -359,6 +396,7 @@ For each `local-*.mdc` file, across all iterations:
 - Mentions libraries no longer in dependencies
 - Version-specific advice for old versions
 - Duplicates specific shared rule sections
+- Documentation content (API specs, deployment, troubleshooting, installation guides)
 
 **Files to Keep (still relevant):**
 - Core technologies still in use
@@ -381,9 +419,259 @@ For each `local-*.mdc` file, across all iterations:
 ### 13. Generate Cleanup Report
 - Files deleted (list with reasons)
 - Sections removed (count and details)
+- Documentation content moved to docs (API specs, deployment, troubleshooting)
 - Files preserved (list)
 - What was kept and why
 - Recommend starting new agent session to reload rules
+
+---
+
+## DOCS-SEPARATION Flow (Complete Documentation Audit)
+
+Comprehensive audit and organization of all project documentation:
+- Scans cursor rules for documentation content that belongs in `/docs`
+- Finds all scattered markdown files throughout project
+- Consolidates, organizes, and cleans up documentation structure
+
+### 7. Refresh Context
+- Re-read all existing local rules
+- Load into agent context for fresh understanding
+- Skip shared rules (focus on local rules only)
+
+### 8. Scan Project for All Documentation Files
+
+**Find all markdown files using `git ls-files`:**
+- List all tracked `.md` files in project
+- Exclude legitimate locations:
+  - `README.md` (root)
+  - `CHANGELOG.md`, `CONTRIBUTING.md`, `LICENSE.md` (root)
+  - `/docs/**/*.md` (documentation directory)
+  - `/node_modules/**`, `/vendor/**` (dependencies)
+- Flag scattered documentation files in other locations
+
+**Categorize scattered .md files:**
+
+**Legitimate scattered locations (keep):**
+- Package-level READMEs in multi-package projects (`packages/*/README.md`)
+- Module documentation in appropriate subdirectories (`backend/README.md`, `frontend/README.md`)
+- Language/tool-specific files (`.github/ISSUE_TEMPLATE.md`, `.github/PULL_REQUEST_TEMPLATE.md`)
+
+**Should consolidate to /docs:**
+- API documentation files outside `/docs` (`api.md`, `endpoints.md` in root or subdirs)
+- Architecture files (`architecture.md`, `design.md` in random locations)
+- Deployment guides (`deployment.md`, `setup.md` scattered)
+- User guides and tutorials outside `/docs`
+- Development guides outside proper location
+- Troubleshooting files scattered around
+
+**May be obsolete (ask user):**
+- Files with outdated names (`OLD_README.md`, `README.old.md`)
+- Duplicate documentation (multiple files covering same topic)
+- Empty or nearly empty markdown files
+- Files not referenced anywhere
+
+### 9. Analyze Each Rule for Documentation Content
+
+Scan each `local-*.mdc` file for human-oriented documentation:
+
+**API Documentation:**
+- Endpoint URLs, paths, routes
+- HTTP methods (GET, POST, PUT, DELETE)
+- Request/response schemas and formats
+- Query parameters, headers, body structures
+- Status codes and error responses
+- Authentication/authorization flows details
+- Rate limiting specifications
+- API versioning information
+
+**Deployment and Infrastructure:**
+- Server setup instructions
+- Cloud provider configurations
+- Container orchestration details
+- Environment variable lists with descriptions
+- Port mappings and network configurations
+- SSL/TLS certificate setup
+- Load balancer configurations
+- Database connection strings
+
+**Installation and Setup:**
+- Step-by-step installation guides
+- Dependency installation commands
+- Environment setup for end users
+- Configuration file templates
+- First-time setup wizards
+- System requirements lists
+
+**Troubleshooting and Operations:**
+- Common error messages and solutions
+- FAQ sections
+- Debug procedures
+- Log analysis guides
+- Performance tuning guides
+- Monitoring dashboard setup
+- Backup and recovery procedures
+
+**User-Facing Content:**
+- Feature descriptions for end users
+- Usage tutorials and walkthroughs
+- Screenshots or UI descriptions
+- User guides and manuals
+- Release notes details
+
+**Architecture Documentation:**
+- System architecture diagrams (extensive)
+- Infrastructure overviews for humans
+- Service interaction diagrams
+- Data flow diagrams
+- Deployment architecture
+
+### 9. Categorize All Findings
+
+**Documentation content from cursor rules to move:**
+- API specifications → README.md or `/docs/api.md`
+- Deployment procedures → `/docs/deployment.md`
+- Installation guides → README.md (Quick Start section)
+- Troubleshooting → `/docs/troubleshooting.md`
+- Architecture diagrams → `/docs/architecture.md`
+- User features → README.md or `/docs/user-guide.md`
+- Operational runbooks → `/docs/operations.md`
+
+**Scattered markdown files to consolidate:**
+- Move scattered API docs to `/docs/api.md`
+- Move scattered architecture docs to `/docs/architecture.md`
+- Move scattered deployment guides to `/docs/deployment.md`
+- Move scattered user guides to `/docs/`
+- Consolidate duplicate documentation into single files
+- Consider package/module READMEs (keep if legitimate structure)
+
+**Files to review for deletion:**
+- Obsolete markdown files with old naming
+- Empty or nearly empty documentation files
+- Duplicate content that can be merged
+- Unreferenced documentation
+
+**Agent guidance to keep in rules:**
+- Code patterns and conventions
+- Naming standards for generated code
+- Architecture boundaries agent must respect
+- Testing patterns to implement
+- Error handling patterns in code
+- Logging patterns for generated code
+- Build/test commands agent needs
+
+**Borderline content (review with user):**
+- High-level architecture descriptions (brief overview in rules OK, detailed diagrams to docs)
+- Configuration patterns (patterns in rules, specific configs to docs)
+- Module boundaries (logical boundaries in rules, deployment details to docs)
+
+### 10. Present Audit Report
+
+**Show findings from cursor rules:**
+- Rule file name
+- Documentation sections found (with line ranges)
+- Suggested destination (README, docs/api.md, etc.)
+- Rationale for each suggestion
+- Content preview (first few lines)
+
+**Show scattered markdown files found:**
+- File path and size
+- Category (API, architecture, deployment, etc.)
+- Current location vs suggested location
+- Whether it duplicates existing documentation
+- Recommendation (move, consolidate, delete, keep)
+
+**Show potential issues:**
+- Empty or nearly empty .md files
+- Files with obsolete naming patterns
+- Duplicate documentation covering same topics
+- Unreferenced files
+
+**Summary statistics:**
+- Documentation sections in cursor rules
+- Scattered markdown files found
+- Files to consolidate to /docs
+- Files to review for deletion
+- Breakdown by category (API, deployment, troubleshooting, etc.)
+
+**Ask user what to do:**
+- "Proceed with documentation organization? [Y/n]"
+- "Show detailed extraction and consolidation plan first? [Y/n]"
+
+### 11. Organize Documentation (If Approved)
+
+If user approves moving content:
+
+**Create/update documentation files:**
+- Create `/docs` directory if needed
+- Extract documentation sections from cursor rules
+- Move scattered markdown files to appropriate locations
+- Consolidate duplicate documentation
+- Create organized documentation files (api.md, deployment.md, architecture.md, etc.)
+- Format content for human readers
+- Add table of contents if needed
+- Add cross-references between docs
+
+**Handle scattered markdown files:**
+- Move legitimate docs to `/docs` with proper naming
+- Consolidate duplicates (merge content, keep best version)
+- Delete obsolete/empty files (with user confirmation)
+- Keep package/module READMEs if appropriate
+- Update internal links in moved files
+- Preserve git history when moving files
+
+**Update cursor rules:**
+- Remove documentation sections
+- Replace with brief references: "See docs/api.md for endpoint details"
+- Keep essential agent guidance
+- Maintain rule structure and formatting
+
+**Update README.md:**
+- Add links to new/moved documentation files
+- Add brief overview sections if needed
+- Ensure Quick Start section references docs
+- Remove duplicate content now in /docs
+- Keep README focused and scannable
+
+### 12. Generate Separation Report
+
+**Content extracted from cursor rules:**
+- Sections extracted from each rule file (with line ranges)
+- Documentation categories moved
+- References added to rules pointing to docs
+
+**Scattered markdown files organized:**
+- Files moved to `/docs` (list with old → new paths)
+- Files consolidated (list merges performed)
+- Files deleted (list with rationale)
+- Package/module READMEs kept (list)
+- Broken internal links fixed
+
+**Documentation structure created:**
+- New documentation files created in `/docs` (list with descriptions)
+- Existing documentation files updated
+- README.md updates made
+- Cross-references added between docs
+- Table of contents added where appropriate
+
+**Cursor rules updated:**
+- Files modified (list)
+- Documentation sections removed (count and line ranges)
+- References added to docs
+- Agent guidance preserved and focused
+
+**Summary statistics:**
+- Total files moved/consolidated
+- Line counts: cursor rules before/after
+- Documentation files: before/after organization
+- Deleted files count
+
+**Recommendations:**
+- Review documentation for accuracy
+- Test all internal documentation links
+- Update documentation as code evolves
+- Keep rules focused on agent guidance
+- Consider .gitignore for future scattered docs
+- Start new agent session to reload rules
 
 ---
 
@@ -436,9 +724,39 @@ Note: Items marked "skip for CLEANUP" are not required for the CLEANUP flow.
 - [ ] Glob patterns validated against tracked files
 - [ ] Code patterns compared to actual implementation
 - [ ] Dependencies verified in manifests
+- [ ] Documentation separation checked (API specs, deployment, troubleshooting)
 - [ ] Outdated items categorized (delete/remove/keep)
 - [ ] Cleanup plan presented
 - [ ] User confirmation obtained
 - [ ] Outdated content removed
 - [ ] Cleanup report provided
+- [ ] New session recommended
+
+### DOCS-SEPARATION Flow
+- [ ] Local rules context refreshed
+- [ ] All project markdown files scanned with git ls-files
+- [ ] Scattered .md files identified and categorized
+- [ ] Legitimate scattered locations identified (packages/modules)
+- [ ] Files to consolidate to /docs flagged
+- [ ] Obsolete/duplicate files marked for review
+- [ ] Each rule scanned for documentation content
+- [ ] API documentation sections identified
+- [ ] Deployment/infrastructure content found
+- [ ] Installation guides detected
+- [ ] Troubleshooting sections located
+- [ ] User-facing content flagged
+- [ ] Architecture documentation marked
+- [ ] All findings categorized by destination
+- [ ] Audit report presented (rules + scattered files)
+- [ ] User approval obtained
+- [ ] /docs directory created if needed
+- [ ] Documentation files created/updated
+- [ ] Content extracted from rules
+- [ ] Scattered markdown files moved to /docs
+- [ ] Duplicate documentation consolidated
+- [ ] Obsolete files deleted (with confirmation)
+- [ ] Internal links updated in moved files
+- [ ] Rules updated with doc references
+- [ ] README.md updated with links
+- [ ] Separation report provided
 - [ ] New session recommended
