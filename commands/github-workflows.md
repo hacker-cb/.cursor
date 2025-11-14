@@ -53,6 +53,11 @@ Route to appropriate flow based on user selection.
   - Add it to enable manual triggering
   - Commit change: "Enable manual trigger for <workflow-name>"
   - Push to current branch
+- **If submodules exist:**
+  - Verify workflows have proper submodule checkout configuration
+  - See: [Workflow Configuration for Submodules](#workflow-configuration-for-submodules)
+  - If missing, add submodule checkout to workflow
+  - Commit change: "Add submodule checkout to <workflow-name>"
 
 ### Create Fix Branch and Apply Fixes
 **Purpose:** Create a fix branch and iteratively fix workflow failures until all pass
@@ -77,13 +82,94 @@ Route to appropriate flow based on user selection.
 - **Fixing Loop:**
   - For each failed workflow:
     - Analyze error logs from failed jobs
-    - Apply fixes to project files in the autofix branch
-    - Commit changes with a descriptive message
-    - Push to the autofix branch
+    - Determine if fix is needed in parent repo, submodule, or both
+    - **If fix is in parent repo:**
+      - Apply fixes to project files in the autofix branch
+      - Commit changes with a descriptive message
+      - Push to the autofix branch
+    - **If fix is in submodule:**
+      - Call: [Apply Fixes in Submodules](#apply-fixes-in-submodules)
+      - Commit submodule pointer update in parent repo
+      - Push to the autofix branch
     - Trigger workflow on fix branch: `gh workflow run <workflow-name> --ref <autofix-branch>`
     - Wait for workflow completion: `gh run watch <run-id>`
     - If workflow still fails, repeat the fixing steps
   - Continue process until all workflows pass
+
+## Working with Submodules
+
+### Detect Submodules
+**Purpose:** Determine if repository contains Git submodules
+
+**Steps:**
+- Check for `.gitmodules` file in repository root
+- If present, activate submodule-aware mode for all operations
+- Command: `test -f .gitmodules && echo "Submodules detected" || echo "No submodules"`
+
+### Initialize Submodules
+**Purpose:** Ensure all submodules are properly initialized and checked out
+
+**Steps:**
+- Initialize and update all submodules: `git submodule update --init --recursive`
+- Verify submodules are on expected commits: `git submodule status`
+- Check for any submodule issues (detached HEAD, uncommitted changes)
+
+### Check Uncommitted Changes (Submodule-Aware)
+**Purpose:** Detect uncommitted changes in both parent repo and all submodules
+
+**Steps:**
+- Check parent repository: `git status --porcelain`
+- Check all submodules recursively: `git submodule foreach --recursive 'git status --porcelain'`
+- If changes exist in parent OR any submodule: refuse operation and ask user to commit or stash first
+- This ensures safe operation before creating branches or applying fixes
+
+### Submodule-Aware Branch Operations
+**Purpose:** Handle branch operations while preserving submodule state
+
+**Steps:**
+- Before creating fix branch: record current submodule commits with `git submodule status`
+- After branch creation: verify submodules remain at correct commits
+- Document submodule state in commit messages when relevant
+- When switching branches: ensure submodules are synchronized
+
+### Apply Fixes in Submodules
+**Purpose:** Fix workflow failures that originate in submodule code
+
+**Steps:**
+- **If fix requires submodule changes:**
+  - Navigate to submodule directory: `cd <submodule-path>`
+  - Apply fixes within the submodule
+  - Commit changes in submodule (if you control that repository)
+  - Return to parent repository: `cd -` or navigate back to root
+  - Stage submodule pointer update: `git add <submodule-path>`
+  - Commit in parent repo with message describing submodule update
+- **If fix requires different submodule commit:**
+  - Navigate to submodule: `cd <submodule-path>`
+  - Checkout correct commit: `git checkout <commit-hash>` or `git pull origin <branch>`
+  - Return to parent repo
+  - Stage and commit pointer update: `git add <submodule-path> && git commit -m "Update submodule to <commit>"`
+
+### Workflow Configuration for Submodules
+**Purpose:** Ensure GitHub Actions workflows properly handle submodules
+
+**Recommended checkout configuration:**
+```yaml
+- uses: actions/checkout@v4
+  with:
+    submodules: 'recursive'  # Use 'true' for non-recursive, 'recursive' for nested
+    fetch-depth: 0           # Full history if needed for version detection
+```
+
+**Alternative manual initialization:**
+```yaml
+- name: Checkout code
+  uses: actions/checkout@v4
+
+- name: Initialize submodules
+  run: |
+    git submodule update --init --recursive
+    git submodule status
+```
 
 ---
 
@@ -97,6 +183,14 @@ Quick status check without any modifications or waiting.
 - Check workflow runs for current branch/commit: `gh run list --branch=$(git branch --show-current) --commit=$(git rev-parse HEAD)`
 - For each run: identify status (in progress, failed, or passed)
 - Do not wait for running workflows (just report status)
+
+### 1.5. Check submodule status (if applicable)
+- Detect if submodules exist: `test -f .gitmodules`
+- If submodules detected:
+  - Show submodule status: `git submodule status`
+  - Identify submodules on detached HEAD
+  - Check for local changes in submodules: `git submodule foreach --recursive 'git status --short'`
+  - Include submodule information in status summary
 
 ### 2. List all defined workflows
 - List all workflows: `gh workflow list`
@@ -139,9 +233,13 @@ Complete automated fix cycle for workflow failures.
 - Update summary with final results
 
 ### 3. Check for uncommitted changes
-- Check for uncommitted changes: `git status --porcelain`
-- If uncommitted changes exist, refuse and ask user to commit or stash first
+- Check parent repo for uncommitted changes: `git status --porcelain`
+- If submodules exist (`.gitmodules` present):
+  - Check all submodules: `git submodule foreach --recursive 'git status --porcelain'`
+  - If changes exist in any submodule, refuse operation
+- If uncommitted changes exist in parent OR any submodule, refuse and ask user to commit or stash first
 - This check ensures safe operation before any modifications
+- See: [Check Uncommitted Changes (Submodule-Aware)](#check-uncommitted-changes-submodule-aware)
 
 ### 4. Handle workflow runs based on status
 - **If workflow runs exist and all passed:**
@@ -215,6 +313,35 @@ Monitor running workflows until completion without applying fixes.
 
 ---
 
+## Key Principles for CI with Submodules
+
+When working with repositories containing Git submodules, follow these principles:
+
+1. **Always initialize recursively**
+   - Workflows must checkout submodules: use `submodules: 'recursive'` in `actions/checkout@v4`
+   - Local operations require: `git submodule update --init --recursive`
+
+2. **Check everywhere for changes**
+   - Before any branch operations, check both parent and all submodules for uncommitted changes
+   - Use: `git submodule foreach --recursive 'git status --porcelain'`
+
+3. **Commit strategy matters**
+   - Parent repo commits submodule pointer updates (commit hash references), not submodule content
+   - Changes within submodules are committed in their own repositories
+   - Parent repo tracks which commit each submodule should be at
+
+4. **Fix location awareness**
+   - Identify whether failures originate in parent repo, submodule code, or both
+   - Apply fixes in the appropriate location
+   - Update submodule pointers in parent when submodule commits change
+
+5. **Deterministic builds**
+   - Submodules should be pinned to specific commits, not floating branches
+   - Verify submodule states with `git submodule status` before and after operations
+   - Document submodule updates clearly in commit messages
+
+---
+
 ## Checklist
 
 ### Common (All Flows)
@@ -224,17 +351,21 @@ Monitor running workflows until completion without applying fixes.
 
 ### CHECK Flow
 - [ ] All defined workflows listed
+- [ ] Submodule status checked (if applicable)
 - [ ] Status summary provided (passed/failed/running)
 - [ ] Report displayed without modifications
 
 ### FIX Flow
 - [ ] Waiting for in-progress workflows completed
-- [ ] Uncommitted changes verified (early check)
+- [ ] Submodules detected and initialized (if present)
+- [ ] Uncommitted changes verified in parent and all submodules
 - [ ] Manual triggers enabled if needed
+- [ ] Workflow files include submodule checkout (if applicable)
 - [ ] Workflows triggered if no runs exist
 - [ ] Failed workflows and details identified
 - [ ] Fix branch created with meaningful name
-- [ ] Fixes applied and committed to autofix branch
+- [ ] Fixes applied and committed to autofix branch (parent or submodule)
+- [ ] Submodule pointer updates committed (if applicable)
 - [ ] Workflows triggered on fix branch and watched to completion
 - [ ] All workflows pass
 - [ ] User choice for merge/PR obtained
