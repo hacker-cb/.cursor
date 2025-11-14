@@ -81,7 +81,7 @@ Version control and continuous integration workflows:
 
 | Command | Status | Description |
 |---------|--------|-------------|
-| [**github&#8209;workflow&#8209;autofix**](commands/github-workflow-autofix.md) | ![Stable](https://img.shields.io/badge/status-stable-green) | Analyzes GitHub workflow runs, watches for failed runs, and automatically applies fixes until all workflows pass. If any workflow is currently running, it waits for the result before proceeding, then handles failures iteratively |
+| [**github&#8209;workflows**](commands/github-workflows.md) | ![Stable](https://img.shields.io/badge/status-stable-green) | Manage GitHub workflow runs with three operational modes: check status, auto-fix failures, or watch running workflows. Choose your workflow based on what you need to accomplish. |
 
 ### Code Quality Commands
 
