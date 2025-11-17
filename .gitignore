@@ -15,9 +15,10 @@
 !/.github/
 !/.github/**
 
-# And not the commands folder and its contents
+# Track only shared commands folder
 !/commands/
-!/commands/**
+!/commands/shared/
+!/commands/shared/**
 
 # Add root README.md
 !/README.md

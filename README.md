@@ -65,15 +65,17 @@ See [`rules/`](rules/) directory for all shared rules.
 
 Workflow templates that guide development tasks. All commands are framework-agnostic and adapt to your project.
 
+**Note:** Only `commands/shared/` is tracked by git. You can add your own custom commands to other folders in `commands/` - they won't be synced or committed.
+
 ### System Commands
 
 Workspace maintenance and setup:
 
 | Command | Status | Description |
 |---------|--------|-------------|
-| [**sync&#8209;shared&#8209;rules**](commands/sync-shared-rules.md) | ![Stable](https://img.shields.io/badge/status-stable-green) | One-way sync of shared developer rules from this workspace (`~/.cursor/rules/`) to a target project's `.cursor/rules/` directory. Handles conflicts interactively. |
-| [**manage&#8209;cursor&#8209;rules**](commands/manage-cursor-rules.md) | ![Stable](https://img.shields.io/badge/status-stable-green) | Analyze project and manage cursor rules. For new projects: generates rules from scratch. For existing: validates and refactors against current codebase, or quickly cleans up outdated content. |
-| [**display&#8209;rules&#8209;summary**](commands/display-rules-summary.md) | ![Stable](https://img.shields.io/badge/status-stable-green) | Scan and display all Cursor rules with their apply modes, descriptions, and metadata. Helps understand which rules are active and their configuration. |
+| [**sync&#8209;shared&#8209;rules**](commands/shared/sync-shared-rules.md) | ![Stable](https://img.shields.io/badge/status-stable-green) | One-way sync of shared developer rules from this workspace (`~/.cursor/rules/`) to a target project's `.cursor/rules/` directory. Handles conflicts interactively. |
+| [**manage&#8209;cursor&#8209;rules**](commands/shared/manage-cursor-rules.md) | ![Stable](https://img.shields.io/badge/status-stable-green) | Analyze project and manage cursor rules. For new projects: generates rules from scratch. For existing: validates and refactors against current codebase, or quickly cleans up outdated content. |
+| [**display&#8209;rules&#8209;summary**](commands/shared/display-rules-summary.md) | ![Stable](https://img.shields.io/badge/status-stable-green) | Scan and display all Cursor rules with their apply modes, descriptions, and metadata. Helps understand which rules are active and their configuration. |
 
 ### Git & CI/CD Commands
 
@@ -81,7 +83,7 @@ Version control and continuous integration workflows:
 
 | Command | Status | Description |
 |---------|--------|-------------|
-| [**github&#8209;workflows**](commands/github-workflows.md) | ![Stable](https://img.shields.io/badge/status-stable-green) | Manage GitHub workflow runs with three operational modes: check status, auto-fix failures, or watch running workflows. Choose your workflow based on what you need to accomplish. |
+| [**github&#8209;workflows**](commands/shared/github-workflows.md) | ![Stable](https://img.shields.io/badge/status-stable-green) | Manage GitHub workflow runs with three operational modes: check status, auto-fix failures, or watch running workflows. Choose your workflow based on what you need to accomplish. |
 
 ### Code Quality Commands
 
@@ -89,8 +91,8 @@ Analysis and review workflows:
 
 | Command | Status | Description |
 |---------|--------|-------------|
-| [**code&#8209;review**](commands/code-review.md) | ![Stable](https://img.shields.io/badge/status-stable-green) | Comprehensive code review workflow covering functionality, quality, security, performance, testing, and documentation to ensure changes meet project standards before merge |
-| [**analyze&#8209;project&#8209;structure**](commands/analyze-project-structure.md) | ![Stable](https://img.shields.io/badge/status-stable-green) | Comprehensive analysis of project architecture, dependencies, configuration, code quality, testing, security, and deployment setup with prioritized fix recommendations |
+| [**code&#8209;review**](commands/shared/code-review.md) | ![Stable](https://img.shields.io/badge/status-stable-green) | Comprehensive code review workflow covering functionality, quality, security, performance, testing, and documentation to ensure changes meet project standards before merge |
+| [**analyze&#8209;project&#8209;structure**](commands/shared/analyze-project-structure.md) | ![Stable](https://img.shields.io/badge/status-stable-green) | Comprehensive analysis of project architecture, dependencies, configuration, code quality, testing, security, and deployment setup with prioritized fix recommendations |
 
 ### Testing & Security Commands
 
@@ -98,5 +100,5 @@ Testing coverage and security audit workflows:
 
 | Command | Status | Description |
 |---------|--------|-------------|
-| [**add&#8209;test&#8209;coverage**](commands/add-test-coverage.md) | ![Stable](https://img.shields.io/badge/status-stable-green) | Analyze project for test coverage gaps, suggest testing frameworks if missing, identify missing tests by priority, and implement tests systematically with user-guided selection |
-| [**security&#8209;audit**](commands/security-audit.md) | ![Stable](https://img.shields.io/badge/status-stable-green) | Comprehensive security review to identify and fix vulnerabilities in dependencies, code, authentication, authorization, data handling, and infrastructure configuration using industry best practices |
+| [**add&#8209;test&#8209;coverage**](commands/shared/add-test-coverage.md) | ![Stable](https://img.shields.io/badge/status-stable-green) | Analyze project for test coverage gaps, suggest testing frameworks if missing, identify missing tests by priority, and implement tests systematically with user-guided selection |
+| [**security&#8209;audit**](commands/shared/security-audit.md) | ![Stable](https://img.shields.io/badge/status-stable-green) | Comprehensive security review to identify and fix vulnerabilities in dependencies, code, authentication, authorization, data handling, and infrastructure configuration using industry best practices |
