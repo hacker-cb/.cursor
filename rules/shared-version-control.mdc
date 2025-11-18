@@ -322,6 +322,52 @@ on:
 - Verify all paths and conditions
 - Test failure scenarios
 
+## GitHub CLI (gh)
+
+Command-line tool for efficient GitHub workflow management.
+
+**Pull requests:**
+- `gh pr create` - Create PR from current branch
+- `gh pr list` - List pull requests
+- `gh pr view [number]` - View PR details
+- `gh pr status` - Check your PR status
+- `gh pr checkout <number>` - Checkout PR locally for review
+- `gh pr review` - Add review to PR
+- `gh pr merge` - Merge pull request
+- `gh pr diff` - View PR changes
+
+**Workflows and CI/CD:**
+- `gh workflow list` - List repository workflows
+- `gh workflow view <name>` - View workflow details
+- `gh run list` - List recent workflow runs
+- `gh run view [run-id]` - View run details and logs
+- `gh run watch` - Watch workflow run in real-time
+- `gh run rerun <run-id>` - Rerun failed workflow
+- `gh run download <run-id>` - Download workflow artifacts
+
+**Issues:**
+- `gh issue list` - List issues
+- `gh issue view <number>` - View issue details
+- `gh issue create` - Create new issue
+- `gh issue close <number>` - Close issue
+
+**Repository:**
+- `gh repo view` - View repository details
+- `gh repo clone <repo>` - Clone repository
+- `gh repo fork` - Fork repository
+- `gh repo sync` - Sync fork with upstream
+
+**Authentication:**
+- `gh auth login` - Authenticate with GitHub
+- `gh auth status` - Check authentication status
+- `gh auth logout` - Sign out
+
+**Best practices:**
+- Use `gh pr create` instead of web UI for faster workflow
+- Monitor CI with `gh run watch` during development
+- Use `gh pr checkout` for local PR testing
+- Leverage `workflow_dispatch` with `gh workflow run` for manual triggers
+
 ## Collaboration
 
 **Team communication:**
