@@ -125,27 +125,27 @@ Use consistent, descriptive branch names.
 - Easier to follow
 - Never rebase public/shared branches
 
-**Merge commit (--no-ff) - DEFAULT:**
-- Default method for merging feature branches to main branches (master/main/dev/develop)
+**Merge commit:**
 - Preserves complete branch history
-- Creates explicit merge commit even for fast-forward merges
+- Creates explicit merge commit
 - Makes it clear when features were integrated
-- Command: `git merge --no-ff feature-branch`
-
-**Merge:**
-- For long-lived branches
-- Preserves complete history
-- Safer for shared work
+- Useful for tracking feature integration
 
 **Squash and merge:**
-- Only use when explicitly requested by user
+- Common for pull requests
 - Combines commits into one
 - Keeps main branch history clean
 - Trade-off: loses individual commit history
 
+**Fast-forward merge:**
+- No merge commit created
+- Linear history
+- Clean for simple changes
+
 **Guidelines:**
-- Before merging, ask user: "Do you want to: a) Merge commit (--no-ff) to preserve branch history, or b) Squash merge to combine commits into one?"
-- Default to merge commit (--no-ff) if user doesn't specify
+- Ask user about preferred merge strategy when appropriate
+- Consider project conventions (PRs typically use squash merge)
+- Let context guide the decision (feature complexity, history value)
 - Rebase feature on main branch before PR
 - Keep related commits within branch
 - Never force push to shared branches
@@ -235,10 +235,10 @@ Use consistent, descriptive branch names.
 - Branch up to date with main branch
 
 **Merge strategy:**
-- Ask user: "Do you want to: a) Merge commit (--no-ff) to preserve branch history, or b) Squash merge to combine commits into one?"
-- Default to merge commit (--no-ff) if user doesn't specify
-- Use `git merge --no-ff <branch>` for merge commits
-- Use `git merge --squash <branch>` for squash merges
+- Ask user about merge preference when appropriate
+- Consider project conventions (PRs typically squash, direct merges may vary)
+- Options: merge commit, squash merge, fast-forward merge
+- Use appropriate git merge flags based on chosen strategy
 
 **After merge:**
 - Delete feature branch
