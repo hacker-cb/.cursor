@@ -35,6 +35,31 @@ The script will:
 
 See [INSTALL.md](INSTALL.md) for detailed instructions and troubleshooting.
 
+## Uninstallation
+
+To completely remove the shared workspace installation:
+
+```bash
+cd ~/.cursor
+./uninstall.sh
+```
+
+**Options:**
+- `./uninstall.sh --dry-run` - Preview what would be deleted
+- `./uninstall.sh --force` - Skip confirmation prompt
+- `./uninstall.sh --help` - Show usage information
+
+**What it does:**
+- Deletes all git-tracked files
+- Removes empty directories (except `rules/` and `commands/`)
+- Keeps `rules/` and `commands/` as empty directories
+- Deletes `.git` directory
+- Works in any directory (useful for testing in copied locations)
+
+**Important:** ALL files will be deleted, including files inside `rules/` and `commands/`. Only the empty directory structure of `rules/` and `commands/` will remain.
+
+**Note:** The `install.sh` script also has a `--uninstall` option that removes the installation and restores your latest backup.
+
 ## Quick Start
 
 ### Setup Your Project

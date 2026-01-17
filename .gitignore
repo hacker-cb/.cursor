@@ -9,6 +9,7 @@
 
 # Add installation files
 !/install.sh
+!/uninstall.sh
 !/INSTALL.md
 
 # Add GitHub workflows
